@@ -49,7 +49,7 @@ end
 
 -- Creating Transition to Level1 Screen
 local function Level1ScreenTransition( )
-    composer.gotoScene( "Level1ScreenLanaZE", {effect = "slideDown", time = 1000})
+    composer.gotoScene( "level1_screen", {effect = "slideDown", time = 1000})
 end    
 
 ----------------------------------------------------------------------------------------
