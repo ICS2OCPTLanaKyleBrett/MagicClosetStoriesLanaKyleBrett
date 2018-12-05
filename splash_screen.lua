@@ -25,7 +25,7 @@ display.setStatusBar(display.HiddenStatusBar)
 -- SOUNDS
 -----------------------------------------------------------------------------------------
 
-local BarbieSound = audio.loadSound("Sounds/Barbie.mp3")
+local BarbieSound = audio.loadSound("Sounds/Intro.mp3")
 local BarbieSoundChannel
 
 ----------------------------------------------------------------------------------------
