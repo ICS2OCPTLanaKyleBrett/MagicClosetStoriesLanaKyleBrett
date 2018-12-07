@@ -31,6 +31,14 @@ local scene = composer.newScene( sceneName )
 -- The local variables for this scene
 local bkg_image
 
+--------------------------------------
+--OBJECTS CREATION
+--------------------------------------
+
+--create the first character
+local character1 = display.newImageRect("Images/character1.png", 190, 240)
+character1.x = display.contentWidth/2
+character1.y = 548
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -137,3 +145,4 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
+
