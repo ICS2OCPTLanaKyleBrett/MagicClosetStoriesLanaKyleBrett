@@ -61,6 +61,13 @@ dress1.x = 150
 dress1.y = 190
 dress1.isVisible = true
 
+dress2 = display.newImageRect("Images/Dress2.png", 150, 240)
+dress2.x = 150
+dress2.y = 490
+dress2.isVisible = true
+
+
+
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
