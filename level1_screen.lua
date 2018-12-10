@@ -31,7 +31,7 @@ local scene = composer.newScene( sceneName )
 -- The local variables for this scene
 local bkg_image
 local lives = 4
-local redButton
+local dress1
 --------------------------------------
 --OBJECTS CREATION
 --------------------------------------
@@ -56,10 +56,10 @@ heart4.x = display.contentWidth * 4 / 8
 heart4.y = display.contentHeight * 1 / 7
 
 --create dresses
-dress1 = display.newImageRect("Images/", 300, 150)
-redButton.x = display.contentWidth/2
-redButton.y = display.contentHeight/2
-redButton.isVisible = false
+dress1 = display.newImageRect("Images/Dress1.png", 150, 200)
+dress1.x = 150
+dress1.y = 190
+dress1.isVisible = true
 
 
 ----------------------------------------------------------------------------------------
