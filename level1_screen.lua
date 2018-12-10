@@ -30,7 +30,74 @@ local scene = composer.newScene( sceneName )
 
 -- The local variables for this scene
 local bkg_image
+local lives = 4
+local redButton
+--------------------------------------
+--OBJECTS CREATION
+--------------------------------------
 
+--create the first character
+local character1 = display.newImageRect("Images/character1.png", 190, 240)
+character1.x = display.contentWidth/2
+character1.y = 548
+
+--create the lives to display on the screen
+heart1 = display.newImageRect("Images/heart.png", 100,100)
+heart1.x = display.contentWidth * 7 / 8
+heart1.y = display.contentHeight * 1 / 7
+heart2 = display.newImageRect("Images/heart.png", 100, 100)
+heart2.x = display.contentWidth * 6 / 8
+heart2.y = display.contentHeight * 1 / 7
+heart3 = display.newImageRect("Images/heart.png", 100, 100)
+heart3.x = display.contentWidth * 5 / 8
+heart3.y = display.contentHeight * 1 / 7
+heart4 = display.newImageRect("Images/heart.png", 100, 100)
+heart4.x = display.contentWidth * 4 / 8
+heart4.y = display.contentHeight * 1 / 7
+
+--create dresses
+dress1 = display.newImageRect("Images/", 300, 150)
+redButton.x = display.contentWidth/2
+redButton.y = display.contentHeight/2
+redButton.isVisible = false
+
+
+----------------------------------------------------------------------------------------
+--LOCAL FUNCTIONS
+----------------------------------------------------------------------------------------
+local function UpdateHearts()
+    if (lives == 4) then
+      heart1.isVisible = true
+      heart2.isVisible = true
+      heart3.isVisible = true
+      heart4.isVisible = true
+
+     elseif (lives == 3) then
+      heart1.isVisible = true
+      heart2.isVisible = true
+      heart3.isVisible = true
+      heart4.isVisible = false
+  
+     elseif (lives == 2) then
+      heart1.isVisible = true
+      heart2.isVisible = true
+      heart3.isVisible = false
+      heart4.isVisible = false
+
+     elseif (lives == 1) then
+      heart1.isVisible = true
+      heart2.isVisible = false
+      heart3.isVisible = false
+      heart4.isVisible = false
+
+     elseif (lives == 0) then
+      heart1.isVisible = false
+      heart2.isVisible = false
+      heart3.isVisible = false
+      heart4.isVisible = false
+     
+     end
+end
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -137,3 +204,4 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
+
