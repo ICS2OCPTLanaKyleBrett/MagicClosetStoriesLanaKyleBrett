@@ -35,66 +35,18 @@ local dress1
 local righttextObject
 local wrongtextObject
 local question1textObject 
---------------------------------------
---OBJECTS CREATION
---------------------------------------
-
---create the first character
-local character1 = display.newImageRect("Images/character1.png", 190, 240)
-character1.x = display.contentWidth/2
-character1.y = 548
-
---create the lives to display on the screen
-heart1 = display.newImageRect("Images/heart.png", 100,100)
-heart1.x = display.contentWidth * 7 / 8
-heart1.y = 80
-heart2 = display.newImageRect("Images/heart.png", 100, 100)
-heart2.x = display.contentWidth * 6 / 8
-heart2.y = 80
-heart3 = display.newImageRect("Images/heart.png", 100, 100)
-heart3.x = display.contentWidth * 5 / 8
-heart3.y = 80
-heart4 = display.newImageRect("Images/heart.png", 100, 100)
-heart4.x = display.contentWidth * 4 / 8
-heart4.y = 80
-
---create dresses
-dress1 = display.newImageRect("Images/Dress1.png", 150, 200)
-dress1.x = 150
-dress1.y = 190
-dress1.isVisible = true
-
-dress2 = display.newImageRect("Images/Dress2.png", 150, 240)
-dress2.x = 150
-dress2.y = 490
-dress2.isVisible = true
+local character1
+local heart1
 
 
 
---create text objects
-righttextObject = display.newText ("Horray,you got it right!",0, 0, nil, 50)
-righttextObject.x = 700
-righttextObject.y = display.contentHeight/3
-righttextObject:setTextColor (245/255, 154/255, 216/255)
-righttextObject.isVisible = false
 
-
-wrongtextObject = display.newText ("Oops,that's not right!",0, 0, nil, 50)
-wrongtextObject.x = 700
-wrongtextObject.y = display.contentHeight/3
-wrongtextObject:setTextColor (245/255, 154/255, 216/255)
-wrongtextObject.isVisible = false
-
-question1textObject = display.newText ("Which dress has horizontal lines?",0, 0, nil, 50)
-question1textObject.x = display.contentWidth/2
-question1textObject.y = 710
-question1textObject:setTextColor (245/255, 154/255, 216/255)
-question1textObject.isVisible = true
 
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
+
 local function UpdateHearts()
     if (lives == 4) then
       heart1.isVisible = true
@@ -142,6 +94,7 @@ local function dress1Listener(touch)
        righttextObject.isVisible = false
      end
     question1textObject.isVisible = false
+    Level1Scene2Transition( )
 end
 dress1:addEventListener("touch", dress1Listener)
 
@@ -162,6 +115,7 @@ local function dress2Listener(touch)
     end
     UpdateHearts()
     question1textObject.isVisible = false
+    Level1Scene2Transition( )
 end
 dress2:addEventListener("touch", dress2Listener)
 
@@ -184,12 +138,72 @@ function scene:create( event )
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
     bkg_image.height = display.contentHeight
+  
 
-    -- Send the background image to the back layer so all other objects can be on top
-    bkg_image:toBack()
-
-        -- Insert background image into the scene group in order to ONLY be associated with this scene
+    -- Insert background image into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( bkg_image )    
+
+    --create the first character
+    character1 = display.newImageRect("Images/character1.png", 190, 240)
+    character1.x = display.contentWidth/2
+    character1.y = 548
+    sceneGroup:insert( character1 )   
+
+    --create the lives to display on the screen
+    heart1 = display.newImageRect("Images/heart.png", 100,100)
+    heart1.x = display.contentWidth * 7 / 8
+    heart1.y = 80
+    sceneGroup:insert( heart1 )  
+
+    heart2 = display.newImageRect("Images/heart.png", 100, 100)
+    heart2.x = display.contentWidth * 6 / 8
+    heart2.y = 80
+    sceneGroup:insert( heart2 ) 
+
+    heart3 = display.newImageRect("Images/heart.png", 100, 100)
+    heart3.x = display.contentWidth * 5 / 8
+    heart3.y = 80
+    sceneGroup:insert( heart3 ) 
+
+    heart4 = display.newImageRect("Images/heart.png", 100, 100)
+    heart4.x = display.contentWidth * 4 / 8
+    heart4.y = 80
+    sceneGroup:insert( heart4 )  
+    --create dresses
+    dress1 = display.newImageRect("Images/Dress1.png", 150, 200)
+    dress1.x = 150
+    dress1.y = 190
+    dress1.isVisible = true
+    sceneGroup:insert( dress1 )  
+
+    dress2 = display.newImageRect("Images/Dress2.png", 150, 240)
+    dress2.x = 150
+    dress2.y = 490
+    dress2.isVisible = true
+    sceneGroup:insert( dress2 )  
+
+
+
+    --create text objects
+    righttextObject = display.newText ("Horray,you got it right!",0, 0, nil, 50)
+    righttextObject.x = 700
+    righttextObject.y = display.contentHeight/3
+    righttextObject:setTextColor (245/255, 154/255, 216/255)
+    righttextObject.isVisible = false
+
+
+    wrongtextObject = display.newText ("Oops,that's not right!",0, 0, nil, 50)
+    wrongtextObject.x = 700
+    wrongtextObject.y = display.contentHeight/3
+    wrongtextObject:setTextColor (245/255, 154/255, 216/255)
+    wrongtextObject.isVisible = false
+
+    question1textObject = display.newText ("Which dress has horizontal lines?",0, 0, nil, 50)
+    question1textObject.x = display.contentWidth/2
+    question1textObject.y = 710
+    question1textObject:setTextColor (245/255, 154/255, 216/255)
+    question1textObject.isVisible = true
+    sceneGroup:insert( question1textObject )  
 
 end --function scene:create( event )
 
