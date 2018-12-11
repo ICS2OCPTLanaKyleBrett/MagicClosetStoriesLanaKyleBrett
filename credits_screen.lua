@@ -38,6 +38,12 @@ local function BackTransition( )
     composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
 end
 
+----------------------------------------------------------------------------------------
+-- SOUNDS
+-----------------------------------------------------------------------------------------
+
+local CreditsSound = audio.loadSound("Sounds/Creditsbkg.mp3")
+local CreditsSoundChannel
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
