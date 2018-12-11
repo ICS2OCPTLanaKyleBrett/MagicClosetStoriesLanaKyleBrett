@@ -34,6 +34,7 @@ local lives = 4
 local dress1
 local righttextObject
 local wrongtextObject
+local question1textObject 
 --------------------------------------
 --OBJECTS CREATION
 --------------------------------------
@@ -46,16 +47,16 @@ character1.y = 548
 --create the lives to display on the screen
 heart1 = display.newImageRect("Images/heart.png", 100,100)
 heart1.x = display.contentWidth * 7 / 8
-heart1.y = display.contentHeight * 1 / 7
+heart1.y = 80
 heart2 = display.newImageRect("Images/heart.png", 100, 100)
 heart2.x = display.contentWidth * 6 / 8
-heart2.y = display.contentHeight * 1 / 7
+heart2.y = 80
 heart3 = display.newImageRect("Images/heart.png", 100, 100)
 heart3.x = display.contentWidth * 5 / 8
-heart3.y = display.contentHeight * 1 / 7
+heart3.y = 80
 heart4 = display.newImageRect("Images/heart.png", 100, 100)
 heart4.x = display.contentWidth * 4 / 8
-heart4.y = display.contentHeight * 1 / 7
+heart4.y = 80
 
 --create dresses
 dress1 = display.newImageRect("Images/Dress1.png", 150, 200)
@@ -83,6 +84,13 @@ wrongtextObject.x = 700
 wrongtextObject.y = display.contentHeight/3
 wrongtextObject:setTextColor (245/255, 154/255, 216/255)
 wrongtextObject.isVisible = false
+
+question1textObject = display.newText ("Which dress has horizontal lines?",0, 0, nil, 50)
+question1textObject.x = display.contentWidth/2
+question1textObject.y = 710
+question1textObject:setTextColor (245/255, 154/255, 216/255)
+question1textObject.isVisible = true
+
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -132,8 +140,8 @@ local function dress1Listener(touch)
        dress1.isVisible = false
        dress2.isVisible = false
        righttextObject.isVisible = false
-        
-    end
+     end
+    question1textObject.isVisible = false
 end
 dress1:addEventListener("touch", dress1Listener)
 
@@ -153,6 +161,7 @@ local function dress2Listener(touch)
         
     end
     UpdateHearts()
+    question1textObject.isVisible = false
 end
 dress2:addEventListener("touch", dress2Listener)
 
