@@ -32,6 +32,7 @@ local scene = composer.newScene( sceneName )
 local bkg_image
 local lives = 4
 local dress1
+local righttextObject
 --------------------------------------
 --OBJECTS CREATION
 --------------------------------------
@@ -61,6 +62,19 @@ dress1.x = 150
 dress1.y = 190
 dress1.isVisible = true
 
+dress2 = display.newImageRect("Images/Dress2.png", 150, 240)
+dress2.x = 150
+dress2.y = 490
+dress2.isVisible = true
+
+
+
+--create text objects
+righttextObject = display.newText ("Horrayyy,you got it right!",0, 0, nil, 50)
+righttextObject.x = display.contentWidth/2
+righttextObject.y = display.contentHeight/3
+righttextObject:setTextColor (245/255, 154/255, 216/255)
+righttextObject.isVisible = false
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -98,6 +112,20 @@ local function UpdateHearts()
      
      end
 end
+
+local function dress1Listener(touch)
+    if (touch.phase == "began") then
+        dress1.isVisible = false
+        dress2.isVisible = true
+        righttextObject.isVisible = true
+    end 
+
+    if (touch.phase == "ended") then
+       dress2.isVisible = true
+        
+    end
+end
+dress1:addEventListener("touch", dress1Listener)
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -146,6 +174,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+        
 
     end
 
