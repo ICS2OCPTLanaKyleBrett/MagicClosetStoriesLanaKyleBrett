@@ -51,87 +51,20 @@ local righttextObject
 local wrongtextObject
 local question1textObject 
 local character1
+
 local heart1
 local heart2
 local heart3
 local heart4
+
 local randomNumber
+local numQuestions = 0
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
-
-local function UpdateHearts()
-    if (lives == 4) then
-      heart1.isVisible = true
-      heart2.isVisible = true
-      heart3.isVisible = true
-      heart4.isVisible = true
-
-     elseif (lives == 3) then
-      heart1.isVisible = true
-      heart2.isVisible = true
-      heart3.isVisible = true
-      heart4.isVisible = false
-  
-     elseif (lives == 2) then
-      heart1.isVisible = true
-      heart2.isVisible = true
-      heart3.isVisible = false
-      heart4.isVisible = false
-
-     elseif (lives == 1) then
-      heart1.isVisible = true
-      heart2.isVisible = false
-      heart3.isVisible = false
-      heart4.isVisible = false
-
-     elseif (lives == 0) then
-      heart1.isVisible = false
-      heart2.isVisible = false
-      heart3.isVisible = false
-      heart4.isVisible = false
-     
-     end
-end
-
-local function HideRightTextObject()
-    righttextObject.isVisible = false
-end
-
-local function correctAnswerListener(touch)
-
-    if (touch.phase == "ended") then
-      display.remove(correctAnswer)
-      display.remove(wrongAnswer)
-       --correctAnswer.isVisible = false
-       --wrongAnswer.isVisible = false
-       righttextObject.isVisible = true
-       timer.performWithDelay(1000, HideRightTextObject)
-     end
-    
-end
-
-
-local function wrongAnswerListener(touch)
-
-    if (touch.phase == "ended") then
-      display.remove(correctAnswer)
-      display.remove(wrongAnswer)
-       --correctAnswer.isVisible = false
-       --wrongAnswer.isVisible = false
-       wrongtextObject.isVisible = false
-
-       lives = lives - 1
-       UpdateHearts() 
-    end
-
-end
-
 local function AskQuestion()
-    randomNumber = math.random(1, 3)
-
-    
+    randomNumber = math.random(1, 3)    
 
     if (randomNumber == 1) then
         question1textObject.text = "Which dress has horizontal lines?"
@@ -170,12 +103,122 @@ local function PositionAnswers()
 
 end
 
+local function UpdateHearts()
+    if (lives == 4) then
+      heart1.isVisible = true
+      heart2.isVisible = true
+      heart3.isVisible = true
+      heart4.isVisible = true
+
+     elseif (lives == 3) then
+      heart1.isVisible = true
+      heart2.isVisible = true
+      heart3.isVisible = true
+      heart4.isVisible = false
+  
+     elseif (lives == 2) then
+      heart1.isVisible = true
+      heart2.isVisible = true
+      heart3.isVisible = false
+      heart4.isVisible = false
+
+     elseif (lives == 1) then
+      heart1.isVisible = true
+      heart2.isVisible = false
+      heart3.isVisible = false
+      heart4.isVisible = false
+
+     elseif (lives == 0) then
+      heart1.isVisible = false
+      heart2.isVisible = false
+      heart3.isVisible = false
+      heart4.isVisible = false
+     
+     end
+end
+
+
+
+local function HideRightTextObject()
+    righttextObject.isVisible = false
+    RestartLevel1()
+end
+
+local function HideWrongTextObject()
+    wrongtextObject.isVisible = false
+    RestartLevel1()
+end
+
+
+
+local function correctAnswerListener(touch)
+
+    if (touch.phase == "ended") then    
+      display.remove(correctAnswer)
+      display.remove(wrongAnswer)
+       --correctAnswer.isVisible = false
+       --wrongAnswer.isVisible = false
+       righttextObject.isVisible = true
+       numQuestions = numQuestions + 1
+       timer.performWithDelay(1000, HideRightTextObject)
+
+
+
+     end
+    
+end
+
+
+local function wrongAnswerListener(touch)
+
+    if (touch.phase == "ended") then
+      display.remove(correctAnswer)
+      display.remove(wrongAnswer)
+       --correctAnswer.isVisible = false
+       --wrongAnswer.isVisible = false
+       wrongtextObject.isVisible = true
+       numQuestions = numQuestions + 1
+
+       lives = lives - 1
+       UpdateHearts() 
+       timer.performWithDelay(1000, HideWrongTextObject)
+    end
+
+end
+
+
+
+
 local function AddTouchListeners()
   correctAnswer:addEventListener("touch", correctAnswerListener)
   wrongAnswer:addEventListener("touch", wrongAnswerListener)
 end
 
+
+local function RemoveTouchListeners()
+  correctAnswer:removeEventListener("touch", correctAnswerListener)
+  wrongAnswer:removeEventListener("touch", wrongAnswerListener)
+end
+
+------------------------------------------------------------------------------
+-- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
+
+
+function RestartLevel1()
+    if (numQuestions < 3) then
+        -- ask another question
+        AskQuestion()
+        -- position answers
+        PositionAnswers()
+        -- add listeners back
+        AddTouchListeners()
+    else
+        -- 
+    end
+end
+
+------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
 
@@ -286,9 +329,9 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        AskQuestion()
-        PositionAnswers()
-        AddTouchListeners()
+        numQuestions = 0
+
+        RestartLevel1()        
 
     end
 
@@ -314,6 +357,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        RemoveTouchListeners()
     end
 
 end --function scene:hide( event )
