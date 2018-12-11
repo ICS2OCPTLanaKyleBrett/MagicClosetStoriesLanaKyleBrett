@@ -33,6 +33,7 @@ local bkg_image
 local lives = 4
 local dress1
 local righttextObject
+local wrongtextObject
 --------------------------------------
 --OBJECTS CREATION
 --------------------------------------
@@ -70,11 +71,18 @@ dress2.isVisible = true
 
 
 --create text objects
-righttextObject = display.newText ("Horrayyy,you got it right!",0, 0, nil, 50)
-righttextObject.x = display.contentWidth/2
+righttextObject = display.newText ("Horray,you got it right!",0, 0, nil, 50)
+righttextObject.x = 700
 righttextObject.y = display.contentHeight/3
 righttextObject:setTextColor (245/255, 154/255, 216/255)
 righttextObject.isVisible = false
+
+
+wrongtextObject = display.newText ("Oops,that's not right!",0, 0, nil, 50)
+wrongtextObject.x = 700
+wrongtextObject.y = display.contentHeight/3
+wrongtextObject:setTextColor (245/255, 154/255, 216/255)
+wrongtextObject.isVisible = false
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -116,16 +124,39 @@ end
 local function dress1Listener(touch)
     if (touch.phase == "began") then
         dress1.isVisible = false
-        dress2.isVisible = true
+        dress2.isVisible = false
         righttextObject.isVisible = true
     end 
 
     if (touch.phase == "ended") then
-       dress2.isVisible = true
+       dress1.isVisible = false
+       dress2.isVisible = false
+       righttextObject.isVisible = false
         
     end
 end
 dress1:addEventListener("touch", dress1Listener)
+
+local function dress2Listener(touch)
+    if (touch.phase == "began") then
+        dress1.isVisible = false
+        dress2.isVisible = false
+        wrongtextObject.isVisible = true
+        lives = lives - 1
+
+    end 
+
+    if (touch.phase == "ended") then
+       dress1.isVisible = false
+       dress2.isVisible = false
+       wrongtextObject.isVisible = false
+        
+    end
+    UpdateHearts()
+end
+dress2:addEventListener("touch", dress2Listener)
+
+
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
