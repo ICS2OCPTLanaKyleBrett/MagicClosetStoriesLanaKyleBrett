@@ -32,16 +32,15 @@ local scene = composer.newScene( sceneName )
 local bkg_image
 local lives = 4
 local dress1
+local dress2
 local righttextObject
 local wrongtextObject
 local question1textObject 
 local character1
 local heart1
-
-
-
-
-
+local heart2
+local heart3
+local heart4
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -83,18 +82,17 @@ end
 
 local function dress1Listener(touch)
     if (touch.phase == "began") then
-        dress1.isVisible = false
+        dress1.isVisible = true
         dress2.isVisible = false
         righttextObject.isVisible = true
     end 
 
     if (touch.phase == "ended") then
-       dress1.isVisible = false
+       dress1.isVisible = true
        dress2.isVisible = false
-       righttextObject.isVisible = false
+       righttextObject.isVisible = true
      end
     question1textObject.isVisible = false
-    Level1Scene2Transition( )
 end
 dress1:addEventListener("touch", dress1Listener)
 
@@ -114,8 +112,7 @@ local function dress2Listener(touch)
         
     end
     UpdateHearts()
-    question1textObject.isVisible = false
-    Level1Scene2Transition( )
+    question1textObject.isVisible = false    
 end
 dress2:addEventListener("touch", dress2Listener)
 
@@ -169,6 +166,7 @@ function scene:create( event )
     heart4.x = display.contentWidth * 4 / 8
     heart4.y = 80
     sceneGroup:insert( heart4 )  
+
     --create dresses
     dress1 = display.newImageRect("Images/Dress1.png", 150, 200)
     dress1.x = 150
@@ -185,7 +183,7 @@ function scene:create( event )
 
 
     --create text objects
-    righttextObject = display.newText ("Horray,you got it right!",0, 0, nil, 50)
+    righttextObject = display.newText ("Hooray,you got it right!",0, 0, nil, 50)
     righttextObject.x = 700
     righttextObject.y = display.contentHeight/3
     righttextObject:setTextColor (245/255, 154/255, 216/255)
