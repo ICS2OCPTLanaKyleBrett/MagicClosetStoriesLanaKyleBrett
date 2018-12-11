@@ -25,14 +25,28 @@ sceneName = "level1_screen"
 local scene = composer.newScene( sceneName )
 
 -----------------------------------------------------------------------------------------
+-- LOCAL CONSTANTS
+-----------------------------------------------------------------------------------------
+
+-- the position of the top dress
+local X1 = 150
+local Y1 = 190
+
+-- the position of the bottom dress
+local X2 = 150
+local Y2 = 490
+
+-----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
 -- The local variables for this scene
 local bkg_image
 local lives = 4
-local dress1
-local dress2
+-- correct image and wrong image
+local correctAnswer
+local wrongAnswer
+
 local righttextObject
 local wrongtextObject
 local question1textObject 
@@ -41,6 +55,7 @@ local heart1
 local heart2
 local heart3
 local heart4
+local randomNumber
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -80,42 +95,85 @@ local function UpdateHearts()
      end
 end
 
-local function dress1Listener(touch)
-    if (touch.phase == "began") then
-        dress1.isVisible = true
-        dress2.isVisible = false
-        righttextObject.isVisible = true
-    end 
+local function HideRightTextObject()
+    righttextObject.isVisible = false
+end
+
+local function correctAnswerListener(touch)
 
     if (touch.phase == "ended") then
-       dress1.isVisible = true
-       dress2.isVisible = false
+      display.remove(correctAnswer)
+      display.remove(wrongAnswer)
+       --correctAnswer.isVisible = false
+       --wrongAnswer.isVisible = false
        righttextObject.isVisible = true
+       timer.performWithDelay(1000, HideRightTextObject)
      end
-    question1textObject.isVisible = false
+    
 end
-dress1:addEventListener("touch", dress1Listener)
 
-local function dress2Listener(touch)
-    if (touch.phase == "began") then
-        dress1.isVisible = false
-        dress2.isVisible = false
-        wrongtextObject.isVisible = true
-        lives = lives - 1
 
-    end 
+local function wrongAnswerListener(touch)
 
     if (touch.phase == "ended") then
-       dress1.isVisible = false
-       dress2.isVisible = false
+      display.remove(correctAnswer)
+      display.remove(wrongAnswer)
+       --correctAnswer.isVisible = false
+       --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = false
-        
-    end
-    UpdateHearts()
-    question1textObject.isVisible = false    
-end
-dress2:addEventListener("touch", dress2Listener)
 
+       lives = lives - 1
+       UpdateHearts() 
+    end
+
+end
+
+local function AskQuestion()
+    randomNumber = math.random(1, 3)
+
+    
+
+    if (randomNumber == 1) then
+        question1textObject.text = "Which dress has horizontal lines?"
+        correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Dress2.png", 150, 240)   
+       
+    elseif (randomNumber == 2) then
+        question1textObject.text = "Pick the curly hair."
+        correctAnswer = display.newImageRect("Images/Hair2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Hair1.png", 150, 240)   
+    elseif (randomNumber == 3) then
+        question1textObject.text = "Which skirt has more colours?"
+        correctAnswer = display.newImageRect("Images/Dress4.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Dress3.png", 150, 240)   
+    end 
+end
+
+local function PositionAnswers()
+    randomNumber = math.random (1, 3)
+
+    if (randomNumber == 1) then
+        -- correct answer will be on top
+        correctAnswer.x = X1
+        correctAnswer.y = Y1
+        -- wrong answer will be on bottom
+        wrongAnswer.x = X2
+        wrongAnswer.y = Y2
+    else
+        -- correct answer will be on bottom
+        correctAnswer.x = X2
+        correctAnswer.y = Y2
+        -- wrong answer will be on top
+        wrongAnswer.x = X1
+        wrongAnswer.y = Y1
+    end
+
+end
+
+local function AddTouchListeners()
+  correctAnswer:addEventListener("touch", correctAnswerListener)
+  wrongAnswer:addEventListener("touch", wrongAnswerListener)
+end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -130,7 +188,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image
-    bkg_image = display.newImageRect("Images/Level1ScreenLanaZE.jpg", display.contentWidth, display.contentHeight)
+    bkg_image = display.newImageRect("Images/Level1ScreenLanaZE.png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -168,18 +226,19 @@ function scene:create( event )
     sceneGroup:insert( heart4 )  
 
     --create dresses
-    dress1 = display.newImageRect("Images/Dress1.png", 150, 200)
-    dress1.x = 150
-    dress1.y = 190
-    dress1.isVisible = true
-    sceneGroup:insert( dress1 )  
+     --[[
+    correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)
+    correctAnswer.x = X1
+    correctAnswer.y = Y1
+    correctAnswer.isVisible = true
+    sceneGroup:insert( correctAnswer )  
 
-    dress2 = display.newImageRect("Images/Dress2.png", 150, 240)
-    dress2.x = 150
-    dress2.y = 490
-    dress2.isVisible = true
-    sceneGroup:insert( dress2 )  
-
+    wrongAnswer = display.newImageRect("Images/Dress2.png", 150, 240)
+    wrongAnswer.x = X2
+    wrongAnswer.y = Y2
+    wrongAnswer.isVisible = true
+    sceneGroup:insert( wrongAnswer )  
+]]--
 
 
     --create text objects
@@ -188,15 +247,16 @@ function scene:create( event )
     righttextObject.y = display.contentHeight/3
     righttextObject:setTextColor (245/255, 154/255, 216/255)
     righttextObject.isVisible = false
-
+    sceneGroup:insert( righttextObject )  
 
     wrongtextObject = display.newText ("Oops,that's not right!",0, 0, nil, 50)
     wrongtextObject.x = 700
     wrongtextObject.y = display.contentHeight/3
     wrongtextObject:setTextColor (245/255, 154/255, 216/255)
     wrongtextObject.isVisible = false
+    sceneGroup:insert( wrongtextObject )  
 
-    question1textObject = display.newText ("Which dress has horizontal lines?",0, 0, nil, 50)
+    question1textObject = display.newText ("",0, 0, nil, 50)
     question1textObject.x = display.contentWidth/2
     question1textObject.y = 710
     question1textObject:setTextColor (245/255, 154/255, 216/255)
@@ -226,7 +286,9 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        
+        AskQuestion()
+        PositionAnswers()
+        AddTouchListeners()
 
     end
 
