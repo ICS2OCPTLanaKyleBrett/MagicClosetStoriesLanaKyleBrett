@@ -103,6 +103,10 @@ local function PositionAnswers()
 
 end
 
+local function YouLoseTransition()
+    composer.gotoScene( "you_lose" )
+end
+
 local function UpdateHearts()
     
      if (lives == 2) then
@@ -120,7 +124,7 @@ local function UpdateHearts()
       heart1.isVisible = false
       heart2.isVisible = false
       heart3.isVisible = false
-     
+      composer.gotoScene("you_lose")
      end
 end
 
