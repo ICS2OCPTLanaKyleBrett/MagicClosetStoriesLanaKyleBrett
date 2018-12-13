@@ -35,14 +35,14 @@ local backButton
 
 -- Creating Transitioning Function back to main menu
 local function BackTransition( )
-    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+    composer.gotoScene( "main_menu", {effect = "slideUp", time = 200})
 end
 
 ----------------------------------------------------------------------------------------
 -- SOUNDS
 -----------------------------------------------------------------------------------------
 
-local CreditsSound = audio.loadSound("Sounds/Creditsbkg.mp3")
+local CreditsSound = audio.loadSound("Sounds/CreditsSound.mp3")
 local CreditsSoundChannel
 
 -----------------------------------------------------------------------------------------
