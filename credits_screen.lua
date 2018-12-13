@@ -42,7 +42,7 @@ end
 -- SOUNDS
 -----------------------------------------------------------------------------------------
 
-local CreditsSound = audio.loadSound("Sounds/Creditsbkg.mp3")
+local CreditsSound = audio.loadSound("Sounds/CreditsSound.mp3")
 local CreditsSoundChannel
 
 -----------------------------------------------------------------------------------------
