@@ -107,6 +107,10 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
+local function YouWinTransition()
+    composer.gotoScene( "you_win" )
+end
+
 local function UpdateHearts()
     
      if (lives == 2) then
@@ -177,8 +181,20 @@ local function wrongAnswerListener(touch)
 
 end
 
+local function YouLoseTransition()
+    composer.gotoScene( "you_lose" )
+end
 
+local function YouWinTransition()
+    composer.gotoScene( "you_win" )
+end
 
+function ResumeGame()
+  if (lives > 0) then
+     composer.gotoScene("you_win")
+  end
+
+end
 
 local function AddTouchListeners()
   correctAnswer:addEventListener("touch", correctAnswerListener)
@@ -318,7 +334,8 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
         numQuestions = 0
 
-        RestartLevel1()        
+        RestartLevel1()
+        ResumeGame()        
 
     end
 
