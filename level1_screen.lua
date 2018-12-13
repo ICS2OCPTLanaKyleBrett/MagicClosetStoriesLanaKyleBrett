@@ -42,7 +42,7 @@ local Y2 = 490
 
 -- The local variables for this scene
 local bkg_image
-local lives = 4
+local lives = 3
 -- correct image and wrong image
 local correctAnswer
 local wrongAnswer
@@ -104,35 +104,22 @@ local function PositionAnswers()
 end
 
 local function UpdateHearts()
-    if (lives == 4) then
-      heart1.isVisible = true
+    
+     if (lives == 2) then
+      heart1.isVisible = false
       heart2.isVisible = true
       heart3.isVisible = true
-      heart4.isVisible = true
-
-     elseif (lives == 3) then
-      heart1.isVisible = true
-      heart2.isVisible = true
-      heart3.isVisible = true
-      heart4.isVisible = false
-  
-     elseif (lives == 2) then
-      heart1.isVisible = true
-      heart2.isVisible = true
-      heart3.isVisible = false
-      heart4.isVisible = false
+      
 
      elseif (lives == 1) then
-      heart1.isVisible = true
+      heart1.isVisible = false
       heart2.isVisible = false
-      heart3.isVisible = false
-      heart4.isVisible = false
-
-     elseif (lives == 0) then
+      heart3.isVisible = true
+      
+    elseif (lives == 0) then
       heart1.isVisible = false
       heart2.isVisible = false
       heart3.isVisible = false
-      heart4.isVisible = false
      
      end
 end
@@ -248,26 +235,22 @@ function scene:create( event )
     sceneGroup:insert( character1 )   
 
     --create the lives to display on the screen
-    heart1 = display.newImageRect("Images/heart.png", 100,100)
-    heart1.x = display.contentWidth * 7 / 8
-    heart1.y = 80
-    sceneGroup:insert( heart1 )  
+    heart3 = display.newImageRect("Images/heart.png", 100,100)
+    heart3.x = display.contentWidth * 7 / 8
+    heart3.y = 80
+    sceneGroup:insert( heart3 )  
 
     heart2 = display.newImageRect("Images/heart.png", 100, 100)
     heart2.x = display.contentWidth * 6 / 8
     heart2.y = 80
     sceneGroup:insert( heart2 ) 
 
-    heart3 = display.newImageRect("Images/heart.png", 100, 100)
-    heart3.x = display.contentWidth * 5 / 8
-    heart3.y = 80
-    sceneGroup:insert( heart3 ) 
+    heart1 = display.newImageRect("Images/heart.png", 100, 100)
+    heart1.x = display.contentWidth * 5 / 8
+    heart1.y = 80
+    sceneGroup:insert( heart1 ) 
 
-    heart4 = display.newImageRect("Images/heart.png", 100, 100)
-    heart4.x = display.contentWidth * 4 / 8
-    heart4.y = 80
-    sceneGroup:insert( heart4 )  
-
+    
     --create dresses
      --[[
     correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)
