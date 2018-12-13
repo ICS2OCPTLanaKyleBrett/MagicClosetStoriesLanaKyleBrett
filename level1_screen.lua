@@ -189,10 +189,6 @@ local function YouWinTransition()
     composer.gotoScene( "you_win" )
 end
 
-function ResumeGame()
-  if (lives > 0) then
-     composer.gotoScene("you_win")
-  end
 
 end
 
@@ -334,8 +330,7 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
         numQuestions = 0
 
-        RestartLevel1()
-        ResumeGame()        
+        RestartLevel1()        
 
     end
 
