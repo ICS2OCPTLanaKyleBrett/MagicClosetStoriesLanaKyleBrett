@@ -23,6 +23,13 @@ sceneName = "instructions_screen"
 -- Creating Scene Object
 scene = composer.newScene( sceneName ) -- This function doesn't accept a string, only a variable containing a string
 
+----------------------------------------------------------------------------------------
+-- SOUNDS
+-----------------------------------------------------------------------------------------
+
+local InstructionSound = audio.loadStream("Sounds/Instructionbkg.mp3")
+local InstructionSoundChannel = audio.play( InstructionSound, { channnel=1, loops=-1} )
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -139,6 +146,7 @@ function scene:hide( event )
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
+    audio.stop(InstructionSoundChannel)
 
     if ( phase == "will" ) then
         -- Called when the scene is on screen (but is about to go off screen).

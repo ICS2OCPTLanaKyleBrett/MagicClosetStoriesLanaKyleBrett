@@ -189,7 +189,12 @@ local function YouWinTransition()
     composer.gotoScene( "you_win" )
 end
 
+function ResumeGame()
+  if (lives > 0) then
+     composer.gotoScene("you_win")
+  end
 
+end
 
 local function AddTouchListeners()
   correctAnswer:addEventListener("touch", correctAnswerListener)
@@ -267,7 +272,7 @@ function scene:create( event )
 
     
     --create dresses
-     
+     --[[
     correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)
     correctAnswer.x = X1
     correctAnswer.y = Y1
@@ -279,10 +284,11 @@ function scene:create( event )
     wrongAnswer.y = Y2
     wrongAnswer.isVisible = true
     sceneGroup:insert( wrongAnswer )  
+]]--
 
 
     --create text objects
-    righttextObject = display.newText ("Hooray,you got it right!",2, 2, nil, 50)
+    righttextObject = display.newText ("Hooray,you got it right!",0, 0, nil, 50)
     righttextObject.x = 700
     righttextObject.y = display.contentHeight/3
     righttextObject:setTextColor (245/255, 154/255, 216/255)
@@ -328,7 +334,8 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
         numQuestions = 0
 
-        RestartLevel1()        
+        RestartLevel1()
+        ResumeGame()        
 
     end
 
