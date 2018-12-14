@@ -11,7 +11,7 @@
 local composer = require( "composer" )
 
 -- Name the Scene
-sceneName = "splash_screen"
+sceneName = "splash_screen2"
 
 -----------------------------------------------------------------------------------------
 
@@ -93,7 +93,7 @@ function scene:create( event )
     textObject.alpha = 0
 
     --create the company logo and set its x and y of the logo
-    companyLogo = display.newImageRect("Images/CompanyLogoKyle.png", 400, 500)
+    companyLogo = display.newImageRect("Images/companyLogoKyle.png", 400, 500)
     companyLogo.x = 1000
     companyLogo.y = 570
     companyLogo.alpha = 1

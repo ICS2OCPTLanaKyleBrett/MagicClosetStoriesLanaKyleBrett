@@ -43,6 +43,7 @@ local Y2 = 490
 -- The local variables for this scene
 local bkg_image
 local lives = 3
+
 -- correct image and wrong image
 local correctAnswer
 local wrongAnswer
@@ -74,7 +75,8 @@ local function AskQuestion()
     elseif (randomNumber == 2) then
         question1textObject.text = "Pick the curly hair."
         correctAnswer = display.newImageRect("Images/Hair2.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Hair1.png", 150, 240)   
+        wrongAnswer = display.newImageRect("Images/Hair1.png", 150, 240)  
+
     elseif (randomNumber == 3) then
         question1textObject.text = "Which skirt has more colours?"
         correctAnswer = display.newImageRect("Images/Dress4.png", 150, 200)      
@@ -83,7 +85,7 @@ local function AskQuestion()
 end
 
 local function PositionAnswers()
-    randomNumber = math.random (1, 3)
+    randomNumber = math.random (1, 2)
 
     if (randomNumber == 1) then
         -- correct answer will be on top
@@ -189,12 +191,6 @@ local function YouWinTransition()
     composer.gotoScene( "you_win" )
 end
 
-function ResumeGame()
-  if (lives > 0) then
-     composer.gotoScene("you_win")
-  end
-
-end
 
 local function AddTouchListeners()
   correctAnswer:addEventListener("touch", correctAnswerListener)
@@ -221,7 +217,7 @@ function RestartLevel1()
         -- add listeners back
         AddTouchListeners()
     else
-        -- 
+        YouWinTransition()
     end
 end
 
@@ -334,8 +330,7 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
         numQuestions = 0
 
-        RestartLevel1()
-        ResumeGame()        
+        RestartLevel1()      
 
     end
 
@@ -361,7 +356,8 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        RemoveTouchListeners()
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
     end
 
 end --function scene:hide( event )
