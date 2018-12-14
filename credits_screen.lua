@@ -42,8 +42,8 @@ end
 -- SOUNDS
 -----------------------------------------------------------------------------------------
 
-local CreditsSound = audio.loadSound("Sounds/CreditsSound.mp3")
-local CreditsSoundChannel
+local CreditsSound = audio.loadStream("Sounds/CreditsSound.mp3")
+local CreditsSoundChannel = audio.play( CreditsSound, { channnel=1, loops=-1} )
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -145,6 +145,7 @@ function scene:hide( event )
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
+    audio.stop(CreditsSoundChannel)
 
     if ( phase == "will" ) then
         -- Called when the scene is on screen (but is about to go off screen).

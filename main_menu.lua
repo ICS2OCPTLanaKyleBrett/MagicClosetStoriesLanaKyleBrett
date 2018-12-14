@@ -28,6 +28,13 @@ sceneName = "main_menu"
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
+----------------------------------------------------------------------------------------
+-- SOUNDS
+-----------------------------------------------------------------------------------------
+
+local MainmenubkgSound = audio.loadStream("Sounds/Mainmenubkg.mp3")
+local MainmenubkgSoundChannel = audio.play( MainmenubkgSound, { channnel=1, loops=-1} )
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -202,6 +209,7 @@ function scene:hide( event )
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
+    audio.stop(MainmenubkgSoundChannel)
 
     if ( phase == "will" ) then
         -- Called when the scene is on screen (but is about to go off screen).

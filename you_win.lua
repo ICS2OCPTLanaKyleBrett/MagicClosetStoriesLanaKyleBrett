@@ -44,14 +44,14 @@ function scene:create( event )
     local sceneGroup = self.view
 
     -- Display background
-    bkg = display.newImage("Images/youwin.jpg")
-    bkg.x = display.contentCenterX
-    bkg.y = display.contentCenterY
-    bkg.width = display.contentWidth
-    bkg.height = display.contentHeight
+    youwin_bkg = display.newImage("Images/youwin.jpg")
+    youwin_bkg.x = display.contentCenterX
+    youwin_bkg.y = display.contentCenterY
+    youwin_bkg.width = display.contentWidth
+    youwin_bkg.height = display.contentHeight
    
     -- Associating display objects with this scene 
-    sceneGroup:insert( bkg )
+    sceneGroup:insert( youwin_bkg )
   
 end    
 
