@@ -17,7 +17,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "level1_screen"
+sceneName = "level3_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -50,7 +50,7 @@ local wrongAnswer
 local righttextObject
 local wrongtextObject
 local question1textObject 
-local character1
+local character3
 
 local heart1
 local heart2
