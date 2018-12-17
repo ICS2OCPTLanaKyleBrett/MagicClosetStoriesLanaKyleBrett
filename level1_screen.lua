@@ -109,8 +109,8 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function YouWinTransition()
-    composer.gotoScene( "you_win" )
+local function level2Transition()
+    composer.gotoScene( "level2_screen" )
 end
 
 local function UpdateHearts()
@@ -187,8 +187,8 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function YouWinTransition()
-    composer.gotoScene( "you_win" )
+local function level2Transition()
+    composer.gotoScene( "level2_screen" )
 end
 
 
@@ -217,7 +217,7 @@ function RestartLevel1()
         -- add listeners back
         AddTouchListeners()
     else
-        YouWinTransition()
+        level2Transition()
     end
 end
 
@@ -247,7 +247,7 @@ function scene:create( event )
     --create the first character
     character1 = display.newImageRect("Images/character1.png", 190, 240)
     character1.x = display.contentWidth/2
-    character1.y = 548
+    character1.y = 700
     sceneGroup:insert( character1 )   
 
     --create the lives to display on the screen
