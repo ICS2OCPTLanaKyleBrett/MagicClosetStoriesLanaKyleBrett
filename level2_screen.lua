@@ -1,3 +1,8 @@
+
+
+
+
+
 -- Use Composer Libraries
 local composer = require( "composer" )
 local widget = require( "widget" )
@@ -59,7 +64,16 @@ local function AskQuestion()
         question1textObject.text = "Which lipstick is brighter?"
         correctAnswer = display.newImageRect("Images/lipstick1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/lipstick2.png", 150, 240)   
-       
+    
+    elseif (randomNumber == 2) then
+        question1textObject.text = "Pick the curly hair."
+        correctAnswer = display.newImageRect("Images/Hair2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Hair1.png", 150, 240)  
+
+    elseif (randomNumber == 3) then
+        question1textObject.text = "Which skirt has more colours?"
+        correctAnswer = display.newImageRect("Images/Dress4.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Dress3.png", 150, 240)   
     end 
 end
 
@@ -75,7 +89,7 @@ local function PositionAnswers()
         wrongAnswer.y = Y2
     else
         -- correct answer will be on bottom
-        correctAnswer.x = X2
+        correctAnswer.x = X1
         correctAnswer.y = Y2
         -- wrong answer will be on top
         wrongAnswer.x = X1
@@ -89,7 +103,7 @@ local function level3Transition()
 end
 
 local function YouloseTransition()
-    composer.gotoScene( "you_win" )
+    composer.gotoScene( "you_lose" )
 end
 
 local function UpdateHearts()
@@ -167,7 +181,7 @@ local function YouLoseTransition()
 end
 
 local function level3Transition()
-    composer.gotoScene( "you_win" )
+    composer.gotoScene( "level3_screen" )
 end
 
 
@@ -187,7 +201,7 @@ end
 -----------------------------------------------------------------------------------------
 
 
-function RestartLevel1()
+function RestartLevel2()
     if (numQuestions < 3) then
         -- ask another question
         AskQuestion()
@@ -224,10 +238,10 @@ function scene:create( event )
     sceneGroup:insert( bkg_image )    
 
     --create the first character
-    character1 = display.newImageRect("Images/character2.png", 190, 240)
-    character1.x = display.contentWidth/2
-    character1.y = 548
-    sceneGroup:insert( character1 )   
+    character2 = display.newImageRect("Images/character2.png", 190, 240)
+    character2.x = display.contentWidth/2
+    character2.y = 548
+    sceneGroup:insert( character2 )   
 
     --create the lives to display on the screen
     heart3 = display.newImageRect("Images/heart.png", 100,100)
@@ -246,8 +260,8 @@ function scene:create( event )
     sceneGroup:insert( heart1 ) 
 
     
-    --create dresses
-     -- [[
+    --create lipsticks
+     --[[
     correctAnswer = display.newImageRect("Images/lipstick1.png", 150, 200)
     correctAnswer.x = X1
     correctAnswer.y = Y1
@@ -308,8 +322,7 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
         numQuestions = 0
-
-        RestartLevel1()      
+        RestartLevel2()      
 
     end
 
