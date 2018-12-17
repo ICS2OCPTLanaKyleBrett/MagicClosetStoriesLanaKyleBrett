@@ -56,7 +56,7 @@ local character1
 local heart1
 local heart2
 local heart3
-local heart4
+
 
 local randomNumber
 local numQuestions = 0
@@ -65,11 +65,7 @@ local numQuestions = 0
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-<<<<<<< HEAD
     randomNumber = math.random(1, 10)    
-=======
-    randomNumber = math.random(1, 3)    
->>>>>>> dc4f19878f64340fff397de876402cffda366b60
 
     if (randomNumber == 1) then
         question1textObject.text = "Which dress has horizontal lines?"
@@ -84,7 +80,6 @@ local function AskQuestion()
     elseif (randomNumber == 3) then
         question1textObject.text = "Which skirt has more colours?"
         correctAnswer = display.newImageRect("Images/Dress4.png", 150, 200)      
-<<<<<<< HEAD
         wrongAnswer = display.newImageRect("Images/Dress3.png", 150, 240)  
 
     elseif (randomNumber == 4) then
@@ -127,10 +122,6 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/dress6.png", 250, 240)               
     end
 
-=======
-        wrongAnswer = display.newImageRect("Images/Dress3.png", 150, 240)   
-    end 
->>>>>>> dc4f19878f64340fff397de876402cffda366b60
 end
 
 local function PositionAnswers()
@@ -158,8 +149,8 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function level2Transition()
-    composer.gotoScene( "level2_screen" )
+local function YouWinTransition()
+    composer.gotoScene( "you_win" )
 end
 
 local function UpdateHearts()
@@ -236,8 +227,8 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function level2Transition()
-    composer.gotoScene( "level2_screen" )
+local function YouWinTransition()
+    composer.gotoScene( "you_win" )
 end
 
 
@@ -266,7 +257,7 @@ function RestartLevel1()
         -- add listeners back
         AddTouchListeners()
     else
-        level2Transition()
+        YouWinTransition()
     end
 end
 
