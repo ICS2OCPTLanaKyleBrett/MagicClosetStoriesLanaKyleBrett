@@ -22,7 +22,7 @@ sceneName = "level3_screen"
 -----------------------------------------------------------------------------------------
 
 -- Creating Scene Object
-local scene = composer.newScene( sceneName )
+local scene = composer.newScene( level3_screen )
 
 -----------------------------------------------------------------------------------------
 -- LOCAL CONSTANTS
@@ -67,7 +67,7 @@ local function AskQuestion()
     randomNumber = math.random(1, 3)    
 
     if (randomNumber == 1) then
-        question1textObject.text = "Which dress has horizontal lines?"
+        question1textObject.text = "Which lipstick is brighter ?"
         correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Dress2.png", 150, 240)   
        
