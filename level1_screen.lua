@@ -72,7 +72,7 @@ local numQuestions = 0
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 10)    
+    randomNumber = math.random(1, 12)    
 
     if (randomNumber == 1) then
         question1textObject.text = "Which dress has horizontal lines?"
@@ -121,8 +121,18 @@ local function AskQuestion()
 
     elseif (randomNumber == 10) then
         question1textObject.text = "Which hat is less decorated?"
-        correctAnswer = display.newImageRect("Images/hat1.png", 260, 200)      
-        wrongAnswer = display.newImageRect("Images/hat2.png", 250, 240)                    
+        correctAnswer = display.newImageRect("Images/hat2.png", 260, 200)      
+        wrongAnswer = display.newImageRect("Images/hat1.png", 250, 240)
+
+    elseif (randomNumber == 11) then
+        question1textObject.text = "Which dress has geometric shapes?"
+        correctAnswer = display.newImageRect("Images/dress7.png", 250, 300)      
+        wrongAnswer = display.newImageRect("Images/dress8.png", 250, 300)
+
+    elseif (randomNumber == 12) then
+        question1textObject.text = "Which dress has simple style??"
+        correctAnswer = display.newImageRect("Images/dress8.png", 250, 250)      
+        wrongAnswer = display.newImageRect("Images/dress7.png", 250, 250)                     
     end 
 end
 
