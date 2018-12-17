@@ -60,15 +60,6 @@ local function AskQuestion()
         correctAnswer = display.newImageRect("Images/lipstick1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/lipstick2.png", 150, 240)   
        
-    elseif (randomNumber == 2) then
-        question1textObject.text = "Pick the curly hair."
-        correctAnswer = display.newImageRect("Images/Hair2.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Hair1.png", 150, 240)  
-
-    elseif (randomNumber == 3) then
-        question1textObject.text = "Which skirt has more colours?"
-        correctAnswer = display.newImageRect("Images/Dress4.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Dress3.png", 150, 240)   
     end 
 end
 
@@ -234,7 +225,7 @@ function scene:create( event )
 
     --create the first character
     character1 = display.newImageRect("Images/character2.png", 190, 240)
-    character1.x = display.contentWidth/2.5
+    character1.x = display.contentWidth/2
     character1.y = 548
     sceneGroup:insert( character1 )   
 
@@ -256,14 +247,14 @@ function scene:create( event )
 
     
     --create dresses
-     --[[
-    correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)
+     -- [[
+    correctAnswer = display.newImageRect("Images/lipstick1.png", 150, 200)
     correctAnswer.x = X1
     correctAnswer.y = Y1
     correctAnswer.isVisible = true
     sceneGroup:insert( correctAnswer )  
 
-    wrongAnswer = display.newImageRect("Images/Dress2.png", 150, 240)
+    wrongAnswer = display.newImageRect("Images/lipstick2.png", 150, 240)
     wrongAnswer.x = X2
     wrongAnswer.y = Y2
     wrongAnswer.isVisible = true
