@@ -36,6 +36,13 @@ local Y1 = 190
 local X2 = 150
 local Y2 = 490
 
+----------------------------------------------------------------------------------------
+-- SOUNDS
+-----------------------------------------------------------------------------------------
+
+local level1Sound = audio.loadStream("Sounds/level1bkg.mp3")
+local level1SoundChannel
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -65,7 +72,7 @@ local numQuestions = 0
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 10)    
+    randomNumber = math.random(1, 8)    
 
     if (randomNumber == 1) then
         question1textObject.text = "Which dress has horizontal lines?"
@@ -96,32 +103,17 @@ local function AskQuestion()
         question1textObject.text = "Pick the straight hair."
         correctAnswer = display.newImageRect("Images/Hair1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Hair2.png", 150, 240) 
-    
 
      elseif (randomNumber == 7) then
         question1textObject.text = "Pick the glasses with the rectangular style."
         correctAnswer = display.newImageRect("Images/glasses1.png", 250, 200)      
         wrongAnswer = display.newImageRect("Images/glasses2.png", 260, 240)
-   
 
      elseif (randomNumber == 8) then
         question1textObject.text = "Pick the glasses with the rounded style."
         correctAnswer = display.newImageRect("Images/glasses2.png", 260, 200)      
-        wrongAnswer = display.newImageRect("Images/glasses1.png", 250, 240)
-      
-
-    elseif (randomNumber ==9) then
-        question1textObject.text = "Which skirt has nature colors?"
-        correctAnswer = display.newImageRect("Images/dress6.png", 260, 200)      
-        wrongAnswer = display.newImageRect("Images/dress5.png", 250, 240)               
-   
-
-    elseif (randomNumber ==10) then
-        question1textObject.text = "Which skirt has dark colors?"
-        correctAnswer = display.newImageRect("Images/dress5.png", 260, 200)      
-        wrongAnswer = display.newImageRect("Images/dress6.png", 250, 240)               
-    end
-
+        wrongAnswer = display.newImageRect("Images/glasses1.png", 250, 240)            
+    end 
 end
 
 local function PositionAnswers()
@@ -372,6 +364,7 @@ function scene:show( event )
 
         RestartLevel1()      
 
+      level1SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
     end
 
 end --function scene:show( event )
