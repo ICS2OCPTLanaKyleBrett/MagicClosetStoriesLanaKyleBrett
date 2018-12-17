@@ -56,7 +56,7 @@ local character1
 local heart1
 local heart2
 local heart3
-local heart4
+
 
 local randomNumber
 local numQuestions = 0
@@ -65,7 +65,7 @@ local numQuestions = 0
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 3)    
+    randomNumber = math.random(1, 8)    
 
     if (randomNumber == 1) then
         question1textObject.text = "Which dress has horizontal lines?"
@@ -80,7 +80,32 @@ local function AskQuestion()
     elseif (randomNumber == 3) then
         question1textObject.text = "Which skirt has more colours?"
         correctAnswer = display.newImageRect("Images/Dress4.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Dress3.png", 150, 240)   
+        wrongAnswer = display.newImageRect("Images/Dress3.png", 150, 240)  
+
+    elseif (randomNumber == 4) then
+        question1textObject.text = "Which skirt has less colours?"
+        correctAnswer = display.newImageRect("Images/Dress3.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Dress4.png", 150, 240)
+
+    elseif (randomNumber == 5) then
+        question1textObject.text = "Which dress has vertical lines?"
+        correctAnswer = display.newImageRect("Images/Dress2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Dress1.png", 150, 240)
+
+    elseif (randomNumber == 6) then
+        question1textObject.text = "Pick the straight hair."
+        correctAnswer = display.newImageRect("Images/Hair1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Hair2.png", 150, 240) 
+
+     elseif (randomNumber == 7) then
+        question1textObject.text = "Pick the glasses with the rectangular style."
+        correctAnswer = display.newImageRect("Images/glasses1.png", 250, 200)      
+        wrongAnswer = display.newImageRect("Images/glasses2.png", 260, 240)
+
+     elseif (randomNumber == 8) then
+        question1textObject.text = "Pick the glasses with the rounded style."
+        correctAnswer = display.newImageRect("Images/glasses2.png", 260, 200)      
+        wrongAnswer = display.newImageRect("Images/glasses1.png", 250, 240)            
     end 
 end
 
