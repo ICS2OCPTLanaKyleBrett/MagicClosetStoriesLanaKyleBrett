@@ -89,7 +89,7 @@ local function PositionAnswers()
         wrongAnswer.y = Y2
     else
         -- correct answer will be on bottom
-        correctAnswer.x = X1
+        correctAnswer.x = X2
         correctAnswer.y = Y2
         -- wrong answer will be on top
         wrongAnswer.x = X1
