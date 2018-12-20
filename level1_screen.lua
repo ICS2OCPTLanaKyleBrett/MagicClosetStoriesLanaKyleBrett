@@ -36,6 +36,13 @@ local Y1 = 190
 local X2 = 150
 local Y2 = 490
 
+----------------------------------------------------------------------------------------
+-- SOUNDS
+-----------------------------------------------------------------------------------------
+
+local level1Sound = audio.loadStream("Sounds/level1bkg.mp3")
+local level1SoundChannel
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -65,7 +72,7 @@ local numQuestions = 0
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 10)    
+    randomNumber = math.random(1, 16)    
 
     if (randomNumber == 1) then
         question1textObject.text = "Which dress has horizontal lines?"
@@ -96,32 +103,57 @@ local function AskQuestion()
         question1textObject.text = "Pick the straight hair."
         correctAnswer = display.newImageRect("Images/Hair1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Hair2.png", 150, 240) 
-    
 
      elseif (randomNumber == 7) then
         question1textObject.text = "Pick the glasses with the rectangular style."
         correctAnswer = display.newImageRect("Images/glasses1.png", 250, 200)      
         wrongAnswer = display.newImageRect("Images/glasses2.png", 260, 240)
-   
 
      elseif (randomNumber == 8) then
         question1textObject.text = "Pick the glasses with the rounded style."
         correctAnswer = display.newImageRect("Images/glasses2.png", 260, 200)      
         wrongAnswer = display.newImageRect("Images/glasses1.png", 250, 240)
-      
 
-    elseif (randomNumber ==9) then
-        question1textObject.text = "Which skirt has nature colors?"
-        correctAnswer = display.newImageRect("Images/dress6.png", 260, 200)      
-        wrongAnswer = display.newImageRect("Images/dress5.png", 250, 240)               
-   
+     elseif (randomNumber == 9) then
+        question1textObject.text = "Which hat is more decorated?"
+        correctAnswer = display.newImageRect("Images/hat2.png", 260, 200)      
+        wrongAnswer = display.newImageRect("Images/hat1.png", 250, 240)
 
-    elseif (randomNumber ==10) then
-        question1textObject.text = "Which skirt has dark colors?"
-        correctAnswer = display.newImageRect("Images/dress5.png", 260, 200)      
-        wrongAnswer = display.newImageRect("Images/dress6.png", 250, 240)               
-    end
+    elseif (randomNumber == 10) then
+        question1textObject.text = "Which hat is less decorated?"
+        correctAnswer = display.newImageRect("Images/hat2.png", 260, 200)      
+        wrongAnswer = display.newImageRect("Images/hat1.png", 250, 240)
 
+    elseif (randomNumber == 11) then
+        question1textObject.text = "Which dress has geometric shapes?"
+        correctAnswer = display.newImageRect("Images/dress7.png", 250, 300)      
+        wrongAnswer = display.newImageRect("Images/dress8.png", 250, 300)
+
+    elseif (randomNumber == 12) then
+        question1textObject.text = "Which dress has simple style??"
+        correctAnswer = display.newImageRect("Images/dress8.png", 250, 250)      
+        wrongAnswer = display.newImageRect("Images/dress7.png", 250, 250)                     
+
+    elseif (randomNumber == 13) then
+        question1textObject.text = "Which handbag has bigger shapes?"
+        correctAnswer = display.newImageRect("Images/handbag1.png", 200, 200)      
+        wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
+
+    elseif (randomNumber == 14) then
+        question1textObject.text = "Which handbag has smaller shaper?"
+        correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
+        wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
+
+    elseif (randomNumber == 15) then
+        question1textObject.text = "Which handbag has less shapes?"
+        correctAnswer = display.newImageRect("Images/handbag1.png", 200, 200)      
+        wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
+
+    elseif (randomNumber == 16) then
+        question1textObject.text = "Which handbag has more shapes?"
+        correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
+        wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
+    end 
 end
 
 local function PositionAnswers()
@@ -326,14 +358,14 @@ function scene:create( event )
     --create text objects
     righttextObject = display.newText ("Hooray,you got it right!",0, 0, nil, 50)
     righttextObject.x = 700
-    righttextObject.y = display.contentHeight/3
+    righttextObject.y = 150
     righttextObject:setTextColor (245/255, 154/255, 216/255)
     righttextObject.isVisible = false
     sceneGroup:insert( righttextObject )  
 
     wrongtextObject = display.newText ("Oops,that's not right!",0, 0, nil, 50)
     wrongtextObject.x = 700
-    wrongtextObject.y = display.contentHeight/3
+    wrongtextObject.y = 150
     wrongtextObject:setTextColor (245/255, 154/255, 216/255)
     wrongtextObject.isVisible = false
     sceneGroup:insert( wrongtextObject )  
@@ -372,6 +404,7 @@ function scene:show( event )
 
         RestartLevel1()      
 
+      level1SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
     end
 
 end --function scene:show( event )

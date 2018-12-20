@@ -43,7 +43,7 @@ end
 -----------------------------------------------------------------------------------------
 
 local CreditsSound = audio.loadStream("Sounds/CreditsSound.mp3")
-local CreditsSoundChannel = audio.play( CreditsSound, { channnel=1, loops=-1} )
+local CreditsSoundChannel
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -128,6 +128,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+        CreditsSoundChannel = audio.play( CreditsSound, { channnel=1, loops=2})
     end
 
 end -- function scene:show( event )

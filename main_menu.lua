@@ -33,7 +33,7 @@ local scene = composer.newScene( sceneName )
 -----------------------------------------------------------------------------------------
 
 local MainmenuSound = audio.loadStream("Sounds/Mainmenubkg.mp3")
-local MainmenuSoundChannel = audio.play( MainmenuSound, { channnel=1, loops=-1} )
+local MainmenuSoundChannel
 
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
@@ -190,7 +190,7 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then       
-        
+        MainmenuSoundChannel = audio.play( MainmenuSound, { channnel=1, loops=2} )
 
     end
 
