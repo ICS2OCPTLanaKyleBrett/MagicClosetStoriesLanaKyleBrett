@@ -149,8 +149,8 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function YouWinTransition()
-    composer.gotoScene( "you_win" )
+local function level2Transition()
+    composer.gotoScene( "level2_screen" )
 end
 
 local function UpdateHearts()
@@ -227,8 +227,8 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function YouWinTransition()
-    composer.gotoScene( "you_win" )
+local function level2Transition()
+    composer.gotoScene( "level2_screen" )
 end
 
 
@@ -257,7 +257,7 @@ function RestartLevel1()
         -- add listeners back
         AddTouchListeners()
     else
-        YouWinTransition()
+        level2Transition()
     end
 end
 

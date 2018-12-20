@@ -78,12 +78,12 @@ local function AskQuestion()
 end
 
 local function PositionAnswers()
-    randomNumber = math.random (1, 2)
+    randomNumber = math.random (1, 3)
 
     if (randomNumber == 1) then
         -- correct answer will be on top
-        correctAnswer.x = X1
-        correctAnswer.y = Y1
+        correctAnswer.x = X2
+        correctAnswer.y = Y2
         -- wrong answer will be on bottom
         wrongAnswer.x = X2
         wrongAnswer.y = Y2
