@@ -1,4 +1,7 @@
------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--
+-- SceneTemplate.lua
+-- Scene Template (Composer API)
 --
 -----------------------------------------------------------------------------------------
 
@@ -14,7 +17,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "you_lose"
+sceneName = "you_won_level_1"
 
 -----------------------------------------------------------------------------------------
 
@@ -41,17 +44,17 @@ function scene:create( event )
     local sceneGroup = self.view
 
     -- Display background
-    bkg = display.newImage("Images/youLose.jpg")
-    bkg.x = display.contentCenterX
-    bkg.y = display.contentCenterY
-    bkg.width = display.contentWidth
-    bkg.height = display.contentHeight
+    youwin_bkg = display.newImage("Images/YWL1.jpg")
+    youwin_bkg.x = display.contentCenterX
+    youwin_bkg.y = display.contentCenterY
+    youwin_bkg.width = display.contentWidth
+    youwin_bkg.height = display.contentHeight
    
     -- Associating display objects with this scene 
-    sceneGroup:insert( bkg )
+    sceneGroup:insert( youwin_bkg )
   
 end    
-audio.stop(level1SoundChannel)
+
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------

@@ -43,6 +43,12 @@ local Y2 = 490
 local level1Sound = audio.loadStream("Sounds/level1bkg.mp3")
 local level1SoundChannel
 
+local correctSound = audio.loadStream("Sounds/Correct.mp3")
+local correctSoundChannel
+
+local incorrectSound = audio.loadStream("Sounds/Incorrect.mp3")
+local incorrectSoundChannel
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -177,13 +183,6 @@ local function PositionAnswers()
 
 end
 
-local function YouLoseTransition()
-    composer.gotoScene( "you_lose" )
-end
-
-local function YouWinTransition()
-    composer.gotoScene( "you_win" )
-end
 
 local function UpdateHearts()
     
@@ -230,6 +229,7 @@ local function correctAnswerListener(touch)
        righttextObject.isVisible = true
        numQuestions = numQuestions + 1
        timer.performWithDelay(1000, HideRightTextObject)
+       correctSoundChannel = audio.play(correctSound)
 
 
 
@@ -251,18 +251,24 @@ local function wrongAnswerListener(touch)
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
+       incorrectSoundChannel = audio.play(incorrectSound)
     end
 
 end
 
 local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
+    audio.stop(level1SoundChannel)
 end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
 end
 
+local function YouWonLevel1Transition()
+    composer.gotoScene( "you_won_level_1" )
+    audio.stop(level1SoundChannel)
+end
 
 local function AddTouchListeners()
   correctAnswer:addEventListener("touch", correctAnswerListener)
@@ -281,7 +287,7 @@ end
 
 
 function RestartLevel1()
-    if (numQuestions < 3) then
+    if (numQuestions < 4) then
         -- ask another question
         AskQuestion()
         -- position answers
@@ -289,7 +295,7 @@ function RestartLevel1()
         -- add listeners back
         AddTouchListeners()
     else
-        YouWinTransition()
+        YouWonLevel1Transition()
     end
 end
 
