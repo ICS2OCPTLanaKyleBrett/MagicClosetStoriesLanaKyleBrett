@@ -69,8 +69,6 @@ end
 -- The function that will go to the main menu 
 local function gotoMainMenu()
     composer.gotoScene( "main_menu" )
-    local MainmenuSound = audio.loadStream("Sounds/Mainmenubkg.mp3")
-    local MainmenuSoundChannel = audio.play( MainmenuSound)
 end
 
 -----------------------------------------------------------------------------------------
