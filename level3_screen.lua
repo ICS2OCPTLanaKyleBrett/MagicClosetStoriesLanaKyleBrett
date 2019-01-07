@@ -64,21 +64,18 @@ local numQuestions = 0
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 3)    
+    randomNumber = math.random(1, 2)    
 
     if (randomNumber == 1) then
+        question1textObject.text = "which snake has my lipstick."
+        correctAnswer = display.newImageRect("Images/snake1.png", 200, 300)      
+        wrongAnswer = display.newImageRect("Images/snake2.png", 200, 300)   
 
-        correctAnswer = display.newImageRect("Images/Lipstick 1.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Lipstick 2.png", 150, 240)   
-       
     elseif (randomNumber == 2) then
-        question1textObject.text = "Pick the curly hair."
-        correctAnswer = display.newImageRect("Images/Hair2.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Hair1.png", 150, 240)   
-    elseif (randomNumber == 3) then
-        question1textObject.text = "Which skirt has more colours?"
-        correctAnswer = display.newImageRect("Images/Dress4.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Dress3.png", 150, 240)   
+        question1textObject.text = "which snake doesn't have my lipstick."
+        correctAnswer = display.newImageRect("Images/snake2.png", 200, 300)      
+        wrongAnswer = display.newImageRect("Images/snake1.png", 200, 300)
+ 
     end 
 end
 
