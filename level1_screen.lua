@@ -183,8 +183,7 @@ local function PositionAnswers()
 
 end
 
-<<<<<<< HEAD
-=======
+
 local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
@@ -197,7 +196,7 @@ end
 local function level2Transition()
     composer.gotoScene( "level2_screen" )
 end
->>>>>>> e45454a3c975a41ad2a5cfa673231a720d5272e0
+
 
 local function UpdateHearts()
     
