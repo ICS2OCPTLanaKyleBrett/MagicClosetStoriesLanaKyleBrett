@@ -22,7 +22,7 @@ sceneName = "level3_screen"
 -----------------------------------------------------------------------------------------
 
 -- Creating Scene Object
-local scene = composer.newScene( level3_screen )
+local scene = composer.newScene( sceneName )
 
 -----------------------------------------------------------------------------------------
 -- LOCAL CONSTANTS
@@ -67,9 +67,10 @@ local function AskQuestion()
     randomNumber = math.random(1, 3)    
 
     if (randomNumber == 1) then
-        question1textObject.text = "Which lipstick is brighter ?"
-        correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Dress2.png", 150, 240)   
+        question1textObject.text = "Which lipstick is brighter?"
+
+        correctAnswer = display.newImageRect("Images/Lipstick 1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Lipstick 2.png", 150, 240)   
        
     elseif (randomNumber == 2) then
         question1textObject.text = "Pick the curly hair."
@@ -233,7 +234,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image
-    bkg_image = display.newImageRect("Images/Level1ScreenLanaZE.png", display.contentWidth, display.contentHeight)
+    bkg_image = display.newImageRect("Images/Level3ScreenKyle.png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -244,7 +245,7 @@ function scene:create( event )
     sceneGroup:insert( bkg_image )    
 
     --create the first character
-    character1 = display.newImageRect("Images/character1.png", 190, 240)
+    character1 = display.newImageRect("Images/character3.png", 190, 240)
     character1.x = display.contentWidth/2
     character1.y = 548
     sceneGroup:insert( character1 )   
