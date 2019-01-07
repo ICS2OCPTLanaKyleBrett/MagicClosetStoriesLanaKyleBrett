@@ -67,9 +67,14 @@ local function AskQuestion()
     randomNumber = math.random(1, 2)    
 
     if (randomNumber == 1) then
+<<<<<<< HEAD
         question1textObject.text = "which snake has my lipstick."
         correctAnswer = display.newImageRect("Images/snake1.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/snake2.png", 200, 300)   
+=======
+        question1textObject.text = "Which lipstick is brighter?"
+
+>>>>>>> a0a11efc084056c93a5228a62774c940055e91eb
 
     elseif (randomNumber == 2) then
         question1textObject.text = "which snake doesn't have my lipstick."
