@@ -78,6 +78,7 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/snake2.png", 200, 300)   
 
 
+
     elseif (randomNumber == 3) then
         question1textObject.text = "which snake doesn't have my lipstick."
         correctAnswer = display.newImageRect("Images/snake2.png", 200, 300)      
