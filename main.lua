@@ -21,4 +21,4 @@ local composer = require( "composer" )
 composer.gotoScene( "splash_screen" )
 
 
-composer.gotoScene( "main_menu" )
+
