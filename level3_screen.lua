@@ -69,6 +69,7 @@ local function AskQuestion()
     if (randomNumber == 1) then
         question1textObject.text = "Which lipstick is brighter?"
 
+
         correctAnswer = display.newImageRect("Images/Lipstick 1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Lipstick 2.png", 150, 240)   
        
