@@ -181,6 +181,11 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
+
+local function YouWinTransition()
+    composer.gotoScene( "you_win" )
+end
+
 local function level2Transition()
     composer.gotoScene( "level2_screen" )
 end

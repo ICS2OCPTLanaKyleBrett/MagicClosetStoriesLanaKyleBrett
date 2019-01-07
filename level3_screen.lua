@@ -72,8 +72,8 @@ local function AskQuestion()
 =======
         question1textObject.text = "Which lipstick is brighter?"
 >>>>>>> 6b7c377b29447fe37a820471fa50f641eef6174f
-        correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Dress2.png", 150, 240)   
+        correctAnswer = display.newImageRect("Images/Lipstick 1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Lipstick 2.png", 150, 240)   
        
     elseif (randomNumber == 2) then
         question1textObject.text = "Pick the curly hair."
