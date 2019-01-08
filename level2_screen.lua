@@ -78,10 +78,15 @@ local numQuestions = 0
 local function AskQuestion()
     randomNumber = math.random(1, 16)    
 
-    if  (randomNumber == 2) then
-        question1textObject.text = "Which HighHeel has yellow dots."
-        correctAnswer = display.newImageRect("Images/HighHeel1.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/HighHeel2.png", 150, 240)  
+    if (randomNumber == 1) then
+        question1textObject.text = "Which dress has a straight appearance?"
+        correctAnswer = display.newImageRect("Images/Dress24.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Dress10.png", 150, 240)   
+       
+    elseif (randomNumber == 2) then
+        question1textObject.text = "Pick the curly hair."
+        correctAnswer = display.newImageRect("Images/Hair2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Hair1.png", 150, 240)  
 
     elseif (randomNumber == 3) then
         question1textObject.text = "Which skirt has more colours?"
@@ -92,7 +97,63 @@ local function AskQuestion()
         question1textObject.text = "Which skirt has less colours?"
         correctAnswer = display.newImageRect("Images/Dress3.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Dress4.png", 150, 240)
-        
+
+    elseif (randomNumber == 5) then
+        question1textObject.text = "Which dress has vertical lines?"
+        correctAnswer = display.newImageRect("Images/Dress2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Dress1.png", 150, 240)
+
+    
+
+     elseif (randomNumber == 7) then
+        question1textObject.text = "Pick the glasses with the rectangular style."
+        correctAnswer = display.newImageRect("Images/glasses1.png", 250, 200)      
+        wrongAnswer = display.newImageRect("Images/glasses2.png", 260, 240)
+
+     elseif (randomNumber == 8) then
+        question1textObject.text = "Pick the glasses with the rounded style."
+        correctAnswer = display.newImageRect("Images/glasses2.png", 260, 200)      
+        wrongAnswer = display.newImageRect("Images/glasses1.png", 250, 240)
+
+     elseif (randomNumber == 9) then
+        question1textObject.text = "Which hat is more decorated?"
+        correctAnswer = display.newImageRect("Images/hat2.png", 260, 200)      
+        wrongAnswer = display.newImageRect("Images/hat1.png", 250, 240)
+
+    elseif (randomNumber == 10) then
+        question1textObject.text = "Which hat is less decorated?"
+        correctAnswer = display.newImageRect("Images/hat2.png", 260, 200)      
+        wrongAnswer = display.newImageRect("Images/hat1.png", 250, 240)
+
+    elseif (randomNumber == 11) then
+        question1textObject.text = "Which dress has geometric shapes?"
+        correctAnswer = display.newImageRect("Images/dress7.png", 250, 300)      
+        wrongAnswer = display.newImageRect("Images/dress8.png", 250, 300)
+
+    elseif (randomNumber == 12) then
+        question1textObject.text = "Which dress has simple style??"
+        correctAnswer = display.newImageRect("Images/dress8.png", 250, 250)      
+        wrongAnswer = display.newImageRect("Images/dress7.png", 250, 250)                     
+
+    elseif (randomNumber == 13) then
+        question1textObject.text = "Which handbag has bigger shapes?"
+        correctAnswer = display.newImageRect("Images/handbag1.png", 200, 200)      
+        wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
+
+    elseif (randomNumber == 14) then
+        question1textObject.text = "Which handbag has smaller shaper?"
+        correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
+        wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
+
+    elseif (randomNumber == 15) then
+        question1textObject.text = "Which handbag has less shapes?"
+        correctAnswer = display.newImageRect("Images/handbag1.png", 200, 200)      
+        wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
+
+    elseif (randomNumber == 16) then
+        question1textObject.text = "Which handbag has more shapes?"
+        correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
+        wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
     end 
 end
 

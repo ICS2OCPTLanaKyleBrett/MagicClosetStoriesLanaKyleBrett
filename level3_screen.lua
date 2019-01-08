@@ -64,7 +64,7 @@ local numQuestions = 0
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 2)    
+    randomNumber = math.random(1, 3)    
 
     if (randomNumber == 1) then
         question1textObject.text = "which snake has my lipstick."
@@ -212,7 +212,7 @@ end
 -----------------------------------------------------------------------------------------
 
 
-function RestartLevel1()
+function RestartLevel3()
     if (numQuestions < 3) then
         -- ask another question
         AskQuestion()
@@ -221,7 +221,7 @@ function RestartLevel1()
         -- add listeners back
         AddTouchListeners()
     else
-        -- 
+        level1Transiiton()
     end
 end
 
@@ -334,7 +334,7 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
         numQuestions = 0
 
-        RestartLevel1()        
+        RestartLevel3()        
 
     end
 
@@ -360,7 +360,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        RemoveTouchListeners()
+      
     end
 
 end --function scene:hide( event )
