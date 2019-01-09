@@ -1,8 +1,7 @@
 -----------------------------------------------------------------------------------------
---
--- splash_screen.lua
--- Created by: Your Name
--- Date: Month Day, Year
+-- splash_screen2.lua
+-- Created by: Lana ZahrEddin
+-- Date: Nov 2nd, 2001
 -- Description: This is the splash screen of the game. It displays the 
 -- company logo that...
 -----------------------------------------------------------------------------------------
@@ -67,8 +66,8 @@ end
 
 
 -- The function that will go to the main menu 
-local function gotoSplashscreen2()
-    composer.gotoScene( "splash_screen2" )
+local function gotoMainMenu()
+    composer.gotoScene( "main_menu" )
 end
 
 -----------------------------------------------------------------------------------------
@@ -93,7 +92,7 @@ function scene:create( event )
     textObject.alpha = 0
 
     --create the company logo and set its x and y of the logo
-    companyLogo = display.newImageRect("Images/CompanyLogoLana@2x.png", 400, 500)
+    companyLogo = display.newImageRect("Images/companyLogoKyle.png", 400, 500)
     companyLogo.x = 1000
     companyLogo.y = 570
     companyLogo.alpha = 1
@@ -131,7 +130,7 @@ function scene:show( event )
         BarbieSoundChannel = audio.play(BarbieSound)
 
         -- Go to the main menu screen after the given time.
-        timer.performWithDelay ( 4000, gotoSplashscreen2)          
+        timer.performWithDelay ( 4000, gotoMainMenu)          
         
     end
 

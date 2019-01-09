@@ -1,10 +1,9 @@
------------------------------------------------------------------------------------------
---
+-----------------------------------------------------------------------------------------------------------------------
 -- credits_screen.lua
--- Created by: Your Name
+-- Created by: Lana ZahrEddin
 -- Special thanks to Wal Wal for helping in the design of this framework.
 -- Date: Month Day, Year
--- Description: This is the credits page, displaying a back button to the main menu.
+-- Description: This is the instructions page, displaying a back button to the main menu.
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------

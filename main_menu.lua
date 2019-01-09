@@ -1,8 +1,7 @@
 -----------------------------------------------------------------------------------------
---
 -- main_menu.lua
--- Created by: Your Name
--- Date: Month Day, Year
+-- Created by: Lana ZahrEddin
+-- Date: Nov 2nd, 2001
 -- Description: This is the main menu, displaying the credits, instructions & play buttons.
 -----------------------------------------------------------------------------------------
 

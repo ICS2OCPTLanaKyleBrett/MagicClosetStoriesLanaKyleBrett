@@ -1,8 +1,7 @@
------------------------------------------------------------------------------------------
---
+-----------------------------------------------------------------------------------------------------------------------
 -- level1_screen.lua
--- Created by: Your Name
--- Date: Month Day, Year
+-- Created by: Lana ZahrEddin
+-- Date: November 2, 2001
 -- Description: This is the level 1 screen of the game.
 -----------------------------------------------------------------------------------------
 
@@ -127,8 +126,8 @@ local function AskQuestion()
 
     elseif (randomNumber == 10) then
         question1textObject.text = "Which hat is less decorated?"
-        correctAnswer = display.newImageRect("Images/hat2.png", 260, 200)      
-        wrongAnswer = display.newImageRect("Images/hat1.png", 250, 240)
+        correctAnswer = display.newImageRect("Images/hat1.png", 260, 200)      
+        wrongAnswer = display.newImageRect("Images/hat2.png", 250, 240)
 
     elseif (randomNumber == 11) then
         question1textObject.text = "Which dress has geometric shapes?"
@@ -308,7 +307,7 @@ function RestartLevel1()
         AddTouchListeners()
     else
 
-        level2Transition()
+        YouWinTransition()
 
     end
 end
