@@ -70,7 +70,7 @@ local numQuestions = 0
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 2)    
+    randomNumber = math.random(1, 6)    
 
     print ("***AskQuestion: randomNumber = " .. randomNumber)
 
@@ -79,35 +79,39 @@ local function AskQuestion()
         correctAnswer = display.newImageRect("Images/Hairball2.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Hairball1.png", 150, 240)   
        
-   
+   elseif (randomNumber == 2) then        
+        question1textObject.text = "Which Head accessories has black dots?"
+        correctAnswer = display.newImageRect("Images/Hairball1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Hairball2.png", 150, 240)   
+       
        
   
-    elseif (randomNumber == 2) then
+    elseif (randomNumber == 3) then
         question1textObject.text = "Which shoes has yellow stars?"
         correctAnswer = display.newImageRect("Images/Shoes2.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Shoes1.png", 150, 240)  
 
 
-    elseif (randomNumber == 3) then
-        question1textObject.text = "Which shoes has yellow dots?"
-        correctAnswer = display.newImageRect("Images/Shoes2.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Shoes1.png", 150, 240)  
-
- 
-
-
+    
 
     elseif (randomNumber == 4) then
-        question1textObject.text = "Which dress has a staright appearancre ?"
+        question1textObject.text = "Which dress has a straight appearance?"
         correctAnswer = display.newImageRect("Images/dress24.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/dress23.png", 150, 240)  
 
 
 
     elseif (randomNumber == 5) then
-        question1textObject.text = "Which dress has a curvy appearancre ?"
+        question1textObject.text = "Which dress has a curvy appearance?"
         correctAnswer = display.newImageRect("Images/dress23.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/dress24.png", 150, 240)  
+        wrongAnswer = display.newImageRect("Images/dress24.png", 150, 240)
+
+    elseif (randomNumber == 6) then        
+        question1textObject.text = "Which shoes has yellow dots?"
+        correctAnswer = display.newImageRect("Images/Hairball1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Hairball2.png", 150, 240)   
+       
+ 
 
 
 

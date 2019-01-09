@@ -127,8 +127,8 @@ local function AskQuestion()
 
     elseif (randomNumber == 10) then
         question1textObject.text = "Which hat is less decorated?"
-        correctAnswer = display.newImageRect("Images/hat2.png", 260, 200)      
-        wrongAnswer = display.newImageRect("Images/hat1.png", 250, 240)
+        correctAnswer = display.newImageRect("Images/hat1.png", 260, 200)      
+        wrongAnswer = display.newImageRect("Images/hat2.png", 250, 240)
 
     elseif (randomNumber == 11) then
         question1textObject.text = "Which dress has geometric shapes?"
