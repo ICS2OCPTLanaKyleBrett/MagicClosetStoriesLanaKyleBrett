@@ -1,8 +1,7 @@
------------------------------------------------------------------------------------------
---
+-----------------------------------------------------------------------------------------------------------------------
 -- level1_screen.lua
--- Created by: Your Name
--- Date: Month Day, Year
+-- Created by: Lana ZahrEddin
+-- Date: November 2, 2001
 -- Description: This is the level 1 screen of the game.
 -----------------------------------------------------------------------------------------
 
@@ -184,6 +183,7 @@ local function PositionAnswers()
 end
 
 
+
 local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
@@ -307,7 +307,7 @@ function RestartLevel1()
         AddTouchListeners()
     else
 
-        level2Transition()
+        YouWinTransition()
 
     end
 end
