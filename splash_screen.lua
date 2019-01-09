@@ -1,8 +1,7 @@
 -----------------------------------------------------------------------------------------
---
--- splash_screen.lua
--- Created by: Your Name
--- Date: Month Day, Year
+-- splash_screen2.lua
+-- Created by: Lana ZahrEddin
+-- Date: Nov 2nd, 2001
 -- Description: This is the splash screen of the game. It displays the 
 -- company logo that...
 -----------------------------------------------------------------------------------------
@@ -11,7 +10,7 @@
 local composer = require( "composer" )
 
 -- Name the Scene
-sceneName = "splash_screen2"
+sceneName = "splash_screen"
 
 -----------------------------------------------------------------------------------------
 

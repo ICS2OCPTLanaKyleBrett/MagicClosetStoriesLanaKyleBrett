@@ -1,13 +1,8 @@
-
-
-
-
-
---
--- level1_screen.lua
--- Created by: Your Name
+-----------------------------------------------------------------------------------------------------------------------
+-- level2_screen.lua
+-- Created by: Brett
 -- Date: Month Day, Year
--- Description: This is the level 1 screen of the game.
+-- Description: This is the level 2 screen of the game.
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
