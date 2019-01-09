@@ -77,7 +77,7 @@ local function AskQuestion()
     if (randomNumber == 1) then        
         question1textObject.text = "Which Head accessories has red dots?"
         correctAnswer = display.newImageRect("Images/Hairball2.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Hairball.png", 150, 240)   
+        wrongAnswer = display.newImageRect("Images/Hairball1.png", 150, 240)   
        
    
        
@@ -88,11 +88,27 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/Shoes1.png", 150, 240)  
 
 
-
     elseif (randomNumber == 3) then
+        question1textObject.text = "Which shoes has yellow dots?"
+        correctAnswer = display.newImageRect("Images/Shoes2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Shoes1.png", 150, 240)  
+
+ 
+
+
+
+    elseif (randomNumber == 4) then
         question1textObject.text = "Which dress has a staright appearancre ?"
         correctAnswer = display.newImageRect("Images/dress24.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/dress23.png", 150, 240)  
+
+
+
+    elseif (randomNumber == 5) then
+        question1textObject.text = "Which dress has a curvy appearancre ?"
+        correctAnswer = display.newImageRect("Images/dress23.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/dress24.png", 150, 240)  
+
 
 
     end 

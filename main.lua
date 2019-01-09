@@ -20,7 +20,7 @@ local composer = require( "composer" )
 
 
 
-composer.gotoScene( "level2_screen" )
+composer.gotoScene( "splash_screen2" )
 
 
 
