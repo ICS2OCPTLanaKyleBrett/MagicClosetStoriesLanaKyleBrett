@@ -1,9 +1,3 @@
-
-
-
-
-
---
 -- level1_screen.lua
 -- Created by: Your Name
 -- Date: Month Day, Year
@@ -76,17 +70,54 @@ local numQuestions = 0
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 16)    
+    randomNumber = math.random(1, 2)    
 
-    if (randomNumber == 1) then
-        question1textObject.text = "Which lipstick is brighter?"
-        correctAnswer = display.newImageRect("Images/Lipstick1.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Lipstick2.png", 150, 240) 
-    end  
-end       
+    print ("***AskQuestion: randomNumber = " .. randomNumber)
+
+    if (randomNumber == 1) then        
+        question1textObject.text = "Which Head accessories has red dots?"
+        correctAnswer = display.newImageRect("Images/Hairball2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Hairball1.png", 150, 240)   
+       
+   
+       
+  
+    elseif (randomNumber == 2) then
+        question1textObject.text = "Which shoes has yellow stars?"
+        correctAnswer = display.newImageRect("Images/Shoes2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Shoes1.png", 150, 240)  
+
+
+    elseif (randomNumber == 3) then
+        question1textObject.text = "Which shoes has yellow dots?"
+        correctAnswer = display.newImageRect("Images/Shoes2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Shoes1.png", 150, 240)  
+
+ 
+
+
+
+    elseif (randomNumber == 4) then
+        question1textObject.text = "Which dress has a staright appearancre ?"
+        correctAnswer = display.newImageRect("Images/dress24.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/dress23.png", 150, 240)  
+
+
+
+    elseif (randomNumber == 5) then
+        question1textObject.text = "Which dress has a curvy appearancre ?"
+        correctAnswer = display.newImageRect("Images/dress23.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/dress24.png", 150, 240)  
+
+
+
+    end 
+
+end
 
 local function PositionAnswers()
-    randomNumber = math.random (1, 16)
+    randomNumber = math.random (1, 2)
+    print ("***PositionAnswers: randomNumber = " .. randomNumber)
 
     if (randomNumber == 1) then
         -- correct answer will be on top
@@ -152,14 +183,14 @@ end
 
 local function correctAnswerListener(touch)
 
-    if (touch.phase == "ended") then    
-      display.remove(correctAnswer)
-      display.remove(wrongAnswer)
-       --correctAnswer.isVisible = false
-       --wrongAnswer.isVisible = false
-       righttextObject.isVisible = true
-       numQuestions = numQuestions + 1
-       timer.performWithDelay(1000, HideRightTextObject)
+    if (touch.phase == "ended") then         
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
+        --correctAnswer.isVisible = false
+        --wrongAnswer.isVisible = false
+        righttextObject.isVisible = true
+        numQuestions = numQuestions + 1
+        timer.performWithDelay(1000, HideRightTextObject)
 
 
 
@@ -268,22 +299,6 @@ function scene:create( event )
     heart1.y = 80
     sceneGroup:insert( heart1 ) 
 
-    
-    --create dresses
-     --[[
-    correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)
-    correctAnswer.x = X1
-    correctAnswer.y = Y1
-    correctAnswer.isVisible = true
-    sceneGroup:insert( correctAnswer )  
-
-    wrongAnswer = display.newImageRect("Images/Dress2.png", 150, 240)
-    wrongAnswer.x = X2
-    wrongAnswer.y = Y2
-    wrongAnswer.isVisible = true
-    sceneGroup:insert( wrongAnswer )  
-]]--
-
 
     --create text objects
     righttextObject = display.newText ("Hooray,you got it right!",0, 0, nil, 50)
@@ -334,7 +349,7 @@ function scene:show( event )
 
         RestartLevel2()      
 
-      level2SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
+        level2SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
     end
 
 end --function scene:show( event )
