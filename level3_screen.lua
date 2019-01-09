@@ -28,14 +28,21 @@ local scene = composer.newScene( sceneName )
 -- LOCAL CONSTANTS
 -----------------------------------------------------------------------------------------
 
--- the position of the top dress
+-- the firts position 
 local X1 = 150
-local Y1 = 190
+local Y1 = 490
 
--- the position of the bottom dress
-local X2 = 150
+-- the second position 
+local X2 = 800
 local Y2 = 490
 
+-- the third position 
+local X3 = 150
+local Y3 = 200
+
+-- the fourth position 
+local X4 = 700
+local Y4 = 200
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -64,23 +71,37 @@ local numQuestions = 0
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 2)    
+    randomNumber = math.random(1, 5)    
 
     if (randomNumber == 1) then
-        question1textObject.text = "which snake has my lipstick."
+        question1textObject.text = "which snake has my lipstick?"
         correctAnswer = display.newImageRect("Images/snake1.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/snake2.png", 200, 300)   
 
     elseif (randomNumber == 2) then
-        question1textObject.text = "which snake doesn't have my lipstick."
+        question1textObject.text = "which snake doesn't have my lipstick?"
         correctAnswer = display.newImageRect("Images/snake2.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/snake1.png", 200, 300)
- 
+
+     elseif (randomNumber == 3) then
+        question1textObject.text = "which bear has my shoes on?"
+        correctAnswer = display.newImageRect("Images/bear1.png", 200, 300)      
+        wrongAnswer = display.newImageRect("Images/bear2.png", 200, 300)
+
+     elseif (randomNumber == 4) then
+        question1textObject.text = "which bear doesn't have my shoes on?"
+        correctAnswer = display.newImageRect("Images/bear2.png", 200, 300)      
+        wrongAnswer = display.newImageRect("Images/bear1.png", 200, 300)  
+
+     elseif (randomNumber == 5) then
+        question1textObject.text = "can you find my yellow glasses?"
+        correctAnswer = display.newImageRect("Images/glasses1 .png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/glasses2 .png", 90, 120)  
     end 
 end
 
 local function PositionAnswers()
-    randomNumber = math.random (1, 3)
+    randomNumber = math.random (1, 4)
 
     if (randomNumber == 1) then
         -- correct answer will be on top
@@ -89,6 +110,7 @@ local function PositionAnswers()
         -- wrong answer will be on bottom
         wrongAnswer.x = X2
         wrongAnswer.y = Y2
+
     else
         -- correct answer will be on bottom
         correctAnswer.x = X2
@@ -96,6 +118,7 @@ local function PositionAnswers()
         -- wrong answer will be on top
         wrongAnswer.x = X1
         wrongAnswer.y = Y1
+    
     end
 
 end
@@ -360,7 +383,7 @@ end --function scene:hide( event )
 -----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to be destroyed
-function scene:destroy( event )
+function destroy( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view

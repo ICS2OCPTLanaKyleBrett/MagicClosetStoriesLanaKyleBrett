@@ -28,7 +28,7 @@ scene = composer.newScene( sceneName ) -- This function doesn't accept a string,
 -----------------------------------------------------------------------------------------
 
 local InstructionSound = audio.loadStream("Sounds/Instructionbkg.mp3")
-local InstructionSoundChannel = audio.play( InstructionSound, { channnel=1, loops=-1} )
+local InstructionSoundChannel
 
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
