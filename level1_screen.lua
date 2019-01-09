@@ -1,7 +1,8 @@
------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+--
 -- level1_screen.lua
--- Created by: Lana ZahrEddin
--- Date: November 2, 2001
+-- Created by: Your Name
+-- Date: Month Day, Year
 -- Description: This is the level 1 screen of the game.
 -----------------------------------------------------------------------------------------
 
@@ -145,7 +146,7 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
 
     elseif (randomNumber == 14) then
-        question1textObject.text = "Which handbag has smaller shaper?"
+        question1textObject.text = "Which handbag has smaller shapes?"
         correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
         wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
 
@@ -181,7 +182,6 @@ local function PositionAnswers()
     end
 
 end
-
 
 
 local function YouLoseTransition()
@@ -272,13 +272,15 @@ local function YouLoseTransition()
     audio.stop(level1SoundChannel)
 end
 
-local function level2Transition()
-    composer.gotoScene( "level2_screen" )
-end
+
 
 local function YouWonLevel1Transition()
     composer.gotoScene( "you_won_level_1" )
     audio.stop(level1SoundChannel)
+end
+
+local function level2Transition()
+    composer.gotoScene( "level2_screen" )
 end
 
 local function AddTouchListeners()
@@ -305,9 +307,10 @@ function RestartLevel1()
         PositionAnswers()
         -- add listeners back
         AddTouchListeners()
+        YouWonLevel1Transition()
     else
-
-        YouWinTransition()
+       
+        level2Transition()
 
     end
 end
