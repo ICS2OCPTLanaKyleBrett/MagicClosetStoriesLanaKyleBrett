@@ -189,7 +189,6 @@ local function YouLoseTransition()
 end
 
 
-
 local function level2Transition()
     composer.gotoScene( "level2_screen" )
 end
@@ -227,7 +226,6 @@ local function HideWrongTextObject()
     wrongtextObject.isVisible = false
     RestartLevel1()
 end
-
 
 
 local function correctAnswerListener(touch)
