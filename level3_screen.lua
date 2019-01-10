@@ -60,6 +60,10 @@ local heart4
 local randomNumber
 local numQuestions = 0
 
+local youWinSound = audio.loadStream("Sounds/youWin.mp3")
+local youWinSoundChannel
+
+
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -122,6 +126,8 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
+    audio.stop(level1SoundChannel)
+    audio.play(youWinSoundChannel)
 end
 
 local function UpdateHearts()
@@ -229,7 +235,7 @@ function RestartLevel1()
         -- add listeners back
         AddTouchListeners()
     else
-        -- 
+       YouWinTransition() 
     end
 end
 
@@ -368,7 +374,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        RemoveTouchListeners()
+        
     end
 
 end --function scene:hide( event )

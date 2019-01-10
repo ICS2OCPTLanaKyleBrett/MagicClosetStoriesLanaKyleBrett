@@ -357,7 +357,7 @@ function scene:show( event )
 
         RestartLevel2()      
 
-        level2SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
+        level2SoundChannel = audio.play( level2Sound, { channnel=1, loops=2})
     end
 
 end --function scene:show( event )
