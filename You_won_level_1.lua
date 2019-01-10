@@ -55,6 +55,10 @@ function scene:create( event )
   
 end    
 
+local function level2Transition()
+    composer.gotoScene( "level2_screen" )
+end
+
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -110,6 +114,8 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        level2Transition()
+
     end
 
 end

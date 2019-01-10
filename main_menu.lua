@@ -54,8 +54,8 @@ end
 -----------------------------------------------------------------------------------------
 
 -- Creating Transition to Level1 Screen
-local function Level1ScreenTransition( )
-    composer.gotoScene( "level1_screen", {effect = "slideDown", time = 1000})
+local function LevelSelectScreenTransition( )
+    composer.gotoScene( "level_select", {effect = "slideDown", time = 1000})
 end    
 
 ----------------------------------------------------------------------------------------
@@ -110,7 +110,7 @@ function scene:create( event )
             overFile = "Images/Start Button Pressed.png",
 
             -- When the button is released, call the Level1 screen transition function
-            onRelease = Level1ScreenTransition          
+            onRelease = LevelSelectScreenTransition          
         } )
 
     -----------------------------------------------------------------------------------------
