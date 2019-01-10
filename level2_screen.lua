@@ -115,6 +115,11 @@ local function AskQuestion()
         correctAnswer = display.newImageRect("Images/Hairball1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Hairball2.png", 150, 240)   
        
+   elseif (randomNumber == 7) then        
+        question1textObject.text = "Which bracelet has more beads?"
+        correctAnswer = display.newImageRect("Images/bracelet1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet2.png", 150, 240)   
+       
  
 
 
@@ -357,7 +362,7 @@ function scene:show( event )
 
         RestartLevel2()      
 
-        level2SoundChannel = audio.play( level2Sound, { channnel=1, loops=2})
+        level2SoundChannel = audio.play( level2Sound, { channnel=2, loops=2})
     end
 
 end --function scene:show( event )
@@ -367,6 +372,7 @@ end --function scene:show( event )
 -- The function called when the scene is issued to leave the screen
 function scene:hide( event )
 
+
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
     local phase = event.phase
@@ -374,6 +380,9 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
+        audio.stop(level1SoundChannel)
+
+
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
@@ -385,7 +394,10 @@ function scene:hide( event )
         display.remove(correctAnswer)
         display.remove(wrongAnswer)
     end
-
+        Runtime:removeEventListener("enterFrame", Movelogo)
+        Runtime:removeEventListener("enterFrame", MoveText)
+        -- stop the level2 sounds channel for this screen
+        audio.stop(level2SoundChannel)
 end --function scene:hide( event )
 
 -----------------------------------------------------------------------------------------

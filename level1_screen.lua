@@ -49,8 +49,6 @@ local correctSoundChannel
 local incorrectSound = audio.loadStream("Sounds/Incorrect.mp3")
 local incorrectSoundChannel
 
-local youWinSound = audio.loadStream("Sounds/youWin.mp3")
-local youWinSoundChannel
 
 
 -----------------------------------------------------------------------------------------
@@ -273,15 +271,12 @@ end
 
 local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
-    audio.stop(level1SoundChannel)
 end
 
 
 
 local function YouWonLevel1Transition()
     composer.gotoScene( "you_won_level_1" )
-    audio.stop(level1SoundChannel)
-    audio.play(youWin)
 end
 
 local function level2Transition()
@@ -418,6 +413,9 @@ function scene:show( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
+        audio.stop(level1SoundChannel)
+
+
 
         -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
@@ -431,9 +429,8 @@ function scene:show( event )
 
         RestartLevel1()      
 
-      level1SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
-    -- stop the level 1 sound for this screen 
-     audio.stop(levelSoundChannel)
+        level1SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
+   
     end
     
 
@@ -462,11 +459,6 @@ function scene:hide( event )
         display.remove(correctAnswer)
         display.remove(wrongAnswer)
     
-
-        --function scene:hide( event )
-
-        -- Called immediately after scene goes off screen.
-    elseif ( phase == "did" ) then
         Runtime:removeEventListener("enterFrame", Movelogo)
         Runtime:removeEventListener("enterFrame", MoveText)
         -- stop the level1 sounds channel for this screen
