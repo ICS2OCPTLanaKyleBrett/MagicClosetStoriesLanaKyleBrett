@@ -1,7 +1,8 @@
------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+--
 -- level1_screen.lua
--- Created by: Lana ZahrEddin
--- Date: November 2, 2001
+-- Created by: Your Name
+-- Date: Month Day, Year
 -- Description: This is the level 1 screen of the game.
 -----------------------------------------------------------------------------------------
 
@@ -47,6 +48,8 @@ local correctSoundChannel
 
 local incorrectSound = audio.loadStream("Sounds/Incorrect.mp3")
 local incorrectSoundChannel
+
+
 
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
@@ -145,7 +148,7 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
 
     elseif (randomNumber == 14) then
-        question1textObject.text = "Which handbag has smaller shaper?"
+        question1textObject.text = "Which handbag has smaller shapes?"
         correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
         wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
 
@@ -181,7 +184,6 @@ local function PositionAnswers()
     end
 
 end
-
 
 
 local function YouLoseTransition()
@@ -267,16 +269,16 @@ end
 
 local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
-    audio.stop(level1SoundChannel)
+end
+
+
+
+local function YouWonLevel1Transition()
+    composer.gotoScene( "you_won_level_1" )
 end
 
 local function level2Transition()
     composer.gotoScene( "level2_screen" )
-end
-
-local function YouWonLevel1Transition()
-    composer.gotoScene( "you_won_level_1" )
-    audio.stop(level1SoundChannel)
 end
 
 local function AddTouchListeners()
@@ -303,9 +305,10 @@ function RestartLevel1()
         PositionAnswers()
         -- add listeners back
         AddTouchListeners()
-    else
 
-        YouWinTransition()
+    else
+       
+        level2Transition()
 
     end
 end
@@ -408,6 +411,9 @@ function scene:show( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
+        audio.stop(level1SoundChannel)
+
+
 
         -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
@@ -421,8 +427,10 @@ function scene:show( event )
 
         RestartLevel1()      
 
-      level1SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
+        level1SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
+   
     end
+    
 
 end --function scene:show( event )
 
@@ -448,9 +456,15 @@ function scene:hide( event )
         -- Called immediately after scene goes off screen.
         display.remove(correctAnswer)
         display.remove(wrongAnswer)
+    
+        Runtime:removeEventListener("enterFrame", Movelogo)
+        Runtime:removeEventListener("enterFrame", MoveText)
+        -- stop the level1 sounds channel for this screen
+        audio.stop(level1SoundChannel)
     end
 
 end --function scene:hide( event )
+
 
 -----------------------------------------------------------------------------------------
 
