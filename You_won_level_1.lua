@@ -1,8 +1,8 @@
 ----------------------------------------------------------------------------------------
---
--- SceneTemplate.lua
--- Scene Template (Composer API)
---
+-- you_won_level1.lua
+-- Created by: Lana ZahrEddin
+-- Date: Nov 2nd, 2001
+-- Description: This is you won level 1 screen.
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
@@ -54,6 +54,10 @@ function scene:create( event )
     sceneGroup:insert( youwin_bkg )
   
 end    
+
+local function level2Transition()
+    composer.gotoScene( "level2_screen" )
+end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -110,6 +114,8 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        level2Transition()
+
     end
 
 end

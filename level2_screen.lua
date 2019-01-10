@@ -1,13 +1,11 @@
 
-
-
-
-
---
+-----------------------------------------------------------------------------------------------------------------------
+-- level2_screen.lua
+-- Created by: Brett
 -- level1_screen.lua
 -- Created by: Your Name
 -- Date: Month Day, Year
--- Description: This is the level 1 screen of the game.
+-- Description: This is the level 2 screen of the game.
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
@@ -76,89 +74,63 @@ local numQuestions = 0
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 16)    
+    randomNumber = math.random(1, 6)    
 
-    if (randomNumber == 1) then
-        question1textObject.text = "Which dress has a straight appearance?"
-        correctAnswer = display.newImageRect("Images/Dress24.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Dress10.png", 150, 240)   
+    print ("***AskQuestion: randomNumber = " .. randomNumber)
+
+    if (randomNumber == 1) then        
+        question1textObject.text = "Which Head accessories has red dots?"
+        correctAnswer = display.newImageRect("Images/Hairball2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Hairball1.png", 150, 240)   
        
-    elseif (randomNumber == 2) then
-        question1textObject.text = "Pick the curly hair."
-        correctAnswer = display.newImageRect("Images/Hair2.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Hair1.png", 150, 240)  
-
+   elseif (randomNumber == 2) then        
+        question1textObject.text = "Which Head accessories has black dots?"
+        correctAnswer = display.newImageRect("Images/Hairball1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Hairball2.png", 150, 240)   
+       
+       
+  
     elseif (randomNumber == 3) then
-        question1textObject.text = "Which skirt has more colours?"
-        correctAnswer = display.newImageRect("Images/Dress4.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Dress3.png", 150, 240)  
+        question1textObject.text = "Which shoes has yellow stars?"
+        correctAnswer = display.newImageRect("Images/Shoes2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Shoes1.png", 150, 240)  
 
-    elseif (randomNumber == 4) then
-        question1textObject.text = "Which skirt has less colours?"
-        correctAnswer = display.newImageRect("Images/Dress3.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Dress4.png", 150, 240)
-
-    elseif (randomNumber == 5) then
-        question1textObject.text = "Which dress has vertical lines?"
-        correctAnswer = display.newImageRect("Images/Dress2.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Dress1.png", 150, 240)
 
     
 
-     elseif (randomNumber == 7) then
-        question1textObject.text = "Pick the glasses with the rectangular style."
-        correctAnswer = display.newImageRect("Images/glasses1.png", 250, 200)      
-        wrongAnswer = display.newImageRect("Images/glasses2.png", 260, 240)
+    elseif (randomNumber == 4) then
+        question1textObject.text = "Which dress has a straight appearance?"
+        correctAnswer = display.newImageRect("Images/dress24.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/dress23.png", 150, 240)  
 
-     elseif (randomNumber == 8) then
-        question1textObject.text = "Pick the glasses with the rounded style."
-        correctAnswer = display.newImageRect("Images/glasses2.png", 260, 200)      
-        wrongAnswer = display.newImageRect("Images/glasses1.png", 250, 240)
 
-     elseif (randomNumber == 9) then
-        question1textObject.text = "Which hat is more decorated?"
-        correctAnswer = display.newImageRect("Images/hat2.png", 260, 200)      
-        wrongAnswer = display.newImageRect("Images/hat1.png", 250, 240)
 
-    elseif (randomNumber == 10) then
-        question1textObject.text = "Which hat is less decorated?"
-        correctAnswer = display.newImageRect("Images/hat2.png", 260, 200)      
-        wrongAnswer = display.newImageRect("Images/hat1.png", 250, 240)
+    elseif (randomNumber == 5) then
+        question1textObject.text = "Which dress has a curvy appearance?"
+        correctAnswer = display.newImageRect("Images/dress23.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/dress24.png", 150, 240)
 
-    elseif (randomNumber == 11) then
-        question1textObject.text = "Which dress has geometric shapes?"
-        correctAnswer = display.newImageRect("Images/dress7.png", 250, 300)      
-        wrongAnswer = display.newImageRect("Images/dress8.png", 250, 300)
+    elseif (randomNumber == 6) then        
+        question1textObject.text = "Which shoes has yellow dots?"
+        correctAnswer = display.newImageRect("Images/Hairball1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Hairball2.png", 150, 240)   
+       
+   elseif (randomNumber == 7) then        
+        question1textObject.text = "Which bracelet has more beads?"
+        correctAnswer = display.newImageRect("Images/bracelet1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet2.png", 150, 240)   
+       
+ 
 
-    elseif (randomNumber == 12) then
-        question1textObject.text = "Which dress has simple style??"
-        correctAnswer = display.newImageRect("Images/dress8.png", 250, 250)      
-        wrongAnswer = display.newImageRect("Images/dress7.png", 250, 250)                     
 
-    elseif (randomNumber == 13) then
-        question1textObject.text = "Which handbag has bigger shapes?"
-        correctAnswer = display.newImageRect("Images/handbag1.png", 200, 200)      
-        wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
 
-    elseif (randomNumber == 14) then
-        question1textObject.text = "Which handbag has smaller shaper?"
-        correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
-        wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
-
-    elseif (randomNumber == 15) then
-        question1textObject.text = "Which handbag has less shapes?"
-        correctAnswer = display.newImageRect("Images/handbag1.png", 200, 200)      
-        wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
-
-    elseif (randomNumber == 16) then
-        question1textObject.text = "Which handbag has more shapes?"
-        correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
-        wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
     end 
+
 end
 
 local function PositionAnswers()
-    randomNumber = math.random (1, 16)
+    randomNumber = math.random (1, 2)
+    print ("***PositionAnswers: randomNumber = " .. randomNumber)
 
     if (randomNumber == 1) then
         -- correct answer will be on top
@@ -224,14 +196,14 @@ end
 
 local function correctAnswerListener(touch)
 
-    if (touch.phase == "ended") then    
-      display.remove(correctAnswer)
-      display.remove(wrongAnswer)
-       --correctAnswer.isVisible = false
-       --wrongAnswer.isVisible = false
-       righttextObject.isVisible = true
-       numQuestions = numQuestions + 1
-       timer.performWithDelay(1000, HideRightTextObject)
+    if (touch.phase == "ended") then         
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
+        --correctAnswer.isVisible = false
+        --wrongAnswer.isVisible = false
+        righttextObject.isVisible = true
+        numQuestions = numQuestions + 1
+        timer.performWithDelay(1000, HideRightTextObject)
 
 
 
@@ -340,22 +312,6 @@ function scene:create( event )
     heart1.y = 80
     sceneGroup:insert( heart1 ) 
 
-    
-    --create dresses
-     --[[
-    correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)
-    correctAnswer.x = X1
-    correctAnswer.y = Y1
-    correctAnswer.isVisible = true
-    sceneGroup:insert( correctAnswer )  
-
-    wrongAnswer = display.newImageRect("Images/Dress2.png", 150, 240)
-    wrongAnswer.x = X2
-    wrongAnswer.y = Y2
-    wrongAnswer.isVisible = true
-    sceneGroup:insert( wrongAnswer )  
-]]--
-
 
     --create text objects
     righttextObject = display.newText ("Hooray,you got it right!",0, 0, nil, 50)
@@ -406,7 +362,7 @@ function scene:show( event )
 
         RestartLevel2()      
 
-      level2SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
+        level2SoundChannel = audio.play( level2Sound, { channnel=2, loops=2})
     end
 
 end --function scene:show( event )
@@ -416,6 +372,7 @@ end --function scene:show( event )
 -- The function called when the scene is issued to leave the screen
 function scene:hide( event )
 
+
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
     local phase = event.phase
@@ -423,6 +380,9 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
+        audio.stop(level1SoundChannel)
+
+
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
@@ -434,7 +394,10 @@ function scene:hide( event )
         display.remove(correctAnswer)
         display.remove(wrongAnswer)
     end
-
+        Runtime:removeEventListener("enterFrame", Movelogo)
+        Runtime:removeEventListener("enterFrame", MoveText)
+        -- stop the level2 sounds channel for this screen
+        audio.stop(level2SoundChannel)
 end --function scene:hide( event )
 
 -----------------------------------------------------------------------------------------

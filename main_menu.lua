@@ -1,8 +1,7 @@
 -----------------------------------------------------------------------------------------
---
 -- main_menu.lua
--- Created by: Your Name
--- Date: Month Day, Year
+-- Created by: Lana ZahrEddin
+-- Date: Nov 2nd, 2001
 -- Description: This is the main menu, displaying the credits, instructions & play buttons.
 -----------------------------------------------------------------------------------------
 
@@ -55,8 +54,8 @@ end
 -----------------------------------------------------------------------------------------
 
 -- Creating Transition to Level1 Screen
-local function Level1ScreenTransition( )
-    composer.gotoScene( "level1_screen", {effect = "slideDown", time = 1000})
+local function LevelSelectScreenTransition( )
+    composer.gotoScene( "level_select", {effect = "slideDown", time = 1000})
 end    
 
 ----------------------------------------------------------------------------------------
@@ -111,7 +110,7 @@ function scene:create( event )
             overFile = "Images/Start Button Pressed.png",
 
             -- When the button is released, call the Level1 screen transition function
-            onRelease = Level1ScreenTransition          
+            onRelease = LevelSelectScreenTransition          
         } )
 
     -----------------------------------------------------------------------------------------
