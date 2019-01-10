@@ -311,8 +311,7 @@ function RestartLevel1()
     else
 
         YouWonLevel1Transition()
-        level2Transition()
-
+        
     end
 end
 

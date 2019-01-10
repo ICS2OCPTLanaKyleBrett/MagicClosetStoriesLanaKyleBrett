@@ -60,6 +60,10 @@ local heart4
 local randomNumber
 local numQuestions = 0
 
+local youWinSound = audio.loadStream("Sounds/youWin.mp3")
+local youWinSoundChannel
+
+
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -122,6 +126,8 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
+    audio.stop(level1SoundChannel)
+    audio.play(youWinSoundChannel)
 end
 
 local function UpdateHearts()
@@ -200,6 +206,8 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
+    audio.stop(level1SoundChannel)
+    audio.play(youWinSoundChannel)
 end
 
 
@@ -229,7 +237,7 @@ function RestartLevel1()
         -- add listeners back
         AddTouchListeners()
     else
-        -- 
+       YouWinTransition() 
     end
 end
 
@@ -343,7 +351,7 @@ function scene:show( event )
         numQuestions = 0
 
         RestartLevel1()        
-
+        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=2})
     end
 
 end --function scene:show( event )
@@ -363,12 +371,16 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+      audio.stop(level3SoundChannel)
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        RemoveTouchListeners()
+        Runtime:removeEventListener("enterFrame", Movelogo)
+        Runtime:removeEventListener("enterFrame", MoveText)
+        -- stop the level2 sounds channel for this screen
+        audio.stop(level3SoundChannel)
     end
 
 end --function scene:hide( event )
