@@ -58,7 +58,7 @@ local heart3
 local heart4
 
 local randomNumber
-local numQuestions = 0
+local numQuestionsRight = 0
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -165,12 +165,12 @@ end
 
 local function HideRightTextObject()
     righttextObject.isVisible = false
-    RestartLevel1()
+    RestartLevel3()
 end
 
 local function HideWrongTextObject()
     wrongtextObject.isVisible = false
-    RestartLevel1()
+    RestartLevel3()
 end
 
 
@@ -183,7 +183,7 @@ local function correctAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        righttextObject.isVisible = true
-       numQuestions = numQuestions + 1
+       numQuestionsRight = numQuestionsRight + 1
        timer.performWithDelay(1000, HideRightTextObject)
 
 
@@ -201,8 +201,7 @@ local function wrongAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
-       numQuestions = numQuestions + 1
-
+      
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
@@ -243,19 +242,17 @@ end
 
 
 function RestartLevel3()
-  if (numQuestionsRight < 3) then
-      -- ask another question
-      AskQuestion()
-      -- position answers
-      PositionAnswers()
-      -- add listeners back
-      AddTouchListeners()
-       RestartLevel1()
-    
-
+    if (numQuestionsRight < 3) then
+        -- ask another question
+        AskQuestion()
+        -- position answers
+        PositionAnswers()
+        -- add listeners back
+        AddTouchListeners()
+    else
+        YouWinTransition()
     end
 end
-
 ------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -347,27 +344,28 @@ end --function scene:create( event )
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
 
-    -- Creating a group that associates objects with the scene
-    local sceneGroup = self.view
-    local phase = event.phase
+  -- Creating a group that associates objects with the scene
+  local sceneGroup = self.view
+  local phase = event.phase
 
+  -----------------------------------------------------------------------------------------
+
+  if ( phase == "will" ) then
+
+    -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
 
-    if ( phase == "will" ) then
+  elseif ( phase == "did" ) then
 
-        -- Called when the scene is still off screen (but is about to come on screen).
-    -----------------------------------------------------------------------------------------
+    -- Called when the scene is now on screen.
+    -- Insert code here to make the scene come alive.
+    -- Example: start timers, begin animation, play audio, etc.
+    numQuestionsRight = 0
 
-    elseif ( phase == "did" ) then
-
-        -- Called when the scene is now on screen.
-        -- Insert code here to make the scene come alive.
-        -- Example: start timers, begin animation, play audio, etc.
-        numQuestions = 0
-
-        RestartLevel1()        
-
-    end
+    RestartLevel3()        
+    
+    level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=2})
+  end
 
 end --function scene:show( event )
 
@@ -383,6 +381,8 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
+        audio.stop(level3SoundChannel)
+        
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
@@ -390,8 +390,13 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- Called immediately after scene goes off screen.
-        RemoveTouchListeners()
+         -- Called immediately after scene goes off screen.
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
+        Runtime:removeEventListener("enterFrame", Movelogo)
+        Runtime:removeEventListener("enterFrame", MoveText)
+        -- stop the level2 sounds channel for this screen
+        audio.stop(level3SoundChannel)
     end
 
 end --function scene:hide( event )
