@@ -67,8 +67,8 @@ local numQuestionsRight = 0
 local youWinSound = audio.loadStream("Sounds/youWin.mp3")
 local youWinSoundChannel
 
-local level3bkg = audio.loadStream("Sounds/level3bkg.mp3")
-local level3bkgSoundChannel
+local level3Sound = audio.loadStream("Sounds/level3bkg.mp3")
+local level3SoundChannel
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -76,27 +76,27 @@ local function AskQuestion()
     randomNumber = math.random(1, 5)    
 
     if (randomNumber == 1) then
-        question1textObject.text = "which snake has my lipstick?"
+        question1textObject.text = "Which snake has my lipstick?"
         correctAnswer = display.newImageRect("Images/snake1.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/snake2.png", 200, 300)   
 
     elseif (randomNumber == 2) then
-        question1textObject.text = "which snake doesn't have my lipstick?"
+        question1textObject.text = "Which snake doesn't have my lipstick?"
         correctAnswer = display.newImageRect("Images/snake2.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/snake1.png", 200, 300)
 
      elseif (randomNumber == 3) then
-        question1textObject.text = "which bear has my shoes on?"
+        question1textObject.text = "Which bear has my shoes on?"
         correctAnswer = display.newImageRect("Images/bear1.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/bear2.png", 200, 300)
 
      elseif (randomNumber == 4) then
-        question1textObject.text = "which bear doesn't have my shoes on?"
+        question1textObject.text = "Which bear doesn't have my shoes on?"
         correctAnswer = display.newImageRect("Images/bear2.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/bear1.png", 200, 300)  
 
      elseif (randomNumber == 5) then
-        question1textObject.text = "can you find my yellow glasses?"
+        question1textObject.text = "Can you find my yellow glasses?"
         correctAnswer = display.newImageRect("Images/glasses1 .png", 90, 120)      
         wrongAnswer = display.newImageRect("Images/glasses2 .png", 90, 120)  
     end 
@@ -160,12 +160,12 @@ end
 
 local function HideRightTextObject()
     righttextObject.isVisible = false
-    RestartLevel1()
+    RestartLevel3()
 end
 
 local function HideWrongTextObject()
     wrongtextObject.isVisible = false
-    RestartLevel1()
+    RestartLevel3()
 end
 
 
@@ -312,7 +312,7 @@ function scene:create( event )
     righttextObject = display.newText ("Hooray,you got it right!",2, 2, nil, 50)
     righttextObject.x = 700
     righttextObject.y = display.contentHeight/3
-    righttextObject:setTextColor (245/255, 154/255, 216/255)
+    righttextObject:setTextColor (0/255, 0/255, 0/255)
     righttextObject.isVisible = false
     sceneGroup:insert( righttextObject )  
 
@@ -326,7 +326,7 @@ function scene:create( event )
     question1textObject = display.newText ("",0, 0, nil, 50)
     question1textObject.x = display.contentWidth/2
     question1textObject.y = 710
-    question1textObject:setTextColor (245/255, 154/255, 216/255)
+    question1textObject:setTextColor (255/255, 255/255, 255/255)
     question1textObject.isVisible = true
     sceneGroup:insert( question1textObject )  
 
