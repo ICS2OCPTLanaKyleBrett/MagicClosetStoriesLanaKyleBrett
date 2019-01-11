@@ -159,9 +159,12 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function level3Transition()
-    composer.gotoScene( "level3_screen" )
+local function YouWonLevel2Transition()
+    composer.gotoScene( "You_Won_level_2" )
 end
+
+
+
 
 local function UpdateHearts()
     
@@ -237,8 +240,8 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function level3Transition()
-    composer.gotoScene( "level3_screen" )
+local function YouWonLevel2Transition()
+    composer.gotoScene( "You_Won_level_2" )
 end
 
 
@@ -267,7 +270,7 @@ function RestartLevel2()
         -- add listeners back
         AddTouchListeners()
     else
-        level3Transition()
+        YouWonlevel2Transition()
     end
 end
 
@@ -384,7 +387,7 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
-        audio.stop(level1SoundChannel)
+        audio.stop(level2SoundChannel)
 
 
         -- Called when the scene is on screen (but is about to go off screen).

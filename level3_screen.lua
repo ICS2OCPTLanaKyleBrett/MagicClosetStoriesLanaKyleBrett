@@ -222,14 +222,14 @@ local function wrongAnswerListener(touch)
 end
 
 local function YouLoseTransition()
-    composer.gotoScene( "you_lose" )
+  composer.gotoScene( "you_lose" )
 end
 
 local function YouWinTransition()
-    composer.gotoScene( "you_win" )
+  composer.gotoScene( "you_win" )
 
-    audio.stop(level3kgSoundChannel)
-    audio.play(youWinSoundChannel)
+  audio.stop(level3kgSoundChannel)
+  audio.play(youWinSoundChannel)
 end
 
 
@@ -251,16 +251,13 @@ end
 
 
 function RestartLevel3()
-    if (numQuestions < 6) then
-    if (numQuestionsRight < 3) then
-        -- ask another question
-        AskQuestion()
-        -- position answers
-        PositionAnswers()
-        -- add listeners back
-        AddTouchListeners()
-    else
-        -- 
+  if (numQuestionsRight < 3) then
+      -- ask another question
+      AskQuestion()
+      -- position answers
+      PositionAnswers()
+      -- add listeners back
+      AddTouchListeners()
     end
 end
 
