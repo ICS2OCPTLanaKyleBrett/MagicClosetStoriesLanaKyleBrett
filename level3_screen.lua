@@ -60,40 +60,52 @@ local heart4
 local randomNumber
 local numQuestions = 0
 
-local youWinSound = audio.loadStream("Sounds/youWin.mp3")
-local youWinSoundChannel
-
-
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 5)    
+    randomNumber = math.random(1, 8)    
 
     if (randomNumber == 1) then
-        question1textObject.text = "which snake has my lipstick?"
+        question1textObject.text = "Which snake has my lipstick?"
         correctAnswer = display.newImageRect("Images/snake1.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/snake2.png", 200, 300)   
 
     elseif (randomNumber == 2) then
-        question1textObject.text = "which snake doesn't have my lipstick?"
+        question1textObject.text = "Which snake doesn't have my lipstick?"
         correctAnswer = display.newImageRect("Images/snake2.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/snake1.png", 200, 300)
 
      elseif (randomNumber == 3) then
-        question1textObject.text = "which bear has my shoes on?"
+        question1textObject.text = "Which bear has my shoes on?"
         correctAnswer = display.newImageRect("Images/bear1.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/bear2.png", 200, 300)
 
      elseif (randomNumber == 4) then
-        question1textObject.text = "which bear doesn't have my shoes on?"
+        question1textObject.text = "Which bear doesn't have my shoes on?"
         correctAnswer = display.newImageRect("Images/bear2.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/bear1.png", 200, 300)  
 
      elseif (randomNumber == 5) then
-        question1textObject.text = "can you find my yellow glasses?"
+        question1textObject.text = "Can you find my yellow glasses?"
         correctAnswer = display.newImageRect("Images/glasses1 .png", 90, 120)      
         wrongAnswer = display.newImageRect("Images/glasses2 .png", 90, 120)  
+
+     elseif (randomNumber == 6) then
+        question1textObject.text = "Can you find my blue glasses?"
+        correctAnswer = display.newImageRect("Images/glasses2 .png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/glasses1 .png", 90, 120) 
+
+      elseif (randomNumber == 7) then
+        question1textObject.text = "Can you find my purple glasses?"
+        correctAnswer = display.newImageRect("Images/glasses3 .png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/glasses4 .png", 90, 120)
+
+     elseif (randomNumber == 8) then
+        question1textObject.text = "Can you find my white glasses?"
+        correctAnswer = display.newImageRect("Images/glasses4 .png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/glasses3 .png", 90, 120)
+
     end 
 end
 
@@ -126,8 +138,6 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
-    audio.stop(level1SoundChannel)
-    audio.play(youWinSoundChannel)
 end
 
 local function UpdateHearts()
@@ -155,12 +165,12 @@ end
 
 local function HideRightTextObject()
     righttextObject.isVisible = false
-    RestartLevel1()
+    RestartLevel3()
 end
 
 local function HideWrongTextObject()
     wrongtextObject.isVisible = false
-    RestartLevel1()
+    RestartLevel3()
 end
 
 
@@ -206,8 +216,6 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
-    audio.stop(level1SoundChannel)
-    audio.play(youWinSoundChannel)
 end
 
 
@@ -228,8 +236,8 @@ end
 -----------------------------------------------------------------------------------------
 
 
-function RestartLevel1()
-    if (numQuestions < 3) then
+function RestartLevel3()
+    if (numQuestions < 6) then
         -- ask another question
         AskQuestion()
         -- position answers
@@ -237,7 +245,7 @@ function RestartLevel1()
         -- add listeners back
         AddTouchListeners()
     else
-       YouWinTransition() 
+        -- 
     end
 end
 
@@ -350,8 +358,8 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
         numQuestions = 0
 
-        RestartLevel1()        
-        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=2})
+        RestartLevel3()        
+
     end
 
 end --function scene:show( event )
@@ -371,16 +379,12 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-      audio.stop(level3SoundChannel)
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        Runtime:removeEventListener("enterFrame", Movelogo)
-        Runtime:removeEventListener("enterFrame", MoveText)
-        -- stop the level2 sounds channel for this screen
-        audio.stop(level3SoundChannel)
+        RemoveTouchListeners()
     end
 
 end --function scene:hide( event )
