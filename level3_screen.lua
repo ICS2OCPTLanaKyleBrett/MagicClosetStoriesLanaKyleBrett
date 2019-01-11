@@ -58,8 +58,17 @@ local heart3
 local heart4
 
 local randomNumber
-local numQuestions = 0
+local numQuestionsRight = 0
 
+
+----------------------------------------------------------------------------------------
+--SOUNDS
+----------------------------------------------------------------------------------------
+local youWinSound = audio.loadStream("Sounds/youWin.mp3")
+local youWinSoundChannel
+
+local level3Sound = audio.loadStream("Sounds/level3bkg.mp3")
+local level3SoundChannel
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -138,6 +147,8 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
+    audio.stop(level3bkgSoundChannel)
+    audio.play(youWinSoundChannel)
 end
 
 local function UpdateHearts()
@@ -183,7 +194,7 @@ local function correctAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        righttextObject.isVisible = true
-       numQuestions = numQuestions + 1
+       numQuestionsRight = numQuestionsRight + 1
        timer.performWithDelay(1000, HideRightTextObject)
 
 
@@ -201,7 +212,7 @@ local function wrongAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
-       numQuestions = numQuestions + 1
+       
 
        lives = lives - 1
        UpdateHearts() 
@@ -216,6 +227,9 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
+
+    audio.stop(level3kgSoundChannel)
+    audio.play(youWinSoundChannel)
 end
 
 
@@ -238,6 +252,7 @@ end
 
 function RestartLevel3()
     if (numQuestions < 6) then
+    if (numQuestionsRight < 3) then
         -- ask another question
         AskQuestion()
         -- position answers
@@ -315,7 +330,7 @@ function scene:create( event )
     righttextObject = display.newText ("Hooray,you got it right!",2, 2, nil, 50)
     righttextObject.x = 700
     righttextObject.y = display.contentHeight/3
-    righttextObject:setTextColor (245/255, 154/255, 216/255)
+    righttextObject:setTextColor (0/255, 0/255, 0/255)
     righttextObject.isVisible = false
     sceneGroup:insert( righttextObject )  
 
@@ -329,7 +344,7 @@ function scene:create( event )
     question1textObject = display.newText ("",0, 0, nil, 50)
     question1textObject.x = display.contentWidth/2
     question1textObject.y = 710
-    question1textObject:setTextColor (245/255, 154/255, 216/255)
+    question1textObject:setTextColor (255/255, 255/255, 255/255)
     question1textObject.isVisible = true
     sceneGroup:insert( question1textObject )  
 
@@ -356,7 +371,12 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        numQuestions = 0
+        numQuestionsRight = 0
+
+    
+        RestartLevel3()      
+
+        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=2})        
 
         RestartLevel3()        
 
@@ -385,6 +405,10 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
         RemoveTouchListeners()
+         Runtime:removeEventListener("enterFrame", Movelogo)
+        Runtime:removeEventListener("enterFrame", MoveText)
+        -- stop the level2 sounds channel for this screen
+        audio.stop(level3SoundChannel)
     end
 
 end --function scene:hide( event )

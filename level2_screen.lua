@@ -119,7 +119,11 @@ local function AskQuestion()
         question1textObject.text = "Which bracelet has more beads?"
         correctAnswer = display.newImageRect("Images/bracelet1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/bracelet2.png", 150, 240)   
-       
+   
+   elseif (randomNumber == 8) then        
+        question1textObject.text = "Which bracelet has more beads?"
+        correctAnswer = display.newImageRect("Images/bracelet2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet1.png", 150, 240)   
  
 
 
