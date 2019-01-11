@@ -58,12 +58,17 @@ local heart3
 local heart4
 
 local randomNumber
-local numQuestions = 0
+local numQuestionsRight = 0
 
+
+----------------------------------------------------------------------------------------
+--SOUNDS
+----------------------------------------------------------------------------------------
 local youWinSound = audio.loadStream("Sounds/youWin.mp3")
 local youWinSoundChannel
 
-
+local level3bkg = audio.loadStream("Sounds/level3bkg.mp3")
+local level3bkgSoundChannel
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -126,7 +131,7 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
-    audio.stop(level1SoundChannel)
+    audio.stop(level3bkgSoundChannel)
     audio.play(youWinSoundChannel)
 end
 
@@ -173,7 +178,7 @@ local function correctAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        righttextObject.isVisible = true
-       numQuestions = numQuestions + 1
+       numQuestionsRight = numQuestionsRight + 1
        timer.performWithDelay(1000, HideRightTextObject)
 
 
@@ -191,7 +196,7 @@ local function wrongAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
-       numQuestions = numQuestions + 1
+       
 
        lives = lives - 1
        UpdateHearts() 
@@ -206,7 +211,7 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
-    audio.stop(level1SoundChannel)
+    audio.stop(level3kgSoundChannel)
     audio.play(youWinSoundChannel)
 end
 
@@ -228,8 +233,8 @@ end
 -----------------------------------------------------------------------------------------
 
 
-function RestartLevel1()
-    if (numQuestions < 3) then
+function RestartLevel3()
+    if (numQuestionsRight < 3) then
         -- ask another question
         AskQuestion()
         -- position answers
@@ -348,10 +353,13 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        numQuestions = 0
+        numQuestionsRight = 0
 
-        RestartLevel1()        
-        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=2})
+    
+        RestartLevel3()      
+
+        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=2})        
+
     end
 
 end --function scene:show( event )
@@ -371,13 +379,12 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-      audio.stop(level3SoundChannel)
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        Runtime:removeEventListener("enterFrame", Movelogo)
+         Runtime:removeEventListener("enterFrame", Movelogo)
         Runtime:removeEventListener("enterFrame", MoveText)
         -- stop the level2 sounds channel for this screen
         audio.stop(level3SoundChannel)
