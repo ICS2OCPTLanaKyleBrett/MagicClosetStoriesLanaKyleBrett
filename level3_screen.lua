@@ -73,7 +73,7 @@ local level3SoundChannel
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 5)    
+    randomNumber = math.random(1, 8)    
 
     if (randomNumber == 1) then
         question1textObject.text = "Which snake has my lipstick?"
@@ -99,6 +99,22 @@ local function AskQuestion()
         question1textObject.text = "Can you find my yellow glasses?"
         correctAnswer = display.newImageRect("Images/glasses1 .png", 90, 120)      
         wrongAnswer = display.newImageRect("Images/glasses2 .png", 90, 120)  
+
+     elseif (randomNumber == 6) then
+        question1textObject.text = "Can you find my blue glasses?"
+        correctAnswer = display.newImageRect("Images/glasses2 .png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/glasses1 .png", 90, 120) 
+
+      elseif (randomNumber == 7) then
+        question1textObject.text = "Can you find my purple glasses?"
+        correctAnswer = display.newImageRect("Images/glasses3 .png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/glasses4 .png", 90, 120)
+
+     elseif (randomNumber == 8) then
+        question1textObject.text = "Can you find my white glasses?"
+        correctAnswer = display.newImageRect("Images/glasses4 .png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/glasses3 .png", 90, 120)
+
     end 
 end
 
@@ -211,6 +227,7 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
+
     audio.stop(level3kgSoundChannel)
     audio.play(youWinSoundChannel)
 end
@@ -234,6 +251,7 @@ end
 
 
 function RestartLevel3()
+    if (numQuestions < 6) then
     if (numQuestionsRight < 3) then
         -- ask another question
         AskQuestion()
@@ -242,7 +260,7 @@ function RestartLevel3()
         -- add listeners back
         AddTouchListeners()
     else
-       YouWinTransition() 
+        -- 
     end
 end
 
@@ -360,6 +378,8 @@ function scene:show( event )
 
         level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=2})        
 
+        RestartLevel3()        
+
     end
 
 end --function scene:show( event )
@@ -384,6 +404,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        RemoveTouchListeners()
          Runtime:removeEventListener("enterFrame", Movelogo)
         Runtime:removeEventListener("enterFrame", MoveText)
         -- stop the level2 sounds channel for this screen
