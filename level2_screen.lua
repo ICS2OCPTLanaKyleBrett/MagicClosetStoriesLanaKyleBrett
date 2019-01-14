@@ -70,6 +70,16 @@ local heart3
 local randomNumber
 local numQuestionsRight = 0
 
+
+----------------------------------------------------------------------------------------
+--LOCAL FUNCTIONS
+----------------------------------------------------------------------------------------
+local correctSound = audio.loadStream("Sounds/Correct.mp3")
+local correctSoundChannel
+
+local incorrectSound = audio.loadStream("Sounds/Incorrect.mp3")
+local incorrectSoundChannel
+
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -112,18 +122,14 @@ local function AskQuestion()
 
     elseif (randomNumber == 6) then        
         question1textObject.text = "Which shoes has yellow dots?"
-        correctAnswer = display.newImageRect("Images/Hairball1.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Hairball2.png", 150, 240)   
+        correctAnswer = display.newImageRect("Images/shoes1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/shoes2.png", 150, 240)   
        
    elseif (randomNumber == 7) then        
         question1textObject.text = "Which bracelet has more beads?"
         correctAnswer = display.newImageRect("Images/bracelet1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/bracelet2.png", 150, 240)   
-   
-   elseif (randomNumber == 8) then        
-        question1textObject.text = "Which bracelet has more beads?"
-        correctAnswer = display.newImageRect("Images/bracelet2.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/bracelet1.png", 150, 240)   
+       
  
 
 
@@ -216,6 +222,9 @@ local function correctAnswerListener(touch)
         righttextObject.isVisible = true
         numQuestions = numQuestions + 1
         timer.performWithDelay(1000, HideRightTextObject)
+        correctSoundChannel = audio.play(correctSound)
+
+
 
 
 
@@ -237,6 +246,7 @@ local function wrongAnswerListener(touch)
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
+       incorrectSoundChannel = audio.play(incorrectSound)
     end
 
 end
@@ -396,8 +406,6 @@ function scene:hide( event )
 
     if ( phase == "will" ) then
         audio.stop(level2SoundChannel)
-
-
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
@@ -409,10 +417,7 @@ function scene:hide( event )
         display.remove(correctAnswer)
         display.remove(wrongAnswer)
     end
-        Runtime:removeEventListener("enterFrame", Movelogo)
-        Runtime:removeEventListener("enterFrame", MoveText)
-        -- stop the level2 sounds channel for this screen
-        audio.stop(level2SoundChannel)
+
 end --function scene:hide( event )
 
 -----------------------------------------------------------------------------------------

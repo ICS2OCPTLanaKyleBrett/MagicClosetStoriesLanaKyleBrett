@@ -17,8 +17,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "you_won_level_1"
-
+sceneName = "you_won_level_2"
 -----------------------------------------------------------------------------------------
 
 -- Creating Scene Object

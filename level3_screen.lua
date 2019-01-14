@@ -404,8 +404,7 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
         RemoveTouchListeners()
-        display.remove(correctAnswer)
-        display.remove(wrongAnswer)
+ 
         -- stop the level2 sounds channel for this screen
         audio.stop(level3SoundChannel)
     end

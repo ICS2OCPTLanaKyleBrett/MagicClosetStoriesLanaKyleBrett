@@ -71,7 +71,7 @@ local heart3
 
 
 local randomNumber
-local numQuestions = 0
+local numQuestionsRight = 0
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -145,7 +145,7 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
 
     elseif (randomNumber == 14) then
-        question1textObject.text = "Which handbag has smaller shaper?"
+        question1textObject.text = "Which handbag has smaller shapes?"
         correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
         wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
 
@@ -228,7 +228,7 @@ end
 
 local function HideWrongTextObject()
     wrongtextObject.isVisible = false
-    RestartLevel1()
+    RestartLevel()
 end
 
 
@@ -241,7 +241,7 @@ local function correctAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        righttextObject.isVisible = true
-       numQuestions = numQuestions + 1
+       numQuestionsRight = numQuestionsRight + 1
        timer.performWithDelay(1000, HideRightTextObject)
        correctSoundChannel = audio.play(correctSound)
 
@@ -260,8 +260,6 @@ local function wrongAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
-       numQuestions = numQuestions + 1
-
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
@@ -422,7 +420,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        numQuestions = 0
+        numQuestionsRight = 0
 
         RestartLevel1()      
 
