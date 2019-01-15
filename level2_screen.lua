@@ -89,24 +89,20 @@ local function AskQuestion()
     print ("***AskQuestion: randomNumber = " .. randomNumber)
 
     if (randomNumber == 1) then        
-        question1textObject.text = "Which Head accessories has red dots?"
+        question1textObject.text = "Which hair accessory has red dots?"
         correctAnswer = display.newImageRect("Images/Hairball2.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Hairball1.png", 150, 240)   
        
    elseif (randomNumber == 2) then        
-        question1textObject.text = "Which Head accessories has black dots?"
+        question1textObject.text = "Which hair accessory has black dots?"
         correctAnswer = display.newImageRect("Images/Hairball1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Hairball2.png", 150, 240)   
        
-       
-  
     elseif (randomNumber == 3) then
-        question1textObject.text = "Which shoes has yellow stars?"
+        question1textObject.text = "Which shoe has green dots?"
         correctAnswer = display.newImageRect("Images/Shoes2.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Shoes1.png", 150, 240)  
 
-
-    
 
     elseif (randomNumber == 4) then
         question1textObject.text = "Which dress has a straight appearance?"
@@ -121,15 +117,42 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/dress24.png", 150, 240)
 
     elseif (randomNumber == 6) then        
-        question1textObject.text = "Which shoes has yellow dots?"
+        question1textObject.text = "Which shoe has yellow dots?"
         correctAnswer = display.newImageRect("Images/shoes1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/shoes2.png", 150, 240)   
        
    elseif (randomNumber == 7) then        
-        question1textObject.text = "Which bracelet has more beads?"
+        question1textObject.text = "Which bracelet is purple?"
+        correctAnswer = display.newImageRect("Images/bracelet1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet2.png", 150, 240) 
+
+   elseif (randomNumber == 8) then        
+        question1textObject.text = "Which bracelet is dark blue?"
         correctAnswer = display.newImageRect("Images/bracelet1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/bracelet2.png", 150, 240)   
+         
        
+  elseif (randomNumber == 9) then        
+        question1textObject.text = "Which bracelet does not have many colours?"
+        correctAnswer = display.newImageRect("Images/bracelet4.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet3.png", 150, 240) 
+
+   elseif (randomNumber == 10) then        
+        question1textObject.text = "Which bracelet has a lot of colours?"
+        correctAnswer = display.newImageRect("Images/bracelet3.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet4.png", 150, 240)   
+
+         
+    elseif (randomNumber == 11) then        
+        question1textObject.text = "Which lipstick has two kinds of red?"
+        correctAnswer = display.newImageRect("Images/bracelet4.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet3.png", 150, 240) 
+
+   elseif (randomNumber == 12) then        
+        question1textObject.text = "Which bracelet has a lot of colours?"
+        correctAnswer = display.newImageRect("Images/bracelet3.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet4.png", 150, 240)   
+        
  
 
 
@@ -165,7 +188,7 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function level3Transition()
+local function YouWonlevel2Transition()
     composer.gotoScene( "level3_screen" )
 end
 
@@ -212,7 +235,7 @@ local function correctAnswerListener(touch)
         --correctAnswer.isVisible = false
         --wrongAnswer.isVisible = false
         righttextObject.isVisible = true
-        numQuestions = numQuestions + 1
+        numQuestionsRight = numQuestionsRight + 1
         timer.performWithDelay(1000, HideRightTextObject)
         correctSoundChannel = audio.play(correctSound)
 
@@ -233,7 +256,7 @@ local function wrongAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
-       numQuestions = numQuestions + 1
+       
 
        lives = lives - 1
        UpdateHearts() 
@@ -247,8 +270,8 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function level3Transition()
-    composer.gotoScene( "level3_screen" )
+local function YouWonLevel2Transition()
+    composer.gotoScene( "You_won_level_2" )
 end
 
 
@@ -269,7 +292,7 @@ end
 
 
 function RestartLevel2()
-    if (numQuestions < 3) then
+    if (numQuestionsRight < 3) then
         -- ask another question
         AskQuestion()
         -- position answers
@@ -277,7 +300,7 @@ function RestartLevel2()
         -- add listeners back
         AddTouchListeners()
     else
-        level3Transition()
+        YouWonLevel2Transition()
     end
 end
 
@@ -372,7 +395,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        numQuestions = 0
+        numQuestionsRight = 0
 
         RestartLevel2()      
 
@@ -405,6 +428,11 @@ function scene:hide( event )
         -- Called immediately after scene goes off screen.
         display.remove(correctAnswer)
         display.remove(wrongAnswer)
+        
+        Runtime:removeEventListener("enterFrame", MoveLogo)
+        Runtime:removeEventListener("enterFrame", MoveText)
+        -- stop the jungle sounds channel for this screen
+        audio.stop(level2SoundChannel)
     end
 
 end --function scene:hide( event )

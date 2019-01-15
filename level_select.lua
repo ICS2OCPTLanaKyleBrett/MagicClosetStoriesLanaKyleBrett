@@ -37,7 +37,7 @@ local scene = composer.newScene( sceneName )
 
 local bkg_image
 local level1Button
-local leve2Button
+local level2Button
 local level3Button
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS

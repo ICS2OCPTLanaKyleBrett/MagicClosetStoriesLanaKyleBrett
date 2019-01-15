@@ -71,7 +71,7 @@ local heart3
 
 
 local randomNumber
-local numQuestionsRight = 0
+local numQuestions = 0
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -145,7 +145,7 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
 
     elseif (randomNumber == 14) then
-        question1textObject.text = "Which handbag has smaller shapes?"
+        question1textObject.text = "Which handbag has smaller shaper?"
         correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
         wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
 
@@ -193,9 +193,7 @@ local function YouWonLevel1Transition()
 end
 
 
-local function level2Transition()
-    composer.gotoScene( "you_won_level_1" )
-end
+
 
 
 local function UpdateHearts()
@@ -228,7 +226,7 @@ end
 
 local function HideWrongTextObject()
     wrongtextObject.isVisible = false
-    RestartLevel()
+    RestartLevel1()
 end
 
 
@@ -241,7 +239,7 @@ local function correctAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        righttextObject.isVisible = true
-       numQuestionsRight = numQuestionsRight + 1
+       numQuestions = numQuestions + 1
        timer.performWithDelay(1000, HideRightTextObject)
        correctSoundChannel = audio.play(correctSound)
 
@@ -260,6 +258,8 @@ local function wrongAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
+       numQuestions = numQuestions + 1
+
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
@@ -420,7 +420,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        numQuestionsRight = 0
+        numQuestions = 0
 
         RestartLevel1()      
 
