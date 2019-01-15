@@ -54,6 +54,7 @@ function scene:create( event )
    
     -- Associating display objects with this scene 
     sceneGroup:insert( bkg )
+    
   
 end    
 audio.stop(level1SoundChannel)
