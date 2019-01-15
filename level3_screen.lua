@@ -60,6 +60,15 @@ local heart4
 local randomNumber
 local numQuestionsRight = 0
 
+
+----------------------------------------------------------------------------------------
+--SOUNDS
+----------------------------------------------------------------------------------------
+local youWinSound = audio.loadStream("Sounds/youWin.mp3")
+local youWinSoundChannel
+
+local level3Sound = audio.loadStream("Sounds/level3bkg.mp3")
+local level3SoundChannel
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -71,8 +80,8 @@ local function AskQuestion()
         correctAnswer = display.newImageRect("Images/snake1.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/snake2.png", 200, 300)   
 
-    elseif (randomNumber == 2) then
-        question1textObject.text = "Which snake doesn't have my lipstick?"
+     elseif (randomNumber == 2) then
+        question1textObject.text = "Which snake does not have my lipstick?"
         correctAnswer = display.newImageRect("Images/snake2.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/snake1.png", 200, 300)
 
@@ -82,7 +91,7 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/bear2.png", 200, 300)
 
      elseif (randomNumber == 4) then
-        question1textObject.text = "Which bear doesn't have my shoes on?"
+        question1textObject.text = "Which bear does not have my shoes on?"
         correctAnswer = display.newImageRect("Images/bear2.png", 200, 300)      
         wrongAnswer = display.newImageRect("Images/bear1.png", 200, 300)  
 
@@ -106,11 +115,40 @@ local function AskQuestion()
         correctAnswer = display.newImageRect("Images/glasses4 .png", 90, 120)      
         wrongAnswer = display.newImageRect("Images/glasses3 .png", 90, 120)
 
+     elseif (randomNumber == 9) then
+        question1textObject.text = "Which bunny has red lipstick?"
+        correctAnswer = display.newImageRect("Images/bunny1.png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/bunny2.png", 90, 120)
+
+     elseif (randomNumber == 10) then
+        question1textObject.text = "Which bunny has purple lipstick?"
+        correctAnswer = display.newImageRect("Images/bunny2.png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/bunny1.png", 90, 120)
+     
+     elseif (randomNumber == 11) then
+        question1textObject.text = "Which bunny has a red shirt?"
+        correctAnswer = display.newImageRect("Images/bunny3.png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/bunny4.png", 90, 120)
+
+        elseif (randomNumber == 12) then
+        question1textObject.text = "Which bunny has a purple shirt?"
+        correctAnswer = display.newImageRect("Images/bunny4.png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/bunny3.png", 90, 120)
+
+        elseif (randomNumber == 13) then
+        question1textObject.text = "Which bunny says purple on their shirt?"
+        correctAnswer = display.newImageRect("Images/bunny3.png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/bunny4.png", 90, 120)
+
+        elseif (randomNumber == 14) then
+        question1textObject.text = "Which bunny says red on their shirt?"
+        correctAnswer = display.newImageRect("Images/bunny4.png", 90, 120)      
+        wrongAnswer = display.newImageRect("Images/bunny3.png", 90, 120)
     end 
 end
 
 local function PositionAnswers()
-    randomNumber = math.random (1, 4)
+    randomNumber = math.random (1, 2)
 
     if (randomNumber == 1) then
         -- correct answer will be on top
@@ -138,15 +176,20 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
+    
 end
 
 local function UpdateHearts()
     
-     if (lives == 2) then
-      heart1.isVisible = false
+     if (lives == 3) then
+      heart1.isVisible = true
       heart2.isVisible = true
       heart3.isVisible = true
       
+     elseif (lives == 2) then
+      heart1.isVisible = false
+      heart2.isVisible = false
+      heart3.isVisible = true
 
      elseif (lives == 1) then
       heart1.isVisible = false
@@ -157,6 +200,7 @@ local function UpdateHearts()
       heart1.isVisible = false
       heart2.isVisible = false
       heart3.isVisible = false
+
       composer.gotoScene("you_lose")
      end
 end
@@ -177,9 +221,10 @@ end
 
 local function correctAnswerListener(touch)
 
-    if (touch.phase == "ended") then    
-      display.remove(correctAnswer)
-      display.remove(wrongAnswer)
+    if (touch.phase == "ended") then  
+        --RemoveTouchListeners()  
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        righttextObject.isVisible = true
@@ -196,12 +241,14 @@ end
 local function wrongAnswerListener(touch)
 
     if (touch.phase == "ended") then
+        --RemoveTouchListeners()
       display.remove(correctAnswer)
       display.remove(wrongAnswer)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
-      
+       
+
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
@@ -210,16 +257,14 @@ local function wrongAnswerListener(touch)
 end
 
 local function YouLoseTransition()
-  composer.gotoScene( "you_lose" )
+    composer.gotoScene( "you_lose" )
 end
 
 local function YouWinTransition()
+    composer.gotoScene( "you_win" )
 
-  composer.gotoScene( "you_win" )
-
-  audio.stop(level3kgSoundChannel)
-  audio.play(youWinSoundChannel)
-  composer.gotoScene( "you_win" )
+    
+    youWinSoundChannel = audio.play(youWin)
 end
 
 
@@ -240,9 +285,8 @@ end
 -----------------------------------------------------------------------------------------
 
 
-
 function RestartLevel3()
-    if (numQuestionsRight < 3) then
+    if (numQuestionsRight < 5) then
         -- ask another question
         AskQuestion()
         -- position answers
@@ -250,9 +294,10 @@ function RestartLevel3()
         -- add listeners back
         AddTouchListeners()
     else
-        YouWinTransition()
+       YouWinTransition() 
     end
 end
+
 ------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -298,28 +343,11 @@ function scene:create( event )
     heart1.y = 80
     sceneGroup:insert( heart1 ) 
 
-    
-    --create dresses
-     --[[
-    correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)
-    correctAnswer.x = X1
-    correctAnswer.y = Y1
-    correctAnswer.isVisible = true
-    sceneGroup:insert( correctAnswer )  
-
-    wrongAnswer = display.newImageRect("Images/Dress2.png", 150, 240)
-    wrongAnswer.x = X2
-    wrongAnswer.y = Y2
-    wrongAnswer.isVisible = true
-    sceneGroup:insert( wrongAnswer )  
-]]--
-
-
     --create text objects
     righttextObject = display.newText ("Hooray,you got it right!",2, 2, nil, 50)
     righttextObject.x = 700
     righttextObject.y = display.contentHeight/3
-    righttextObject:setTextColor (245/255, 154/255, 216/255)
+    righttextObject:setTextColor (0/255, 0/255, 0/255)
     righttextObject.isVisible = false
     sceneGroup:insert( righttextObject )  
 
@@ -333,7 +361,7 @@ function scene:create( event )
     question1textObject = display.newText ("",0, 0, nil, 50)
     question1textObject.x = display.contentWidth/2
     question1textObject.y = 710
-    question1textObject:setTextColor (245/255, 154/255, 216/255)
+    question1textObject:setTextColor (255/255, 255/255, 255/255)
     question1textObject.isVisible = true
     sceneGroup:insert( question1textObject )  
 
@@ -344,28 +372,29 @@ end --function scene:create( event )
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
 
-  -- Creating a group that associates objects with the scene
-  local sceneGroup = self.view
-  local phase = event.phase
+    -- Creating a group that associates objects with the scene
+    local sceneGroup = self.view
+    local phase = event.phase
 
-  -----------------------------------------------------------------------------------------
-
-  if ( phase == "will" ) then
-
-    -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
 
-  elseif ( phase == "did" ) then
+    if ( phase == "will" ) then
 
-    -- Called when the scene is now on screen.
-    -- Insert code here to make the scene come alive.
-    -- Example: start timers, begin animation, play audio, etc.
-    numQuestionsRight = 0
+        -- Called when the scene is still off screen (but is about to come on screen).
+    -----------------------------------------------------------------------------------------
 
-    RestartLevel3()        
+    elseif ( phase == "did" ) then
+
+        -- Called when the scene is now on screen.
+        -- Insert code here to make the scene come alive.
+        -- Example: start timers, begin animation, play audio, etc.
+        numQuestionsRight = 0
     
-    level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=2})
-  end
+        RestartLevel3()      
+
+        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=-1})          
+
+    end
 
 end --function scene:show( event )
 
@@ -381,8 +410,6 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
-        audio.stop(level3SoundChannel)
-        
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
@@ -390,11 +417,9 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-         -- Called immediately after scene goes off screen.
-        display.remove(correctAnswer)
-        display.remove(wrongAnswer)
-        Runtime:removeEventListener("enterFrame", Movelogo)
-        Runtime:removeEventListener("enterFrame", MoveText)
+        -- Called immediately after scene goes off screen.
+        
+ 
         -- stop the level2 sounds channel for this screen
         audio.stop(level3SoundChannel)
     end
@@ -430,4 +455,3 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
-
