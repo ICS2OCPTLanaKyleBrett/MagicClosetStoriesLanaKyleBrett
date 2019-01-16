@@ -133,6 +133,58 @@ function scene:show( event )
 
 end
 
+-- Creating Transitioning Function back to level select
+local function BackTransition( )
+    composer.gotoScene( "level_select", {effect = "slideUp", time = 500})
+end
+----------------------------------------------------------------------------------------
+-- LOCAL FUNCTIONS
+--------------------------------------------------------------------------------------
+-- The function called when the screen doesn't exist
+function scene:create( event )
+
+    -- Creating a group that associates objects with the scene
+    local sceneGroup = self.view
+
+    -- Display background
+    youwin_bkg = display.newImage("Images/YWL1.jpg")
+    youwin_bkg.x = display.contentCenterX
+    youwin_bkg.y = display.contentCenterY
+    youwin_bkg.width = display.contentWidth
+    youwin_bkg.height = display.contentHeight
+   
+    -- Associating display objects with this scene 
+    sceneGroup:insert( youwin_bkg )
+
+
+
+    
+    -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*1/8,
+        y = display.contentHeight*15/16,
+        width = 160,
+        height = 100,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButton Unpressed.png",
+        overFile = "Images/BackButton Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+    -----------------------------------------------------------------------------------------
+   sceneGroup:insert( backButton )
+  
+end    
 -----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to leave the screen

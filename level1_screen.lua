@@ -71,7 +71,7 @@ local heart3
 
 
 local randomNumber
-local numQuestions = 0
+local numQuestionsRight = 0
 
 
 
@@ -161,7 +161,10 @@ local function AskQuestion()
         correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
         wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
     end 
+   
 end
+
+
 
 local function PositionAnswers()
     randomNumber = math.random (1, 2)
@@ -270,11 +273,6 @@ local function wrongAnswerListener(touch)
 
 end
 
-local function YouLoseTransition()
-    composer.gotoScene( "you_lose" )
-    audio.stop(level1SoundChannel)
-end
-
 local function level2Transition()
     composer.gotoScene( "level2_screen" )
 end
@@ -295,13 +293,21 @@ local function RemoveTouchListeners()
   wrongAnswer:removeEventListener("touch", wrongAnswerListener)
 end
 
+
+local function YouLoseTransition()
+    composer.gotoScene( "you_lose" )
+    audio.stop(level1SoundChannel)
+    RemoveTouchListeners()
+    wrongAnswer.isVisible = false
+    correctAnswer.isVisible = false
+end
 ------------------------------------------------------------------------------
 -- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
 
 function RestartLevel1()
-    if (numQuestions < 4) then
+    if (numQuestionsRight < 4) then
         -- ask another question
         AskQuestion()
         -- position answers

@@ -31,9 +31,9 @@ local scene = composer.newScene( sceneName )
 -- local variables for the scene
 local bkg
 
--- Creating Transitioning Function back to main menu
+-- Creating Transitioning Function back to level select
 local function BackTransition( )
-    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+    composer.gotoScene( "level_select", {effect = "slideUp", time = 500})
 end
 ----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
