@@ -68,7 +68,17 @@ local heart3
 
 
 local randomNumber
-local numQuestions = 0
+local numQuestionsRight = 0
+
+
+----------------------------------------------------------------------------------------
+--LOCAL FUNCTIONS
+----------------------------------------------------------------------------------------
+local correctSound = audio.loadStream("Sounds/Correct.mp3")
+local correctSoundChannel
+
+local incorrectSound = audio.loadStream("Sounds/Incorrect.mp3")
+local incorrectSoundChannel
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -112,18 +122,14 @@ local function AskQuestion()
 
     elseif (randomNumber == 6) then        
         question1textObject.text = "Which shoes has yellow dots?"
-        correctAnswer = display.newImageRect("Images/Hairball1.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Hairball2.png", 150, 240)   
+        correctAnswer = display.newImageRect("Images/shoes1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/shoes2.png", 150, 240)   
        
    elseif (randomNumber == 7) then        
         question1textObject.text = "Which bracelet has more beads?"
         correctAnswer = display.newImageRect("Images/bracelet1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/bracelet2.png", 150, 240)   
-   
-   elseif (randomNumber == 8) then        
-        question1textObject.text = "Which bracelet has more beads?"
-        correctAnswer = display.newImageRect("Images/bracelet2.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/bracelet1.png", 150, 240)   
+       
  
 
 
@@ -159,9 +165,17 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function level3Transition()
+
+local function YouWonLevel2Transition()
     composer.gotoScene( "level3_screen" )
 end
+
+local function level2Transition()
+    composer.gotoScene( "You_Won_level_2" )
+end
+
+
+
 
 local function UpdateHearts()
     
@@ -208,6 +222,9 @@ local function correctAnswerListener(touch)
         righttextObject.isVisible = true
         numQuestions = numQuestions + 1
         timer.performWithDelay(1000, HideRightTextObject)
+        correctSoundChannel = audio.play(correctSound)
+
+
 
 
 
@@ -224,11 +241,12 @@ local function wrongAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
-       numQuestions = numQuestions + 1
+       numQuestionsRight = numQuestionsRight + 1
 
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
+       incorrectSoundChannel = audio.play(incorrectSound)
     end
 
 end
@@ -237,10 +255,13 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function level3Transition()
+local function YouWonLevel2Transition()
     composer.gotoScene( "level3_screen" )
 end
 
+local function Level3Transition()
+    composer.gotoScene( "You_Won_level_2" )
+end
 
 local function AddTouchListeners()
   correctAnswer:addEventListener("touch", correctAnswerListener)
@@ -259,7 +280,7 @@ end
 
 
 function RestartLevel2()
-    if (numQuestions < 3) then
+    if (numQuestionsRight < 3) then
         -- ask another question
         AskQuestion()
         -- position answers
@@ -267,7 +288,7 @@ function RestartLevel2()
         -- add listeners back
         AddTouchListeners()
     else
-        level3Transition()
+        YouWonlevel2Transition()
     end
 end
 
@@ -384,9 +405,7 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
-        audio.stop(level1SoundChannel)
-
-
+        audio.stop(level2SoundChannel)
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
@@ -398,10 +417,7 @@ function scene:hide( event )
         display.remove(correctAnswer)
         display.remove(wrongAnswer)
     end
-        Runtime:removeEventListener("enterFrame", Movelogo)
-        Runtime:removeEventListener("enterFrame", MoveText)
-        -- stop the level2 sounds channel for this screen
-        audio.stop(level2SoundChannel)
+
 end --function scene:hide( event )
 
 -----------------------------------------------------------------------------------------

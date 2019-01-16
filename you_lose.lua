@@ -56,7 +56,8 @@ function scene:create( event )
     sceneGroup:insert( bkg )
     
   
-end    
+end
+    
 audio.stop(level1SoundChannel)
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS

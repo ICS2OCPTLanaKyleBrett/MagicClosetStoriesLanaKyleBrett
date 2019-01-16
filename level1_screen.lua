@@ -71,7 +71,7 @@ local heart3
 
 
 local randomNumber
-local numQuestions = 0
+local numQuestionsRight = 0
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -145,7 +145,7 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
 
     elseif (randomNumber == 14) then
-        question1textObject.text = "Which handbag has smaller shaper?"
+        question1textObject.text = "Which handbag has smaller shapes?"
         correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
         wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
 
@@ -159,7 +159,10 @@ local function AskQuestion()
         correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
         wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
     end 
+   
 end
+
+
 
 local function PositionAnswers()
     randomNumber = math.random (1, 2)
@@ -183,19 +186,6 @@ local function PositionAnswers()
 end
 
 
-
-local function YouLoseTransition()
-    composer.gotoScene( "you_lose" )
-end
-
-local function YouWonLevel1Transition()
-    composer.gotoScene( "level2_screen" )
-end
-
-
-local function level2Transition()
-    composer.gotoScene( "you_won_level_1" )
-end
 
 
 local function UpdateHearts()
@@ -241,7 +231,7 @@ local function correctAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        righttextObject.isVisible = true
-       numQuestions = numQuestions + 1
+       numQuestionsRight = numQuestionsRight + 1
        timer.performWithDelay(1000, HideRightTextObject)
        correctSoundChannel = audio.play(correctSound)
 
@@ -260,19 +250,12 @@ local function wrongAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
-       numQuestions = numQuestions + 1
-
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
        incorrectSoundChannel = audio.play(incorrectSound)
     end
 
-end
-
-local function YouLoseTransition()
-    composer.gotoScene( "you_lose" )
-    audio.stop(level1SoundChannel)
 end
 
 local function level2Transition()
@@ -295,13 +278,21 @@ local function RemoveTouchListeners()
   wrongAnswer:removeEventListener("touch", wrongAnswerListener)
 end
 
+
+local function YouLoseTransition()
+    composer.gotoScene( "you_lose" )
+    audio.stop(level1SoundChannel)
+    RemoveTouchListeners()
+    wrongAnswer.isVisible = false
+    correctAnswer.isVisible = false
+end
 ------------------------------------------------------------------------------
 -- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
 
 function RestartLevel1()
-    if (numQuestions < 4) then
+    if (numQuestionsRight < 4) then
         -- ask another question
         AskQuestion()
         -- position answers
@@ -422,7 +413,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        numQuestions = 0
+        numQuestionsRight = 0
 
         RestartLevel1()      
 
