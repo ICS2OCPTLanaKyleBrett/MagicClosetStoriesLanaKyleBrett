@@ -183,11 +183,7 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function YouWinTransition()
-    composer.gotoScene( "you_win" )
-    youWinSoundChannel = audio.play(youWinSound)
-    
-end
+
 
 local function UpdateHearts()
     
@@ -400,6 +396,8 @@ function scene:show( event )
 
     if ( phase == "will" ) then
 
+
+
         -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
 
@@ -413,7 +411,7 @@ function scene:show( event )
         RestartLevel3()      
 
         level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=-1})          
-
+        youWinSoundChannel = audio.play( youWinSound, { channnel=5, loops=5})  
     end
 
 end --function scene:show( event )
@@ -434,14 +432,16 @@ function scene:hide( event )
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
 
+
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
         
  
-        -- stop the level2 sounds channel for this screen
+        -- stop the level3 sounds channel for this screen
         audio.stop(level3SoundChannel)
+        
     end
 
 end --function scene:hide( event )
