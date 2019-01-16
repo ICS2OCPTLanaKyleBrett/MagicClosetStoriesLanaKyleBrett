@@ -64,8 +64,6 @@ local numQuestionsRight = 0
 ----------------------------------------------------------------------------------------
 --SOUNDS
 ----------------------------------------------------------------------------------------
-local youWinSound = audio.loadStream("Sounds/youWin.mp3")
-local youWinSoundChannel
 
 local level3Sound = audio.loadStream("Sounds/level3bkg.mp3")
 local level3SoundChannel
@@ -207,7 +205,7 @@ local function UpdateHearts()
       heart2.isVisible = false
       heart3.isVisible = false
 
-      composer.gotoScene("you_lose")
+      timer.performWithDelay(1000, YouLoseTransition)
      end
 end
 
@@ -410,8 +408,8 @@ function scene:show( event )
     
         RestartLevel3()      
 
-        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=-1})          
-        youWinSoundChannel = audio.play( youWinSound, { channnel=5, loops=5})  
+        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=3})          
+        
     end
 
 end --function scene:show( event )
@@ -431,7 +429,10 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-
+        
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
+        audio.stop(level3SoundChannel)
 
     -----------------------------------------------------------------------------------------
 
