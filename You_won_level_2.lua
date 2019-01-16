@@ -17,7 +17,12 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
+
+
+
+
 sceneName = "you_won_level_2"
+
 -----------------------------------------------------------------------------------------
 
 -- Creating Scene Object
@@ -30,11 +35,12 @@ local scene = composer.newScene( sceneName )
 -- local variables for the scene
 local bkg
 
+-- Creating Transitioning Function back to main menu
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+end
 ----------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
------------------------------------------------------------------------------------------
-
 --------------------------------------------------------------------------------------
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -51,12 +57,36 @@ function scene:create( event )
    
     -- Associating display objects with this scene 
     sceneGroup:insert( youwin_bkg )
+
+
+
+    
+    -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*1/8,
+        y = display.contentHeight*15/16,
+        width = 160,
+        height = 100,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButton Unpressed.png",
+        overFile = "Images/BackButton Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+    -----------------------------------------------------------------------------------------
+   sceneGroup:insert( backButton )
   
 end    
-
-local function level3Transition()
-    composer.gotoScene( "level3_screen" )
-end
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -165,8 +195,6 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        level3Transition()
-
     end
 
 end

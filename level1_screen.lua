@@ -16,7 +16,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "level1_screen"
+sceneName = "level_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -72,6 +72,8 @@ local heart3
 
 local randomNumber
 local numQuestionsRight = 0
+
+
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -145,7 +147,7 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
 
     elseif (randomNumber == 14) then
-        question1textObject.text = "Which handbag has smaller shapes?"
+        question1textObject.text = "Which handbag has smaller shaper?"
         correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
         wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
 
@@ -184,6 +186,17 @@ local function PositionAnswers()
     end
 
 end
+
+
+
+local function YouLoseTransition()
+    composer.gotoScene( "you_lose" )
+end
+
+local function YouWonLevel1Transition()
+    composer.gotoScene( "level2_screen" )
+end
+
 
 
 
@@ -231,7 +244,7 @@ local function correctAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        righttextObject.isVisible = true
-       numQuestionsRight = numQuestionsRight + 1
+       numQuestions = numQuestions + 1
        timer.performWithDelay(1000, HideRightTextObject)
        correctSoundChannel = audio.play(correctSound)
 
@@ -250,6 +263,8 @@ local function wrongAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
+       numQuestions = numQuestions + 1
+
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
@@ -309,6 +324,11 @@ end
 ------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+end
+
+
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -390,7 +410,36 @@ function scene:create( event )
     question1textObject.isVisible = true
     sceneGroup:insert( question1textObject )  
 
-end --function scene:create( event )
+    -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*4.5/8,
+        y = display.contentHeight*4/16,
+        width = 160,
+        height = 100,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButton Unpressed.png",
+        overFile = "Images/BackButton Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+    -----------------------------------------------------------------------------------------
+
+    -- Associating Buttons with this scene
+    sceneGroup:insert( backButton )
+end  --function scene:create( event )
+  
+
+
 
 -----------------------------------------------------------------------------------------
 
@@ -413,7 +462,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        numQuestionsRight = 0
+        numQuestions = 0
 
         RestartLevel1()      
 
