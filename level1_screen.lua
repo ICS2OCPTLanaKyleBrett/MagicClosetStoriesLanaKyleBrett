@@ -487,6 +487,8 @@ function scene:hide( event )
         -- Called immediately after scene goes off screen.
         display.remove(correctAnswer)
         display.remove(wrongAnswer)
+        -- stop the jungle sounds channel for this screen
+        audio.stop(level1SoundChannel)
     end
 
 end --function scene:hide( event )
