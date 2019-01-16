@@ -16,7 +16,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "level1_screen"
+sceneName = "level_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -72,6 +72,8 @@ local heart3
 
 local randomNumber
 local numQuestions = 0
+
+
 
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -316,6 +318,11 @@ end
 ------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+end
+
+
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -397,7 +404,36 @@ function scene:create( event )
     question1textObject.isVisible = true
     sceneGroup:insert( question1textObject )  
 
-end --function scene:create( event )
+    -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*4.5/8,
+        y = display.contentHeight*4/16,
+        width = 160,
+        height = 100,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButton Unpressed.png",
+        overFile = "Images/BackButton Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+    -----------------------------------------------------------------------------------------
+
+    -- Associating Buttons with this scene
+    sceneGroup:insert( backButton )
+end  --function scene:create( event )
+  
+
+
 
 -----------------------------------------------------------------------------------------
 

@@ -71,6 +71,9 @@ local randomNumber
 local numQuestionsRight = 0
 
 
+-- Creating Transitioning Function back to main menu
+
+
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -327,6 +330,13 @@ end
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
 
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+end
+
+
+
+
 -- The function called when the screen doesn't exist
 function scene:create( event )
 
@@ -341,12 +351,16 @@ function scene:create( event )
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
     bkg_image.height = display.contentHeight
-  
+
+    
 
     -- Insert background image into the scene group in order to ONLY be associated with this scene
-    sceneGroup:insert( bkg_image )    
+    sceneGroup:insert( bkg_image )  
 
-    --create the first character
+
+
+
+
     character2 = display.newImageRect("Images/character2.png", 190, 240)
     character2.x = display.contentWidth/2
     character2.y = 548
@@ -389,11 +403,39 @@ function scene:create( event )
     question1textObject.y = 710
     question1textObject:setTextColor (245/255, 154/255, 216/255)
     question1textObject.isVisible = true
-    sceneGroup:insert( question1textObject )  
+    sceneGroup:insert( question1textObject )
 
-end --function scene:create( event )
+    -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*7/8,
+        y = display.contentHeight*4/16,
+        width = 160,
+        height = 100,
 
------------------------------------------------------------------------------------------
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButton Unpressed.png",
+        overFile = "Images/BackButton Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+    -----------------------------------------------------------------------------------------
+
+    -- Associating Buttons with this scene
+    sceneGroup:insert( backButton )
+end  --function scene:create( event )
+  
+
+
+
 
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
