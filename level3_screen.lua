@@ -69,6 +69,15 @@ local youWinSoundChannel
 
 local level3Sound = audio.loadStream("Sounds/level3bkg.mp3")
 local level3SoundChannel
+
+----------------------------------------------------------------------------------------
+--LOCAL FUNCTIONS
+----------------------------------------------------------------------------------------
+local correctSound = audio.loadStream("Sounds/Correct.mp3")
+local correctSoundChannel
+
+local incorrectSound = audio.loadStream("Sounds/Incorrect.mp3")
+local incorrectSoundChannel
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -176,6 +185,7 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
+    youWinSoundChannel = audio.play(youWinSound)
     
 end
 
@@ -230,6 +240,7 @@ local function correctAnswerListener(touch)
        righttextObject.isVisible = true
        numQuestionsRight = numQuestionsRight + 1
        timer.performWithDelay(1000, HideRightTextObject)
+       correctSoundChannel = audio.play(correctSound)
 
 
 
@@ -252,6 +263,8 @@ local function wrongAnswerListener(touch)
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
+       incorrectSoundChannel = audio.play(incorrectSound)
+
     end
 
 end
@@ -262,9 +275,11 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
+    youWinSoundChannel = audio.play(youWinSound)
+    
 
     
-    youWinSoundChannel = audio.play(youWin)
+    
 end
 
 
