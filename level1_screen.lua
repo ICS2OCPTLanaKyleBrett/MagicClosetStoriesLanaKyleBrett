@@ -405,8 +405,8 @@ function scene:create( event )
     backButton = widget.newButton( 
     {
         -- Setting Position
-        x = display.contentWidth*4.5/8,
-        y = display.contentHeight*4/16,
+        x = 900,
+        y = 600,
         width = 160,
         height = 100,
 
@@ -484,6 +484,8 @@ function scene:hide( event )
         -- Called immediately after scene goes off screen.
         display.remove(correctAnswer)
         display.remove(wrongAnswer)
+        correctAnswer.isVisible = false
+        wrongAnswer.isVisible = true
 
         -- stop the jungle sounds channel for this screen
 
