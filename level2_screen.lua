@@ -45,6 +45,9 @@ local Y2 = 490
 local level2Sound = audio.loadStream("Sounds/level2bkg.mp3")
 local level2SoundChannel
 
+local YouWonLevel2Sound = audio.loadStream("Sounds/YouWonLevel2.mp3")
+local YouWonLevel2SoundChannel
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -148,8 +151,8 @@ local function AskQuestion()
          
     elseif (randomNumber == 11) then        
         question1textObject.text = "Which lipstick has two kinds of red?"
-        correctAnswer = display.newImageRect("Images/bracelet4.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/bracelet3.png", 150, 240) 
+        correctAnswer = display.newImageRect("Images/Lipstick1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Lipstick2.png", 150, 240) 
 
    elseif (randomNumber == 12) then        
         question1textObject.text = "Which bracelet has a lot of colours?"
@@ -165,7 +168,7 @@ local function AskQuestion()
 end
 
 local function PositionAnswers()
-    randomNumber = math.random (1, 2)
+    randomNumber = math.random (1, 12)
     print ("***PositionAnswers: randomNumber = " .. randomNumber)
 
     if (randomNumber == 1) then
@@ -192,10 +195,7 @@ local function YouLoseTransition()
 end
 
 
-local function YouWonLevel2Transition()
 
-    composer.gotoScene( "level3_screen" )
-end
 
 local function level2Transition()
     composer.gotoScene( "You_Won_level_2" )
@@ -287,6 +287,7 @@ end
 
 local function YouWonLevel2Transition()
   composer.gotoScene( "You_won_level_2" )
+  YouWonLevel2SoundChannel = audio.play(YouWonLevel2Sound)
 
 end
 
@@ -321,7 +322,7 @@ function RestartLevel2()
     else
 
         YouWonLevel2Transition()
-       
+
 
     end
 end
@@ -460,6 +461,7 @@ function scene:show( event )
 
         RestartLevel2()      
 
+        
         level2SoundChannel = audio.play( level2Sound, { channnel=2, loops=2})
     end
 
@@ -479,6 +481,7 @@ function scene:hide( event )
 
     if ( phase == "will" ) then
         audio.stop(level2SoundChannel)
+        
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
@@ -494,8 +497,7 @@ function scene:hide( event )
         Runtime:removeEventListener("enterFrame", MoveText)
         -- stop the jungle sounds channel for this screen
         audio.stop(level2SoundChannel)
-    end
-
+    end  
 end --function scene:hide( event )
 
 -----------------------------------------------------------------------------------------

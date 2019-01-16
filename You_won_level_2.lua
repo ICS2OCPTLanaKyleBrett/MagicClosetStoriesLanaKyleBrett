@@ -29,6 +29,12 @@ sceneName = "you_won_level_2"
 local scene = composer.newScene( sceneName )
 
 -----------------------------------------------------------------------------------------
+-- Sounds
+-----------------------------------------------------------------------------------------
+local YouWonLevel2Sound = audio.loadStream("Sounds/YouWonLevel2.mp3")
+local YouWonLevel2SoundChannel
+
+-----------------------------------------------------------------------------------------
 -- FORWARD REFERENCES
 -----------------------------------------------------------------------------------------
 
@@ -89,7 +95,12 @@ function scene:create( event )
 end    
 
 -----------------------------------------------------------------------------------------
--- GLOBAL SCENE FUNCTIONS
+-- GLOBAL SCENE FUNCTIONS                                                                    
+
+local function level2Transition()
+    composer.gotoScene( "You_Won_level_2" )
+end
+
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
@@ -115,7 +126,9 @@ function scene:show( event )
 
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
-        -- Example: start timers, begin animation, play audio, etc.
+        -- Example: start timers, begin animation, play audio, etc    
+        
+        YouWonLevel2SoundChannel = audio.play( YouWonLevel2Sound, { channnel=1, loops=1})
     end
 
 end
@@ -190,11 +203,14 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        audio.stop(YouWonLevel2SoundChannel)
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        -- stop the jungle sounds channel for this screen
+        audio.stop(YouWonLevel2SoundChannel)
     end
 
 end
