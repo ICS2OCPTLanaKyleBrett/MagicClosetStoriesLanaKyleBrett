@@ -197,7 +197,7 @@ end
 
 
 local function YouWonLevel2Transition()
-    composer.gotoScene( "you_won_level_2" )
+    composer.gotoScene( "You_won_level_2" )
     
 end
 

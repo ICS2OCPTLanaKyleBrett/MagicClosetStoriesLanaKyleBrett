@@ -21,6 +21,12 @@ sceneName = "You_won_level_1"
 
 -----------------------------------------------------------------------------------------
 
+-----------------------------------------------------------------------------------------
+-- Sounds
+-----------------------------------------------------------------------------------------
+local YouWonLevel1Sound = audio.loadStream("Sounds/YouWonLevel1.mp3")
+local YouWonLevel1SoundChannel
+
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
@@ -33,7 +39,7 @@ local bkg
 
 -- Creating Transitioning Function back to level select
 local function BackTransition( )
-    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+    composer.gotoScene( "level_select", {effect = "slideUp", time = 500})
 end
 ----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -112,6 +118,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+        YouWonLevel1SoundChannel = audio.play( YouWonLevel1Sound, { channnel=1, loops=-1})
     end
 
 end
@@ -139,6 +146,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        audio.stop(YouWonLevel1SoundChannel)
     end
 
 end
