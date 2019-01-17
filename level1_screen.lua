@@ -73,6 +73,8 @@ local heart3
 local randomNumber
 local numQuestionsRight = 0
 
+
+
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -145,7 +147,7 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/handbag2.png", 200, 200)
 
     elseif (randomNumber == 14) then
-        question1textObject.text = "Which handbag has smaller shapes?"
+        question1textObject.text = "Which handbag has smaller shaper?"
         correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
         wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
 
@@ -159,7 +161,10 @@ local function AskQuestion()
         correctAnswer = display.newImageRect("Images/handbag2.png", 200, 200)      
         wrongAnswer = display.newImageRect("Images/handbag1.png", 200, 200)
     end 
+   
 end
+
+
 
 local function PositionAnswers()
     randomNumber = math.random (1, 2)
@@ -188,14 +193,7 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function YouWonLevel1Transition()
-    composer.gotoScene( "level2_screen" )
-end
 
-
-local function level2Transition()
-    composer.gotoScene( "you_won_level_1" )
-end
 
 
 local function UpdateHearts()
@@ -215,7 +213,7 @@ local function UpdateHearts()
       heart1.isVisible = false
       heart2.isVisible = false
       heart3.isVisible = false
-      composer.gotoScene("you_lose")
+      timer.performWithDelay(1000, YouLoseTransition)
      end
 end
 
@@ -228,7 +226,7 @@ end
 
 local function HideWrongTextObject()
     wrongtextObject.isVisible = false
-    RestartLevel()
+    RestartLevel1()
 end
 
 
@@ -238,8 +236,7 @@ local function correctAnswerListener(touch)
     if (touch.phase == "ended") then    
       display.remove(correctAnswer)
       display.remove(wrongAnswer)
-       --correctAnswer.isVisible = false
-       --wrongAnswer.isVisible = false
+
        righttextObject.isVisible = true
        numQuestionsRight = numQuestionsRight + 1
        timer.performWithDelay(1000, HideRightTextObject)
@@ -257,9 +254,9 @@ local function wrongAnswerListener(touch)
     if (touch.phase == "ended") then
       display.remove(correctAnswer)
       display.remove(wrongAnswer)
-       --correctAnswer.isVisible = false
-       --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
+       numQuestionsRight = numQuestionsRight + 1
+
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
@@ -268,18 +265,11 @@ local function wrongAnswerListener(touch)
 
 end
 
-local function YouLoseTransition()
-    composer.gotoScene( "you_lose" )
-    audio.stop(level1SoundChannel)
-end
 
-local function level2Transition()
-    composer.gotoScene( "level2_screen" )
-end
 
 local function YouWonLevel1Transition()
     composer.gotoScene( "you_won_level_1" )
-    audio.stop(level1SoundChannel)
+    
 end
 
 local function AddTouchListeners()
@@ -293,13 +283,15 @@ local function RemoveTouchListeners()
   wrongAnswer:removeEventListener("touch", wrongAnswerListener)
 end
 
+
+
 ------------------------------------------------------------------------------
 -- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
 
 function RestartLevel1()
-    if (numQuestions < 4) then
+    if (numQuestionsRight < 4) then
         -- ask another question
         AskQuestion()
         -- position answers
@@ -316,6 +308,11 @@ end
 ------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
+local function BackTransition()
+    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+end
+
+
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -358,23 +355,6 @@ function scene:create( event )
     heart1.y = 80
     sceneGroup:insert( heart1 ) 
 
-    
-    --create dresses
-     --[[
-    correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)
-    correctAnswer.x = X1
-    correctAnswer.y = Y1
-    correctAnswer.isVisible = true
-    sceneGroup:insert( correctAnswer )  
-
-    wrongAnswer = display.newImageRect("Images/Dress2.png", 150, 240)
-    wrongAnswer.x = X2
-    wrongAnswer.y = Y2
-    wrongAnswer.isVisible = true
-    sceneGroup:insert( wrongAnswer )  
-]]--
-
-
     --create text objects
     righttextObject = display.newText ("Hooray,you got it right!",0, 0, nil, 50)
     righttextObject.x = 700
@@ -397,7 +377,36 @@ function scene:create( event )
     question1textObject.isVisible = true
     sceneGroup:insert( question1textObject )  
 
-end --function scene:create( event )
+    -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = 900,
+        y = 600,
+        width = 160,
+        height = 100,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButton Unpressed.png",
+        overFile = "Images/BackButton Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+    -----------------------------------------------------------------------------------------
+
+    -- Associating Buttons with this scene
+    sceneGroup:insert( backButton )
+end  --function scene:create( event )
+  
+
+
 
 -----------------------------------------------------------------------------------------
 
@@ -424,7 +433,8 @@ function scene:show( event )
 
         RestartLevel1()      
 
-      level1SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
+        level1SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
+
     end
 
 end --function scene:show( event )
@@ -444,13 +454,19 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-
+       
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
+        audio.stop(level1SoundChannel)
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        display.remove(correctAnswer)
-        display.remove(wrongAnswer)
+        
+
+        
+
+        
     end
 
 end --function scene:hide( event )

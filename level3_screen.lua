@@ -64,11 +64,18 @@ local numQuestionsRight = 0
 ----------------------------------------------------------------------------------------
 --SOUNDS
 ----------------------------------------------------------------------------------------
-local youWinSound = audio.loadStream("Sounds/youWin.mp3")
-local youWinSoundChannel
 
 local level3Sound = audio.loadStream("Sounds/level3bkg.mp3")
 local level3SoundChannel
+
+----------------------------------------------------------------------------------------
+--LOCAL FUNCTIONS
+----------------------------------------------------------------------------------------
+local correctSound = audio.loadStream("Sounds/Correct.mp3")
+local correctSoundChannel
+
+local incorrectSound = audio.loadStream("Sounds/Incorrect.mp3")
+local incorrectSoundChannel
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -174,10 +181,7 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function YouWinTransition()
-    composer.gotoScene( "you_win" )
-    
-end
+
 
 local function UpdateHearts()
     
@@ -188,7 +192,7 @@ local function UpdateHearts()
       
      elseif (lives == 2) then
       heart1.isVisible = false
-      heart2.isVisible = false
+      heart2.isVisible = true
       heart3.isVisible = true
 
      elseif (lives == 1) then
@@ -201,7 +205,7 @@ local function UpdateHearts()
       heart2.isVisible = false
       heart3.isVisible = false
 
-      composer.gotoScene("you_lose")
+      timer.performWithDelay(1000, YouLoseTransition)
      end
 end
 
@@ -230,6 +234,7 @@ local function correctAnswerListener(touch)
        righttextObject.isVisible = true
        numQuestionsRight = numQuestionsRight + 1
        timer.performWithDelay(1000, HideRightTextObject)
+       correctSoundChannel = audio.play(correctSound)
 
 
 
@@ -252,6 +257,8 @@ local function wrongAnswerListener(touch)
        lives = lives - 1
        UpdateHearts() 
        timer.performWithDelay(1000, HideWrongTextObject)
+       incorrectSoundChannel = audio.play(incorrectSound)
+
     end
 
 end
@@ -262,9 +269,11 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
+    youWinSoundChannel = audio.play(youWinSound)
+    
 
     
-    youWinSoundChannel = audio.play(youWin)
+    
 end
 
 
@@ -300,7 +309,10 @@ end
 
 ------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+
+
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -364,8 +376,10 @@ function scene:create( event )
     question1textObject:setTextColor (255/255, 255/255, 255/255)
     question1textObject.isVisible = true
     sceneGroup:insert( question1textObject )  
+end
 
-end --function scene:create( event )
+
+  
 
 -----------------------------------------------------------------------------------------
 
@@ -380,6 +394,8 @@ function scene:show( event )
 
     if ( phase == "will" ) then
 
+
+
         -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
 
@@ -392,8 +408,8 @@ function scene:show( event )
     
         RestartLevel3()      
 
-        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=-1})          
-
+        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=3})          
+        
     end
 
 end --function scene:show( event )
@@ -413,6 +429,10 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
+        audio.stop(level3SoundChannel)
 
     -----------------------------------------------------------------------------------------
 
@@ -420,8 +440,9 @@ function scene:hide( event )
         -- Called immediately after scene goes off screen.
         
  
-        -- stop the level2 sounds channel for this screen
+        -- stop the level3 sounds channel for this screen
         audio.stop(level3SoundChannel)
+        
     end
 
 end --function scene:hide( event )

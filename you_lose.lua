@@ -33,10 +33,16 @@ local scene = composer.newScene( sceneName )
 -- local variables for the scene
 local bkg
 
+local youLoseSound = audio.loadStream("Sounds/youLose.mp3")
+local youLoseSoundChannel
 ----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
+-- Creating Transitioning Function back to level select
+local function BackTransition( )
+    composer.gotoScene( "level_select", {effect = "slideUp", time = 500})
+end
 
 --------------------------------------------------------------------------------------
 -- The function called when the screen doesn't exist
@@ -54,9 +60,34 @@ function scene:create( event )
    
     -- Associating display objects with this scene 
     sceneGroup:insert( bkg )
+    
+
+ -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*1/8,
+        y = display.contentHeight*15/16,
+        width = 160,
+        height = 100,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButton Unpressed.png",
+        overFile = "Images/BackButton Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+    -----------------------------------------------------------------------------------------
+   sceneGroup:insert( backButton )
   
 end    
-audio.stop(level1SoundChannel)
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -112,6 +143,8 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+         youLoseSoundChannel = audio.play( youLoseSound, { channnel=6, loops=6})  
+       
     end
 
 end

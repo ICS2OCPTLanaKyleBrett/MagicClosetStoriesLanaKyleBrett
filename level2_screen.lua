@@ -45,6 +45,9 @@ local Y2 = 490
 local level2Sound = audio.loadStream("Sounds/level2bkg.mp3")
 local level2SoundChannel
 
+local YouWonLevel2Sound = audio.loadStream("Sounds/YouWonLevel2.mp3")
+local YouWonLevel2SoundChannel
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -71,6 +74,9 @@ local randomNumber
 local numQuestionsRight = 0
 
 
+-- Creating Transitioning Function back to main menu
+
+
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -89,24 +95,20 @@ local function AskQuestion()
     print ("***AskQuestion: randomNumber = " .. randomNumber)
 
     if (randomNumber == 1) then        
-        question1textObject.text = "Which Head accessories has red dots?"
+        question1textObject.text = "Which hair accessory has red dots?"
         correctAnswer = display.newImageRect("Images/Hairball2.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Hairball1.png", 150, 240)   
        
    elseif (randomNumber == 2) then        
-        question1textObject.text = "Which Head accessories has black dots?"
+        question1textObject.text = "Which hair accessory has black dots?"
         correctAnswer = display.newImageRect("Images/Hairball1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Hairball2.png", 150, 240)   
        
-       
-  
     elseif (randomNumber == 3) then
-        question1textObject.text = "Which shoes has yellow stars?"
+        question1textObject.text = "Which shoe has green dots?"
         correctAnswer = display.newImageRect("Images/Shoes2.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/Shoes1.png", 150, 240)  
 
-
-    
 
     elseif (randomNumber == 4) then
         question1textObject.text = "Which dress has a straight appearance?"
@@ -121,15 +123,42 @@ local function AskQuestion()
         wrongAnswer = display.newImageRect("Images/dress24.png", 150, 240)
 
     elseif (randomNumber == 6) then        
-        question1textObject.text = "Which shoes has yellow dots?"
+        question1textObject.text = "Which shoe has yellow dots?"
         correctAnswer = display.newImageRect("Images/shoes1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/shoes2.png", 150, 240)   
        
    elseif (randomNumber == 7) then        
-        question1textObject.text = "Which bracelet has more beads?"
+        question1textObject.text = "Which bracelet is purple?"
+        correctAnswer = display.newImageRect("Images/bracelet1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet2.png", 150, 240) 
+
+   elseif (randomNumber == 8) then        
+        question1textObject.text = "Which bracelet is dark blue?"
         correctAnswer = display.newImageRect("Images/bracelet1.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/bracelet2.png", 150, 240)   
+         
        
+  elseif (randomNumber == 9) then        
+        question1textObject.text = "Which bracelet does not have many colours?"
+        correctAnswer = display.newImageRect("Images/bracelet4.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet3.png", 150, 240) 
+
+   elseif (randomNumber == 10) then        
+        question1textObject.text = "Which bracelet has a lot of colours?"
+        correctAnswer = display.newImageRect("Images/bracelet3.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet4.png", 150, 240)   
+
+         
+    elseif (randomNumber == 11) then        
+        question1textObject.text = "Which lipstick has two kinds of red?"
+        correctAnswer = display.newImageRect("Images/Lipstick1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Lipstick2.png", 150, 240) 
+
+   elseif (randomNumber == 12) then        
+        question1textObject.text = "Which bracelet has a lot of colours?"
+        correctAnswer = display.newImageRect("Images/bracelet3.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet4.png", 150, 240)   
+        
  
 
 
@@ -139,7 +168,7 @@ local function AskQuestion()
 end
 
 local function PositionAnswers()
-    randomNumber = math.random (1, 2)
+    randomNumber = math.random (1, 12)
     print ("***PositionAnswers: randomNumber = " .. randomNumber)
 
     if (randomNumber == 1) then
@@ -166,9 +195,7 @@ local function YouLoseTransition()
 end
 
 
-local function YouWonLevel2Transition()
-    composer.gotoScene( "level3_screen" )
-end
+
 
 local function level2Transition()
     composer.gotoScene( "You_Won_level_2" )
@@ -194,7 +221,7 @@ local function UpdateHearts()
       heart1.isVisible = false
       heart2.isVisible = false
       heart3.isVisible = false
-      composer.gotoScene("you_lose")
+      timer.performWithDelay(1000, YouLoseTransition)
      end
 end
 
@@ -220,7 +247,7 @@ local function correctAnswerListener(touch)
         --correctAnswer.isVisible = false
         --wrongAnswer.isVisible = false
         righttextObject.isVisible = true
-        numQuestions = numQuestions + 1
+        numQuestionsRight = numQuestionsRight + 1
         timer.performWithDelay(1000, HideRightTextObject)
         correctSoundChannel = audio.play(correctSound)
 
@@ -241,7 +268,10 @@ local function wrongAnswerListener(touch)
        --correctAnswer.isVisible = false
        --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
-       numQuestionsRight = numQuestionsRight + 1
+
+       
+
+       numQuestionsRight = numQuestionsRight + 1 
 
        lives = lives - 1
        UpdateHearts() 
@@ -256,7 +286,9 @@ local function YouLoseTransition()
 end
 
 local function YouWonLevel2Transition()
-    composer.gotoScene( "level3_screen" )
+  composer.gotoScene( "You_won_level_2" )
+  YouWonLevel2SoundChannel = audio.play(YouWonLevel2Sound)
+
 end
 
 local function Level3Transition()
@@ -288,13 +320,23 @@ function RestartLevel2()
         -- add listeners back
         AddTouchListeners()
     else
-        YouWonlevel2Transition()
+
+        YouWonLevel2Transition()
+
+
     end
 end
 
 ------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
+
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+end
+
+
+
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -310,12 +352,16 @@ function scene:create( event )
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
     bkg_image.height = display.contentHeight
-  
+
+    
 
     -- Insert background image into the scene group in order to ONLY be associated with this scene
-    sceneGroup:insert( bkg_image )    
+    sceneGroup:insert( bkg_image )  
 
-    --create the first character
+
+
+
+
     character2 = display.newImageRect("Images/character2.png", 190, 240)
     character2.x = display.contentWidth/2
     character2.y = 548
@@ -358,11 +404,39 @@ function scene:create( event )
     question1textObject.y = 710
     question1textObject:setTextColor (245/255, 154/255, 216/255)
     question1textObject.isVisible = true
-    sceneGroup:insert( question1textObject )  
+    sceneGroup:insert( question1textObject )
 
-end --function scene:create( event )
+    -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*7/8,
+        y = display.contentHeight*4/16,
+        width = 160,
+        height = 100,
 
------------------------------------------------------------------------------------------
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButton Unpressed.png",
+        overFile = "Images/BackButton Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+    -----------------------------------------------------------------------------------------
+
+    -- Associating Buttons with this scene
+    sceneGroup:insert( backButton )
+end  --function scene:create( event )
+  
+
+
+
 
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
@@ -383,10 +457,11 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        numQuestions = 0
+        numQuestionsRight = 0
 
         RestartLevel2()      
 
+        
         level2SoundChannel = audio.play( level2Sound, { channnel=2, loops=2})
     end
 
@@ -406,6 +481,7 @@ function scene:hide( event )
 
     if ( phase == "will" ) then
         audio.stop(level2SoundChannel)
+        
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
@@ -416,8 +492,12 @@ function scene:hide( event )
         -- Called immediately after scene goes off screen.
         display.remove(correctAnswer)
         display.remove(wrongAnswer)
-    end
-
+        
+        Runtime:removeEventListener("enterFrame", MoveLogo)
+        Runtime:removeEventListener("enterFrame", MoveText)
+        -- stop the jungle sounds channel for this screen
+        audio.stop(level2SoundChannel)
+    end  
 end --function scene:hide( event )
 
 -----------------------------------------------------------------------------------------

@@ -17,7 +17,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "you_won_level_1"
+sceneName = "You_won_level_1"
 
 -----------------------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ local scene = composer.newScene( sceneName )
 -- local variables for the scene
 local bkg
 
--- Creating Transitioning Function back to main menu
+-- Creating Transitioning Function back to level select
 local function BackTransition( )
     composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
 end
