@@ -59,7 +59,13 @@ end
 -- Creating Transition to instructions Screen
 local function Level3ScreenTransition( )
     composer.gotoScene( "level3_screen", {effect = "fromLeft", time = 1000})
-end    
+end  
+
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+end
+
+
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -151,7 +157,35 @@ function scene:create( event )
         } ) 
     
   
------------------------------------------------------------------------------------------------
+   -----------------------------------------------------------------------------------------------
+
+ -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*4/8,
+        y = display.contentHeight*8/16,
+        width = 160,
+        height = 100,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButton Unpressed.png",
+        overFile = "Images/BackButton Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+    -----------------------------------------------------------------------------------------
+
+    -- Associating Buttons with this scene
+    sceneGroup:insert( backButton )
+    
     -- Associating button widgets with this scene
     sceneGroup:insert( level1Button )
     sceneGroup:insert( level2Button )
@@ -185,7 +219,9 @@ function scene:show( event )
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
-    elseif ( phase == "did" ) then       
+    elseif ( phase == "did" ) then    
+    youWinSoundChannel = audio.play( youWinSound, { channnel=5, loops=5})  
+   
     
 
     end

@@ -33,6 +33,8 @@ local scene = composer.newScene( sceneName )
 -- local variables for the scene
 local bkg
 
+local youLoseSound = audio.loadStream("Sounds/youLose.mp3")
+local youLoseSoundChannel
 ----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -59,9 +61,6 @@ function scene:create( event )
     -- Associating display objects with this scene 
     sceneGroup:insert( bkg )
     
-    audio.stop(level1SoundChannel)
-
-
 
  -- Creating Back Button
     backButton = widget.newButton( 
@@ -144,6 +143,8 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+         youLoseSoundChannel = audio.play( youLoseSound, { channnel=6, loops=6})  
+       
     end
 
 end

@@ -64,8 +64,6 @@ local numQuestionsRight = 0
 ----------------------------------------------------------------------------------------
 --SOUNDS
 ----------------------------------------------------------------------------------------
-local youWinSound = audio.loadStream("Sounds/youWin.mp3")
-local youWinSoundChannel
 
 local level3Sound = audio.loadStream("Sounds/level3bkg.mp3")
 local level3SoundChannel
@@ -82,7 +80,7 @@ local incorrectSoundChannel
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 8)    
+    randomNumber = math.random(1, 14)    
 
     if (randomNumber == 1) then
         question1textObject.text = "Which snake has my lipstick?"
@@ -126,33 +124,33 @@ local function AskQuestion()
 
      elseif (randomNumber == 9) then
         question1textObject.text = "Which bunny has red lipstick?"
-        correctAnswer = display.newImageRect("Images/bunny1.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny2.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny2.png", 150, 200)
 
      elseif (randomNumber == 10) then
         question1textObject.text = "Which bunny has purple lipstick?"
-        correctAnswer = display.newImageRect("Images/bunny2.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny1.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny1.png", 150, 200)
      
      elseif (randomNumber == 11) then
         question1textObject.text = "Which bunny has a red shirt?"
-        correctAnswer = display.newImageRect("Images/bunny3.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny4.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny3.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny4.png", 150, 200)
 
         elseif (randomNumber == 12) then
         question1textObject.text = "Which bunny has a purple shirt?"
-        correctAnswer = display.newImageRect("Images/bunny4.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny3.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny4.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny3.png", 150, 200)
 
         elseif (randomNumber == 13) then
         question1textObject.text = "Which bunny says purple on their shirt?"
-        correctAnswer = display.newImageRect("Images/bunny3.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny4.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny3.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny4.png", 150, 200)
 
         elseif (randomNumber == 14) then
         question1textObject.text = "Which bunny says red on their shirt?"
-        correctAnswer = display.newImageRect("Images/bunny4.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny3.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny4.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny3.png", 150, 200)
     end 
 end
 
@@ -183,11 +181,7 @@ local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
 end
 
-local function YouWinTransition()
-    composer.gotoScene( "you_win" )
-    youWinSoundChannel = audio.play(youWinSound)
-    
-end
+
 
 local function UpdateHearts()
     
@@ -211,7 +205,7 @@ local function UpdateHearts()
       heart2.isVisible = false
       heart3.isVisible = false
 
-      composer.gotoScene("you_lose")
+      timer.performWithDelay(1000, YouLoseTransition)
      end
 end
 
@@ -275,13 +269,8 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
-    youWinSoundChannel = audio.play(youWinSound)
-    
-
-    
-    
+    youWinSoundChannel = audio.play(youWinSound)  
 end
-
 
 
 local function AddTouchListeners()
@@ -317,7 +306,9 @@ end
 -- GLOBAL SCENE FUNCTIONS
 ------------------------------------------------------------------------------
 
-
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+end
 
 
 -- The function called when the screen doesn't exist
@@ -382,7 +373,34 @@ function scene:create( event )
     question1textObject:setTextColor (255/255, 255/255, 255/255)
     question1textObject.isVisible = true
     sceneGroup:insert( question1textObject )  
-end
+
+    -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*7/8,
+        y = display.contentHeight*4/16,
+        width = 160,
+        height = 100,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButton Unpressed.png",
+        overFile = "Images/BackButton Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+   -----------------------------------------------------------------------------------------
+
+    -- Associating Buttons with this scene
+    sceneGroup:insert( backButton )
+end --function scene:create( event )
 
 
   
@@ -400,6 +418,8 @@ function scene:show( event )
 
     if ( phase == "will" ) then
 
+
+
         -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
 
@@ -412,8 +432,8 @@ function scene:show( event )
     
         RestartLevel3()      
 
-        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=-1})          
-
+        level3SoundChannel = audio.play( level3Sound, { channnel=3, loops=3})          
+        
     end
 
 end --function scene:show( event )
@@ -433,6 +453,10 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
+        audio.stop(level3SoundChannel)
 
     -----------------------------------------------------------------------------------------
 
@@ -440,8 +464,9 @@ function scene:hide( event )
         -- Called immediately after scene goes off screen.
         
  
-        -- stop the level2 sounds channel for this screen
+        -- stop the level3 sounds channel for this screen
         audio.stop(level3SoundChannel)
+        
     end
 
 end --function scene:hide( event )

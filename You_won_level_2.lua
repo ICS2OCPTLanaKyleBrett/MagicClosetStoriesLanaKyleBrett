@@ -147,7 +147,7 @@ function scene:create( event )
     local sceneGroup = self.view
 
     -- Display background
-    youwin_bkg = display.newImage("Images/YWL1.jpg")
+    youwin_bkg = display.newImage("Images/YWL2.jpg")
     youwin_bkg.x = display.contentCenterX
     youwin_bkg.y = display.contentCenterY
     youwin_bkg.width = display.contentWidth

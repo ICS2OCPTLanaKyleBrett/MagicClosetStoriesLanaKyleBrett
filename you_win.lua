@@ -27,6 +27,8 @@ local scene = composer.newScene( sceneName )
 -----------------------------------------------------------------------------------------
 -- FORWARD REFERENCES
 -----------------------------------------------------------------------------------------
+local youWinSound = audio.loadStream("Sounds/youWin.mp3")
+local youWinSoundChannel
 
 -- local variables for the scene
 local bkg
@@ -97,22 +99,20 @@ end --function scene:create( event )
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
-
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
-
+    
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-
-    -----------------------------------------------------------------------------------------
-
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
-        -- Called when the scene is still off screen (but is about to come on screen).
 
+
+
+        -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
@@ -120,10 +120,13 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-         youWinSoundChannel = audio.play( youWinSound, { channnel=2, loops=2})
+        
+
+        youWinSoundChannel = audio.play(youWinSound, { channnel=3, loops=3})          
+        
     end
 
-end
+end --function scene:show( event )
 
 -----------------------------------------------------------------------------------------
 
@@ -132,9 +135,6 @@ function scene:hide( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-
-    -----------------------------------------------------------------------------------------
-
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
@@ -143,33 +143,40 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
         audio.stop(youWinSoundChannel)
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-         audio.stop(youWinSoundChannel)
-
+        
+ 
+        -- stop the level3 sounds channel for this screen
+        audio.stop(youWinSoundChannel)
+        
     end
 
-end
+end --function scene:hide( event )
 
 -----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to be destroyed
-function scene:destroy( event )
+function destroy( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
     -----------------------------------------------------------------------------------------
 
-
     -- Called prior to the removal of scene's view ("sceneGroup").
     -- Insert code here to clean up the scene.
     -- Example: remove display objects, save state, etc.
-end
+
+end -- function scene:destroy( event )
+
 
 -----------------------------------------------------------------------------------------
 -- EVENT LISTENERS
@@ -184,4 +191,3 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
-

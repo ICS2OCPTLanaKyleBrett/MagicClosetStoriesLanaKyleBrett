@@ -16,7 +16,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "level_screen"
+sceneName = "level1_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -189,7 +189,9 @@ end
 
 
 
-
+local function YouLoseTransition()
+    composer.gotoScene( "you_lose" )
+end
 
 
 
@@ -211,7 +213,7 @@ local function UpdateHearts()
       heart1.isVisible = false
       heart2.isVisible = false
       heart3.isVisible = false
-      composer.gotoScene("you_lose")
+      timer.performWithDelay(1000, YouLoseTransition)
      end
 end
 
@@ -234,8 +236,7 @@ local function correctAnswerListener(touch)
     if (touch.phase == "ended") then    
       display.remove(correctAnswer)
       display.remove(wrongAnswer)
-       --correctAnswer.isVisible = false
-       --wrongAnswer.isVisible = false
+
        righttextObject.isVisible = true
        numQuestionsRight = numQuestionsRight + 1
        timer.performWithDelay(1000, HideRightTextObject)
@@ -253,10 +254,8 @@ local function wrongAnswerListener(touch)
     if (touch.phase == "ended") then
       display.remove(correctAnswer)
       display.remove(wrongAnswer)
-       --correctAnswer.isVisible = false
-       --wrongAnswer.isVisible = false
        wrongtextObject.isVisible = true
-       numQuestions = numQuestions + 1
+       numQuestionsRight = numQuestionsRight + 1
 
        lives = lives - 1
        UpdateHearts() 
@@ -285,13 +284,7 @@ local function RemoveTouchListeners()
 end
 
 
-local function YouLoseTransition()
-    composer.gotoScene( "you_lose" )
-    audio.stop(level1SoundChannel)
-    RemoveTouchListeners()
-    wrongAnswer.isVisible = false
-    correctAnswer.isVisible = false
-end
+
 ------------------------------------------------------------------------------
 -- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -361,23 +354,6 @@ function scene:create( event )
     heart1.x = display.contentWidth * 5 / 8
     heart1.y = 80
     sceneGroup:insert( heart1 ) 
-
-    
-    --create dresses
-     --[[
-    correctAnswer = display.newImageRect("Images/Dress1.png", 150, 200)
-    correctAnswer.x = X1
-    correctAnswer.y = Y1
-    correctAnswer.isVisible = true
-    sceneGroup:insert( correctAnswer )  
-
-    wrongAnswer = display.newImageRect("Images/Dress2.png", 150, 240)
-    wrongAnswer.x = X2
-    wrongAnswer.y = Y2
-    wrongAnswer.isVisible = true
-    sceneGroup:insert( wrongAnswer )  
-]]--
-
 
     --create text objects
     righttextObject = display.newText ("Hooray,you got it right!",0, 0, nil, 50)
@@ -453,11 +429,12 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        numQuestions = 0
+        numQuestionsRight = 0
 
         RestartLevel1()      
 
-      level1SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
+        level1SoundChannel = audio.play( level1Sound, { channnel=1, loops=2})
+
     end
 
 end --function scene:show( event )
@@ -477,19 +454,19 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-
+       
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
+        audio.stop(level1SoundChannel)
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        display.remove(correctAnswer)
-        display.remove(wrongAnswer)
-        correctAnswer.isVisible = false
-        wrongAnswer.isVisible = true
+        
 
-        -- stop the jungle sounds channel for this screen
+        
 
-        audio.stop(level1SoundChannel)
+        
     end
 
 end --function scene:hide( event )
