@@ -269,13 +269,8 @@ end
 
 local function YouWinTransition()
     composer.gotoScene( "you_win" )
-    youWinSoundChannel = audio.play(youWinSound)
-    
-
-    
-    
+    youWinSoundChannel = audio.play(youWinSound)  
 end
-
 
 
 local function AddTouchListeners()
@@ -311,7 +306,9 @@ end
 -- GLOBAL SCENE FUNCTIONS
 ------------------------------------------------------------------------------
 
-
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+end
 
 
 -- The function called when the screen doesn't exist
@@ -376,7 +373,34 @@ function scene:create( event )
     question1textObject:setTextColor (255/255, 255/255, 255/255)
     question1textObject.isVisible = true
     sceneGroup:insert( question1textObject )  
-end
+
+    -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*7/8,
+        y = display.contentHeight*4/16,
+        width = 160,
+        height = 100,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/BackButton Unpressed.png",
+        overFile = "Images/BackButton Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
+
+   -----------------------------------------------------------------------------------------
+
+    -- Associating Buttons with this scene
+    sceneGroup:insert( backButton )
+end --function scene:create( event )
 
 
   
