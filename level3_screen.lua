@@ -73,7 +73,7 @@ local level3SoundChannel
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 8)    
+    randomNumber = math.random(1, 14)    
 
     if (randomNumber == 1) then
         question1textObject.text = "Which snake has my lipstick?"
@@ -117,33 +117,33 @@ local function AskQuestion()
 
      elseif (randomNumber == 9) then
         question1textObject.text = "Which bunny has red lipstick?"
-        correctAnswer = display.newImageRect("Images/bunny1.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny2.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny2.png", 150, 200)
 
      elseif (randomNumber == 10) then
         question1textObject.text = "Which bunny has purple lipstick?"
-        correctAnswer = display.newImageRect("Images/bunny2.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny1.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny1.png", 150, 200)
      
      elseif (randomNumber == 11) then
         question1textObject.text = "Which bunny has a red shirt?"
-        correctAnswer = display.newImageRect("Images/bunny3.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny4.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny3.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny4.png", 150, 200)
 
         elseif (randomNumber == 12) then
         question1textObject.text = "Which bunny has a purple shirt?"
-        correctAnswer = display.newImageRect("Images/bunny4.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny3.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny4.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny3.png", 150, 200)
 
         elseif (randomNumber == 13) then
         question1textObject.text = "Which bunny says purple on their shirt?"
-        correctAnswer = display.newImageRect("Images/bunny3.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny4.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny3.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny4.png", 150, 200)
 
         elseif (randomNumber == 14) then
         question1textObject.text = "Which bunny says red on their shirt?"
-        correctAnswer = display.newImageRect("Images/bunny4.png", 90, 120)      
-        wrongAnswer = display.newImageRect("Images/bunny3.png", 90, 120)
+        correctAnswer = display.newImageRect("Images/bunny4.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bunny3.png", 150, 200)
     end 
 end
 
