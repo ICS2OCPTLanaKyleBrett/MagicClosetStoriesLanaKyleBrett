@@ -99,6 +99,36 @@ end --function scene:create( event )
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
+-- The function called when the scene is issued to appear on screen
+function scene:show( event )
+    
+    -- Creating a group that associates objects with the scene
+    local sceneGroup = self.view
+    local phase = event.phase
+
+    -----------------------------------------------------------------------------------------
+
+    if ( phase == "will" ) then
+
+
+
+        -- Called when the scene is still off screen (but is about to come on screen).
+    -----------------------------------------------------------------------------------------
+
+    elseif ( phase == "did" ) then
+
+        -- Called when the scene is now on screen.
+        -- Insert code here to make the scene come alive.
+        -- Example: start timers, begin animation, play audio, etc.
+        
+
+        youWinSoundChannel = audio.play(youWinSound, { channnel=3, loops=3})          
+        
+    end
+
+end --function scene:show( event )
+
+-----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to leave the screen
 function scene:hide( event )
@@ -113,8 +143,10 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-         audio.stop(youWinSoundChannel)
-
+        
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
+        audio.stop(youWinSoundChannel)
 
     -----------------------------------------------------------------------------------------
 
@@ -122,8 +154,9 @@ function scene:hide( event )
         -- Called immediately after scene goes off screen.
         
  
-        youWinSoundChannel = audio.play( youWinSound, { channnel=5, loops=5})  
-       
+        -- stop the level3 sounds channel for this screen
+        audio.stop(youWinSoundChannel)
+        
     end
 
 end --function scene:hide( event )
@@ -143,6 +176,7 @@ function destroy( event )
     -- Example: remove display objects, save state, etc.
 
 end -- function scene:destroy( event )
+
 
 -----------------------------------------------------------------------------------------
 -- EVENT LISTENERS

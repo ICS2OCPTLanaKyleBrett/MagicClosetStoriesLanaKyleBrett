@@ -90,7 +90,7 @@ local incorrectSoundChannel
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
 local function AskQuestion()
-    randomNumber = math.random(1, 6)    
+    randomNumber = math.random(1, 12)    
 
     print ("***AskQuestion: randomNumber = " .. randomNumber)
 
@@ -197,10 +197,10 @@ end
 
 
 
-local function level2Transition()
-    composer.gotoScene( "You_Won_level_2" )
+local function YouWonLevel2Transition()
+    composer.gotoScene( "you_won_level_2" )
+    
 end
-
 
 
 
@@ -291,9 +291,7 @@ local function YouWonLevel2Transition()
 
 end
 
-local function Level3Transition()
-    composer.gotoScene( "You_Won_level_2" )
-end
+
 
 local function AddTouchListeners()
   correctAnswer:addEventListener("touch", correctAnswerListener)
