@@ -11,6 +11,16 @@
 -- INITIALIZATIONS
 -----------------------------------------------------------------------------------------
 
+--- you_win.lua
+-- Created by: Lana ZahrEddin
+-- Date: Nov 2nd, 2001
+-- Description: This is the you win screen.
+-----------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------
+-- INITIALIZATIONS
+-----------------------------------------------------------------------------------------
+
 -- Calling Composer Library
 local composer = require( "composer" )
 
@@ -29,20 +39,21 @@ local scene = composer.newScene( sceneName )
 -----------------------------------------------------------------------------------------
 -- FORWARD REFERENCES
 -----------------------------------------------------------------------------------------
+local youLoseSound = audio.loadStream("Sounds/youLose.mp3")
+local youLoseSoundChannel
 
 -- local variables for the scene
 local bkg
 
-local youLoseSound = audio.loadStream("Sounds/youLose.mp3")
-local youLoseSoundChannel
+-- Creating Transitioning Function back to main menu
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "slideUp", time = 500})
+end
+
 ----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
--- Creating Transitioning Function back to level select
-local function BackTransition( )
-    composer.gotoScene( "level_select", {effect = "slideUp", time = 500})
-end
 
 --------------------------------------------------------------------------------------
 -- The function called when the screen doesn't exist
@@ -52,17 +63,21 @@ function scene:create( event )
     local sceneGroup = self.view
 
     -- Display background
-    bkg = display.newImage("Images/youLose.jpg")
-    bkg.x = display.contentCenterX
-    bkg.y = display.contentCenterY
-    bkg.width = display.contentWidth
-    bkg.height = display.contentHeight
+    youwin_bkg = display.newImage("Images/youLose.jpg")
+    youwin_bkg.x = display.contentCenterX
+    youwin_bkg.y = display.contentCenterY
+    youwin_bkg.width = display.contentWidth
+    youwin_bkg.height = display.contentHeight
    
     -- Associating display objects with this scene 
-    sceneGroup:insert( bkg )
-    
+    sceneGroup:insert( youwin_bkg )
+  
 
- -- Creating Back Button
+
+
+
+
+    -- Creating Back Button
     backButton = widget.newButton( 
     {
         -- Setting Position
@@ -86,29 +101,30 @@ function scene:create( event )
 
     -----------------------------------------------------------------------------------------
    sceneGroup:insert( backButton )
-  
-end    
+
+end --function scene:create( event )
+
+
+
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
-
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
-
+    
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-
-    -----------------------------------------------------------------------------------------
-
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
-        -- Called when the scene is still off screen (but is about to come on screen).
 
+
+
+        -- Called when the scene is still off screen (but is about to come on screen).
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
@@ -116,9 +132,13 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+        
+
+        youLoseSoundChannel = audio.play(youLoseSound, { channnel=3, loops=3})          
+        
     end
 
-end
+end --function scene:show( event )
 
 -----------------------------------------------------------------------------------------
 
@@ -127,9 +147,6 @@ function scene:hide( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-
-    -----------------------------------------------------------------------------------------
-
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
@@ -138,32 +155,40 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        
+        display.remove(correctAnswer)
+        display.remove(wrongAnswer)
+        audio.stop(youLoseSoundChannel)
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-         youLoseSoundChannel = audio.play( youLoseSound, { channnel=6, loops=6})  
-       
+        
+ 
+        -- stop the level3 sounds channel for this screen
+        audio.stop(youLoseSoundChannel)
+        
     end
 
-end
+end --function scene:hide( event )
 
 -----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to be destroyed
-function scene:destroy( event )
+function destroy( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
     -----------------------------------------------------------------------------------------
 
-
     -- Called prior to the removal of scene's view ("sceneGroup").
     -- Insert code here to clean up the scene.
     -- Example: remove display objects, save state, etc.
-end
+
+end -- function scene:destroy( event )
+
 
 -----------------------------------------------------------------------------------------
 -- EVENT LISTENERS
@@ -178,4 +203,3 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
-

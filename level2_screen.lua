@@ -134,8 +134,8 @@ local function AskQuestion()
 
    elseif (randomNumber == 8) then        
         question1textObject.text = "Which bracelet is dark blue?"
-        correctAnswer = display.newImageRect("Images/bracelet1.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/bracelet2.png", 150, 240)   
+        correctAnswer = display.newImageRect("Images/bracelet2.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/bracelet1.png", 150, 240)   
          
        
   elseif (randomNumber == 9) then        
@@ -148,22 +148,21 @@ local function AskQuestion()
         correctAnswer = display.newImageRect("Images/bracelet3.png", 150, 200)      
         wrongAnswer = display.newImageRect("Images/bracelet4.png", 150, 240)   
 
-         
-    elseif (randomNumber == 11) then        
-        question1textObject.text = "Which lipstick has two kinds of red?"
-        correctAnswer = display.newImageRect("Images/Lipstick1.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/Lipstick2.png", 150, 240) 
+        
 
-   elseif (randomNumber == 12) then        
+   elseif (randomNumber == 11) then        
         question1textObject.text = "Which bracelet has a lot of colours?"
         correctAnswer = display.newImageRect("Images/bracelet3.png", 150, 200)      
-        wrongAnswer = display.newImageRect("Images/bracelet4.png", 150, 240)   
+        wrongAnswer = display.newImageRect("Images/bracelet4.png", 150, 240)
+
+    elseif (randomNumber == 12) then        
+        question1textObject.text = "Which lipstick is blue?"
+        correctAnswer = display.newImageRect("Images/Lipstick1.png", 150, 200)      
+        wrongAnswer = display.newImageRect("Images/Lipstick2.png", 150, 240)   
+           
         
  
-
-
-
-    end 
+     end 
 
 end
 
@@ -310,7 +309,7 @@ end
 
 
 function RestartLevel2()
-    if (numQuestionsRight < 3) then
+    if (numQuestionsRight < 5) then
         -- ask another question
         AskQuestion()
         -- position answers
